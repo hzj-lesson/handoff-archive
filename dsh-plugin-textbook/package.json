@@ -1,0 +1,11 @@
+{
+  "name": "@deepseek-ai/dsh-plugin-textbook",
+  "version": "0.1.0",
+  "description": "教材大纲 -> 备课平台讲义 JSON 的流水线插件（DeepSeek Harness）",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.2"
+  }
+}
