@@ -24,7 +24,7 @@ Token 来源（按优先级）：
   2. 环境变量 GITHUB_TOKEN
   3. /tmp/gh_token 文件
 """
-import argparse, base64, json, os, sys, time, urllib.request, urllib.error
+import argparse, base64, json, os, sys, time, urllib.request, urllib.error, urllib.parse
 
 HDR = {'Accept': 'application/vnd.github+json', 'User-Agent': 'deploy-tool',
        'Connection': 'close'}   # 沙箱网络需 Connection: close 绕过 keep-alive 故障
@@ -46,6 +46,11 @@ class GH:
         self.api = 'https://api.github.com/repos/%s' % repo
         self.h = dict(HDR)
         self.h['Authorization'] = 'Bearer ' + token
+
+    @staticmethod
+    def enc(path):
+        """仓库内路径需要 URL 编码，否则中文文件名（如 交接报告.md）会让请求直接崩在 ascii 编码上"""
+        return urllib.parse.quote(path, safe='/')
 
     def req(self, url, data=None, method=None, retries=5):
         last = None
@@ -92,7 +97,7 @@ def main():
         for m in a.map:
             local, path = (m.split('=', 1) + [None])[:2]
             path = path or os.path.basename(local)
-            info = gh.req(gh.api + '/contents/%s?ref=%s' % (path, a.branch))
+            info = gh.req(gh.api + '/contents/%s?ref=%s' % (gh.enc(path), a.branch))
             lb = os.path.getsize(local)
             print('  %-40s 线上 %-10d 本地 %-10d %s'
                   % (path, info['size'], lb, '✅ 一致' if info['size'] == lb else '⚠️ 不一致'))
@@ -133,7 +138,7 @@ def main():
         local, path = (m.split('=', 1) + [None])[:2]
         path = path or os.path.basename(local)
         lb = os.path.getsize(local)
-        info = gh.req(gh.api + '/contents/%s?ref=%s' % (path, a.branch))
+        info = gh.req(gh.api + '/contents/%s?ref=%s' % (gh.enc(path), a.branch))
         same = info['size'] == lb
         ok = ok and same
         print('  %-40s 线上 %-9d 本地 %-9d %s' % (path, info['size'], lb, '✅' if same else '❌ 不一致'))
