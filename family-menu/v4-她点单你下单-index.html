@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#e8467c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>给她点奶茶 · 她点单你下单</title>
+<style>
+:root{
+  --primary:#e8467c; --primary-d:#c72f63; --primary-l:#ffd9e6;
+  --pink:#fff5f8; --card:#fff; --line:#f5dbe4;
+  --txt:#3d2b33; --sub:#9c8b92; --ok:#22b07d; --warn:#e8894a;
+  --grad:linear-gradient(135deg,#ff8fb8,#e8467c);
+  --shadow:0 6px 22px rgba(232,70,124,.14);
+  --r:16px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  background:var(--pink); color:var(--txt); font-size:15px; line-height:1.55;
+  padding-bottom:calc(66px + env(safe-area-inset-bottom));
+  background-image:radial-gradient(circle at 12% 8%,#ffe3ee 0,transparent 42%),radial-gradient(circle at 88% 4%,#fff0d9 0,transparent 38%);
+  background-attachment:fixed;
+}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+.hide{display:none !important}
+
+/* 顶栏 */
+.top{
+  position:sticky;top:0;z-index:40;
+  background:linear-gradient(135deg,#ff8fb8,#e8467c);
+  color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;
+  box-shadow:0 4px 16px rgba(232,70,124,.22);
+}
+.top .row{display:flex;align-items:center;gap:9px}
+.logo{width:30px;height:30px;flex:0 0 30px;animation:beat 1.6s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.16)}28%{transform:scale(1)}42%{transform:scale(1.1)}56%{transform:scale(1)}}
+.top h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.5px}
+.top .sub{font-size:11px;opacity:.92;margin-top:1px}
+.who{margin-left:auto;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 11px;font-size:11.5px;white-space:nowrap}
+
+/* 通用 */
+.pg{padding:12px 12px 8px}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:13px;margin-bottom:12px}
+.ttl{font-size:13px;font-weight:700;color:var(--primary-d);margin:0 0 9px;display:flex;align-items:center;gap:6px}
+.ttl::before{content:'';width:3px;height:13px;background:var(--grad);border-radius:2px}
+.muted{color:var(--sub);font-size:12px}
+.btn{background:var(--grad);color:#fff;border-radius:11px;padding:10px 16px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:5px;box-shadow:0 4px 12px rgba(232,70,124,.28)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:#fff;color:var(--primary);border:1.5px solid var(--primary-l);box-shadow:none}
+.btn.sm{padding:6px 11px;font-size:12.5px;border-radius:9px}
+.btn.block{display:flex;width:100%}
+.btn.gray{background:#f3eef0;color:#8b7a80;box-shadow:none}
+.inp{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:10px 12px;outline:none}
+.inp:focus{border-color:var(--primary)}
+select.inp{-webkit-appearance:none;appearance:none}
+textarea.inp{resize:vertical;min-height:70px}
+
+/* 英雄区 */
+.hero{
+  background:linear-gradient(135deg,#fff0f5,#ffe6ef);
+  border:1.5px dashed #f7c2d5;border-radius:var(--r);
+  padding:13px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden;
+}
+.hero .big{font-size:17px;font-weight:800;color:var(--primary-d)}
+.hero .say{font-size:12.5px;color:#a8758a;margin-top:4px}
+.hero .hearts{position:absolute;inset:0;pointer-events:none;opacity:.5;font-size:13px}
+
+.addrbar{display:flex;align-items:center;gap:9px;background:#fff;border-radius:14px;padding:11px 12px;margin-bottom:11px;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
+.addrbar .ic{font-size:19px}
+.addrbar .t{flex:1;min-width:0}
+.addrbar .t b{display:block;font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.addrbar .t span{font-size:11.5px;color:var(--sub)}
+
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:7px 13px;font-size:13px;color:#7d6b72;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.tab.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 10px rgba(232,70,124,.3);font-weight:600}
+.tab.off{opacity:.45}
+
+.dish{display:flex;align-items:center;gap:11px;background:#fff;border-radius:14px;padding:11px 12px;margin-bottom:9px;box-shadow:0 3px 12px rgba(232,70,124,.07)}
+.dish .emo{width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:linear-gradient(135deg,#fff0f5,#ffe0ec);display:flex;align-items:center;justify-content:center;font-size:21px}
+.dish .m{flex:1;min-width:0}
+.dish .m b{font-size:14.5px;font-weight:600;display:block}
+.dish .m .n{font-size:11.5px;color:var(--sub);margin-top:1px}
+.dish .m .p{color:var(--primary);font-weight:800;font-size:15px;margin-top:3px}
+.dish .m .p i{font-size:11px;font-style:normal;font-weight:600}
+.dish .add{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--grad);color:#fff;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 9px rgba(232,70,124,.35)}
+.dish .add:active{transform:scale(.9)}
+
+.ci{display:flex;gap:10px;background:#fff;border-radius:14px;padding:11px 12px;margin-bottom:9px;box-shadow:0 3px 12px rgba(232,70,124,.07)}
+.ci .m{flex:1;min-width:0}
+.ci .m b{font-size:14.5px}
+.ci .m .sp{font-size:11.5px;color:var(--sub);margin-top:3px;line-height:1.5}
+.ci .m .sp em{font-style:normal;background:#fff0f5;color:var(--primary-d);border-radius:6px;padding:1px 6px;margin:2px 4px 0 0;display:inline-block}
+.ci .m .pr{color:var(--primary);font-weight:800;margin-top:4px}
+.ci .r{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px}
+.qty{display:flex;align-items:center;gap:9px}
+.qty button{width:25px;height:25px;border-radius:50%;background:#fff0f5;color:var(--primary-d);font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;font-weight:700}
+.qty b{min-width:16px;text-align:center;font-size:14px}
+.del{font-size:11px;color:#c9b6bc}
+
+.bar{position:fixed;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom));z-index:35;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:9px 12px;display:flex;align-items:center;gap:11px}
+.bar .info{flex:1;min-width:0}
+.bar .info b{color:var(--primary);font-size:19px;font-weight:800}
+.bar .info span{font-size:11.5px;color:var(--sub);display:block}
+
+.oi{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 3px 12px rgba(232,70,124,.07)}
+.oi .h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.oi .h b{font-size:13.5px;color:var(--primary-d)}
+.oi .h .t{font-size:11.5px;color:var(--sub)}
+.oi .bd{font-size:12.5px;color:#6b5a61;margin-top:7px;white-space:pre-wrap;background:#fffafc;border:1px dashed var(--line);border-radius:10px;padding:9px;line-height:1.7}
+.oi .f{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.badge{font-size:10.5px;padding:2px 8px;border-radius:20px;background:#eafaf3;color:var(--ok);font-weight:600}
+.badge.w{background:#fff3e8;color:var(--warn)}
+.badge.b{background:#eef4ff;color:#5b7fd4}
+.new{background:linear-gradient(135deg,#ff8fb8,#e8467c);color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;margin-left:6px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar button{flex:1;padding:8px 0 7px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#bda9b1;font-size:10.5px}
+.tabbar button.on{color:var(--primary)}
+.tabbar button .i{font-size:19px;line-height:1;position:relative}
+.tabbar .dot{position:absolute;top:-3px;right:-9px;background:var(--primary);color:#fff;font-size:9px;min-width:15px;height:15px;line-height:15px;border-radius:8px;padding:0 4px;font-weight:700}
+
+.mask{position:fixed;inset:0;background:rgba(60,30,42,.45);z-index:60;opacity:0;pointer-events:none;transition:.22s}
+.mask.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:#fff;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));transform:translateY(102%);transition:transform .26s cubic-bezier(.32,.72,.3,1);max-height:86vh;overflow-y:auto}
+.sheet.on{transform:translateY(0)}
+.sheet .sh{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.sheet .sh .m{flex:1}
+.sheet .sh b{font-size:16px}
+.sheet .sh .p{color:var(--primary);font-weight:800;font-size:17px;margin-top:2px}
+.sheet .x{width:28px;height:28px;border-radius:50%;background:#f5eef1;color:#8b7a80;font-size:15px;display:flex;align-items:center;justify-content:center}
+.grp{margin-bottom:13px}
+.grp .g{font-size:12.5px;font-weight:700;color:var(--primary-d);margin-bottom:7px}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:7px 13px;font-size:13px;color:#6b5a61}
+.opt.on{background:var(--primary-l);border-color:var(--primary);color:var(--primary-d);font-weight:700}
+.opt .d{font-size:11px;opacity:.75;margin-left:3px}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,14px);z-index:90;background:rgba(50,25,35,.92);color:#fff;padding:9px 17px;border-radius:22px;font-size:13px;opacity:0;pointer-events:none;transition:.24s;max-width:82vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.fly{position:fixed;z-index:95;font-size:20px;pointer-events:none;transition:transform .85s cubic-bezier(.25,.6,.3,1),opacity .85s}
+.rain{position:fixed;top:-24px;z-index:94;pointer-events:none;font-size:18px;transition:transform 2.6s linear,opacity 2.6s}
+.empty{text-align:center;padding:34px 16px;color:#c9b6bc}
+.empty .e{font-size:38px}
+.kv{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.kv label{flex:0 0 74px;font-size:13px;color:var(--sub)}
+.row2{display:flex;gap:8px}
+.row2>*{flex:1}
+.mb{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:8px;box-shadow:0 2px 8px rgba(232,70,124,.06)}
+.mb .l{flex:1;min-width:0}
+.mb .l b{font-size:14px}
+.mb .l span{font-size:11.5px;color:var(--sub);display:block}
+.sw{width:44px;height:25px;border-radius:14px;background:#e6dcdf;position:relative;transition:.2s;flex:0 0 44px}
+.sw.on{background:var(--grad)}
+.sw i{position:absolute;top:2.5px;left:2.5px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on i{left:21.5px}
+.note{background:#fff8e8;border:1px dashed #f0d3a0;border-radius:12px;padding:10px;font-size:12px;color:#8a6d3b;line-height:1.7;margin-bottom:10px}
+.ok-box{background:#eafaf3;border:1px dashed #9fe0c4;border-radius:12px;padding:10px;font-size:12px;color:#1a7a58;line-height:1.7;margin-bottom:10px}
+.linkbox{background:#fffafc;border:1px dashed var(--line);border-radius:10px;padding:9px;font-size:11.5px;word-break:break-all;line-height:1.6;max-height:110px;overflow:auto}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="row">
+    <svg class="logo" viewBox="0 0 32 29"><path fill="#fff" d="M23.6 0c-3.4 0-6.3 2.7-7.6 5.6C14.7 2.7 11.8 0 8.4 0 3.8 0 0 3.8 0 8.4c0 9 11 15.6 14.7 19.6.6.6 1.4.9 2.3.9s1.7-.3 2.3-.9C23 24 32 17.4 32 8.4 32 3.8 28.2 0 23.6 0z"/></svg>
+    <div style="flex:1;min-width:0">
+      <h1 id="topTitle">给她点奶茶</h1>
+      <div class="sub" id="topSub">她点单 · 你下单</div>
+    </div>
+    <button class="who" id="whoBtn" onclick="switchRole()">🧑 我是TA</button>
+  </div>
+</header>
+
+<main>
+  <!-- 点单 -->
+  <section id="pgOrder" class="pg">
+    <div class="hero">
+      <div class="hearts" id="heroHearts"></div>
+      <div class="big" id="heroTitle">宝贝今天想喝点什么？</div>
+      <div class="say" id="heroSub">挑好 → 选甜度冰度 → 一键复制发给她 🥤</div>
+    </div>
+
+    <div class="addrbar" onclick="go('pgManage')">
+      <div class="ic">📍</div>
+      <div class="t">
+        <b id="addrMain">西华师范大学华凤校区二期</b>
+        <span id="addrSub">点这里填写楼栋 / 门牌 / 电话</span>
+      </div>
+      <div class="ic" style="font-size:14px;color:#d9c6cd">›</div>
+    </div>
+
+    <div class="card" style="padding:11px 12px" id="tipCard">
+      <div class="ttl" id="tipTitle">外卖小提示</div>
+      <div style="font-size:12.5px;color:#7d6b72;line-height:1.75" id="tipBox"></div>
+    </div>
+
+    <div class="tabs" id="brandTabs"></div>
+    <div id="dishList"></div>
+  </section>
+
+  <!-- 购物车 -->
+  <section id="pgCart" class="pg hide">
+    <div id="cartBox"></div>
+    <div class="card" id="checkoutBox">
+      <div class="ttl" id="coTitle">备注 & 送达</div>
+      <div class="kv"><label>备注</label><input class="inp" id="noteInp" placeholder="少冰、多放珍珠、放门口～"></div>
+      <div id="coExtra"></div>
+      <button class="btn block" style="margin-top:12px" id="submitBtn" onclick="submitOrder()">💕 生成订单 · 一键复制</button>
+    </div>
+  </section>
+
+  <!-- 收单箱 / 我的订单 -->
+  <section id="pgOrders" class="pg hide">
+    <div id="inboxCard" class="card hide">
+      <div class="ttl">📥 收单箱 · 她发来的</div>
+      <div class="muted" style="margin-bottom:9px">她那边点了「发给 TA」，配了推送的话你会直接收到微信通知；没配就把她发来的文字粘到下面。</div>
+      <textarea class="inp" id="pasteInp" placeholder="把她发来的订单文字粘贴到这里"></textarea>
+      <button class="btn ghost block sm" style="margin-top:8px" onclick="pasteIn()">＋ 收进收单箱</button>
+      <div id="inboxList"></div>
+    </div>
+    <div id="orderBox"></div>
+  </section>
+
+  <!-- 管理 -->
+  <section id="pgManage" class="pg hide">
+    <div class="card" id="pushCard">
+      <div class="ttl">🔔 通知设置（你这边配一次）</div>
+      <div class="note">配好后，她在自己手机上点「💕 告诉 TA 我想喝」，<b>你的微信会立刻收到她的订单</b>。不配也能用 —— 她可以复制订单文字发给你。</div>
+      <div class="kv"><label>推送方式</label>
+        <select class="inp" id="fPushType" onchange="onPushType()">
+          <option value="">不推送（让她复制发微信）</option>
+          <option value="sct">Server酱 Turbo（微信服务号）</option>
+          <option value="pushplus">PushPlus（微信公众号）</option>
+          <option value="wxpusher">WxPusher（微信扫码即用）</option>
+          <option value="bark">Bark（iPhone 推送）</option>
+        </select>
+      </div>
+      <div class="kv"><label id="keyLabel">SendKey</label><input class="inp" id="fPushKey" placeholder=""></div>
+      <div class="kv hide" id="uidRow"><label>UID</label><input class="inp" id="fPushUid" placeholder="WxPusher 的 UID"></div>
+      <div class="muted" style="margin:2px 0 10px" id="pushHelp"></div>
+      <div class="row2" style="margin-bottom:8px">
+        <button class="btn ghost sm" onclick="testPush()">🔔 发一条测试</button>
+        <button class="btn sm" onclick="savePush()">保存通知设置</button>
+      </div>
+    </div>
+
+    <div class="card" id="linkCard">
+      <div class="ttl">🔗 生成给她的链接</div>
+      <div class="note">把通知设置和地址打包进链接，<b>发给她，她打开就是她的点单页</b>，点完直接推到你微信。</div>
+      <div class="row2" style="margin-bottom:8px">
+        <button class="btn sm" onclick="genLink()">🔗 生成并复制链接</button>
+        <button class="btn ghost sm" onclick="genLink(true)">👀 只看链接</button>
+      </div>
+      <div id="linkOut"></div>
+    </div>
+
+    <div class="card">
+      <div class="ttl">收货信息</div>
+      <div class="kv"><label>学校 / 校区</label><input class="inp" id="fCampus" placeholder="西华师范大学华凤校区二期"></div>
+      <div class="kv"><label>楼栋门牌</label><input class="inp" id="fDetail" placeholder="如：李园 X 栋 XXX 寝室"></div>
+      <div class="kv"><label>收货人</label><input class="inp" id="fName" placeholder="如：宝贝"></div>
+      <div class="kv"><label>手机号</label><input class="inp" id="fPhone" type="tel" placeholder="她的手机号"></div>
+      <button class="btn block sm" style="margin-top:6px" onclick="saveAddr()">保存收货信息</button>
+    </div>
+
+    <div class="card" id="brandCard">
+      <div class="ttl">品牌管理</div>
+      <div class="muted" style="margin-bottom:9px">关掉的品牌在点单页隐藏 —— 美团/饿了么搜不到、不配送的直接关掉就行。</div>
+      <div id="brandMgr"></div>
+      <div class="row2" style="margin-top:10px">
+        <input class="inp" id="nbName" placeholder="新品牌名">
+        <input class="inp" id="nbEmoji" placeholder="图标 🧋" maxlength="4">
+      </div>
+      <button class="btn ghost block sm" style="margin-top:8px" onclick="addBrand()">＋ 添加品牌</button>
+    </div>
+
+    <div class="card">
+      <div class="ttl">首页文案</div>
+      <div class="kv"><label>标题</label><input class="inp" id="fTitle" placeholder="宝贝今天想喝点什么？"></div>
+      <div class="kv"><label>副标题</label><input class="inp" id="fSub" placeholder="挑好 → 一键复制发给她"></div>
+      <button class="btn block sm" onclick="saveText()">保存文案</button>
+    </div>
+
+    <div class="card">
+      <div class="ttl">数据</div>
+      <div class="muted" style="margin-bottom:10px">数据只存在这台手机浏览器里，换设备记得先导出备份。</div>
+      <div class="row2" style="margin-bottom:8px">
+        <button class="btn ghost sm" onclick="exportData()">⬇ 导出备份</button>
+        <button class="btn ghost sm" onclick="document.getElementById('impFile').click()">⬆ 导入备份</button>
+      </div>
+      <input type="file" id="impFile" accept=".json" class="hide" onchange="importData(this)">
+      <div class="row2">
+        <button class="btn gray sm" onclick="resetBrands()">↺ 恢复默认品牌</button>
+        <button class="btn gray sm" onclick="clearAll()">🗑 清空全部数据</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="bar" id="bottomBar">
+  <div class="info"><b id="barTotal">¥0</b><span id="barCount">购物车还是空的</span></div>
+  <button class="btn sm" onclick="openCart()">去结算</button>
+</div>
+
+<nav class="tabbar">
+  <button id="nb0" class="on" onclick="go('pgOrder')"><span class="i">🧋</span>点单</button>
+  <button id="nb1" onclick="go('pgCart')"><span class="i">🛒<span class="dot hide" id="cartDot">0</span></span>购物车</button>
+  <button id="nb2" onclick="go('pgOrders')"><span class="i">📋</span><span id="nb2t">订单</span></button>
+  <button id="nb3" onclick="go('pgManage')"><span class="i">⚙️</span>设置</button>
+</nav>
+
+<div class="mask" id="mask" onclick="closeSheet()"></div>
+<div class="sheet" id="specSheet"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════ 品牌预设（价格为全国参考价，以门店实际为准） ═══════════ */
+var PRESET = [
+ ['mxbc','蜜雪冰城','🍦',[
+   ['冰鲜柠檬水',4,'解暑第一'],['珍珠奶茶',6,'经典中的经典'],['摇摇奶昔',7,'摇一摇更好喝'],
+   ['摩天脆脆圣代',6,''],['杨枝甘露',8,'芒果控必点'],['蜜桃四季春',7,''],
+   ['满杯百香果',7,'酸甜'],['华夫甜筒',3,'两块多快乐']]],
+ ['bwch','霸王茶姬','🐎',[
+   ['伯牙绝弦',16,'招牌 · 茉莉雪芽'],['花田乌龙',17,''],['声声乌龙',18,''],
+   ['万般皆苦',18,'回甘'],['清沫观音',16,'清爽'],['万象春和',20,'季节限定']]],
+ ['cbd','茶百道','🐼',[
+   ['冰乌龙',12,'低卡首选'],['杨枝甘露',16,''],['白桃乌龙',14,''],
+   ['桂花酒酿圆子',16,'秋冬限定'],['冻顶鸭屎香',15,''],['芋圆奶茶',14,'']]],
+ ['guming','古茗','🌿',[
+   ['茉莉奶绿',11,'性价比之王'],['芝士葡萄',17,''],['冰摇柠檬茶',10,''],
+   ['芋泥啵啵奶茶',14,''],['云雾栀子青',13,''],['超纤轻体果蔬瓶',15,'']]],
+ ['hsay','沪上阿姨','👩',[
+   ['血糯米奶茶',13,'招牌'],['芋泥波波奶茶',14,''],['杨枝甘露',16,''],
+   ['五谷奶茶',13,'饱腹'],['轻乳茶 · 白桃',15,'']]],
+ ['coco','CoCo都可','🥤',[
+   ['奶茶三兄弟',12,'珍珠+布丁+椰果'],['百香双响炮',11,''],['焦糖奶茶',12,''],
+   ['芋头奶茶',14,''],['青柠水果茶',13,'']]],
+ ['heytea','喜茶','🍇',[
+   ['多肉葡萄',29,'人气王'],['芝芝芒芒',27,''],['烤黑糖波波牛乳',22,''],
+   ['满杯红柚',25,''],['轻乳茶 · 初露',19,'']]],
+ ['naixue','奈雪的茶','🍓',[
+   ['霸气草莓',29,''],['杨枝甘露',26,''],['芝士葡萄',28,''],
+   ['鸭屎香宝藏茶',22,''],['蜜桃乌龙',20,'']]],
+ ['shuyi','书亦烧仙草','🍮',[
+   ['烧仙草奶茶',12,'半杯都是料'],['芋泥烧仙草',15,''],['杨枝甘露',15,''],
+   ['芝芝莓莓',16,''],['葡萄芋圆冻',15,'']]],
+ ['yidiandian','一点点','🧋',[
+   ['四季奶青',13,'点单率最高'],['红茶玛奇朵',15,''],['波霸奶茶',14,''],
+   ['冰淇淋红茶',16,''],['珍珠奶绿',13,'']]],
+ ['yihetang','益禾堂','🌾',[
+   ['益禾烤奶',9,'招牌'],['禾风奶绿',8,''],['杨枝甘露',12,''],
+   ['芋泥啵啵',11,''],['薄荷奶绿',9,'']]],
+ ['tianlala','甜啦啦','🍧',[
+   ['杨枝甘露',10,''],['珍珠奶茶',7,''],['满杯水果茶',9,''],
+   ['芋泥啵啵奶茶',10,''],['摇摇奶昔',8,'']]],
+ ['qifentian','7分甜','🍊',[
+   ['杨枝甘露',18,'招牌'],['芒芒甘露',18,''],['招牌水果茶',15,''],
+   ['芋泥波波',16,''],['轻乳茶',14,'']]],
+ ['luckin','瑞幸咖啡','☕',[
+   ['生椰拿铁',17,'常年销冠'],['丝绒拿铁',17,''],['陨石拿铁',19,''],
+   ['冰吸生椰',19,''],['橙C美式',15,'']]],
+ ['starbucks','星巴克','⭐',[
+   ['抹茶星冰乐',38,''],['拿铁',31,''],['浓缩美式',28,''],
+   ['焦糖玛奇朵',34,''],['燕麦丝绒拿铁',36,'']]]
+];
+
+var SPEC = [
+ {k:'sweet', t:'甜度', o:[['标准糖',0],['七分糖',0],['五分糖',0],['三分糖',0],['无糖',0]]},
+ {k:'temp',  t:'温度', o:[['常温',0],['去冰',0],['少冰',0],['多冰',0],['热',0]]},
+ {k:'size',  t:'杯型', o:[['中杯',0],['大杯',3]]},
+ {k:'addon', t:'加料', o:[['不加料',0],['珍珠',2],['椰果',2],['布丁',3],['芋圆',4],['奶盖',5],['燕麦',3]]}
+];
+
+var TIPS_ME = [
+ '🏫 <b>校内就能喝到</b>：华凤校区二期食堂（李园餐厅）二楼通常就有奶茶窗口，她下课顺路最省时间。',
+ '🛵 <b>外卖能送到</b>：美团 / 饿了么定位「西华师范大学华凤校区二期」，多数品牌送到宿舍楼下或校门口自提点。',
+ '📦 <b>起送价</b>：校园周边常见 20～30 元起送，单点一杯可能凑不够，加点小食或让她拼单。',
+ '🔍 <b>先确认再点</b>：不同学校配送范围差别很大，先在美团搜一下品牌名，能出现就是能送；送不到的在「设置 → 品牌管理」关掉。',
+ '💰 <b>价格仅供参考</b>：单品价为全国常见参考价，以门店菜单为准，可在设置里改。'
+];
+var TIPS_HER = [
+ '🧋 想喝什么随便挑，<b>甜度冰度加料都写上</b>，TA 照着点就行。',
+ '📍 地址写清楚了 TA 才能送到楼下，去「设置」里填一下楼栋门牌和电话。',
+ '💬 点完按「💕 告诉 TA 我想喝」，TA 那边就收到了。',
+ '⏰ 上课/睡觉时别点哦，奶茶做好了没人拿会凉～'
+];
+
+var PUSH_HELP = {
+ '': '不配推送也能用：她点完后会生成订单文字，复制发微信给你就行。',
+ 'sct': '打开 <b>sct.ftqq.com</b> → 微信扫码登录 → 复制 SendKey（SCT 开头）粘贴到上面。免费额度够用。',
+ 'pushplus': '打开 <b>pushplus.plus</b> → 微信扫码登录 → 首页复制 token 粘贴到上面。免费 200 条/天。',
+ 'wxpusher': '打开 <b>wxpusher.zjiecode.com</b> → 用微信扫码关注你的应用，拿到 <b>appToken</b> 和你的 <b>UID</b>。',
+ 'bark': 'iPhone 装 <b>Bark</b> App → 复制推送地址里 api.day.app/ 后面那串 key。仅 iOS。'
+};
+
+var KEY = 'naicha_order_v4';
+var DEF = {
+  role:'me',
+  hero:{title:'宝贝今天想喝点什么？', sub:'挑好 → 选甜度冰度 → 一键复制发给她 🥤'},
+  addr:{campus:'西华师范大学华凤校区二期', detail:'', name:'', phone:''},
+  push:{type:'', key:'', uid:''},
+  brands:[], cart:[], orders:[], inbox:[]
+};
+
+var D = null, curBrand = '', curItem = null, curSpec = null, editBrand = '';
+
+/* ═══════════ 存储 ═══════════ */
+function load(){
+  try{ var s = localStorage.getItem(KEY); if(s){ var o = JSON.parse(s); if(o && o.brands) return o; } }catch(e){}
+  return JSON.parse(JSON.stringify(DEF));
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(D)); }catch(e){ toast('存储空间不足'); } }
+function defBrands(){
+  return PRESET.map(function(b){
+    return {id:b[0], name:b[1], emoji:b[2], on:true,
+      items:b[3].map(function(it,i){ return {id:b[0]+i, name:it[0], price:it[1], note:it[2]}; })};
+  });
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function isHer(){ return D.role === 'her'; }
+
+/* ═══════════ 提示 / 动画 ═══════════ */
+var tt;
+function toast(m){ var e=document.getElementById('toast'); e.textContent=m; e.classList.add('on'); clearTimeout(tt); tt=setTimeout(function(){ e.classList.remove('on'); },2200); }
+function flyHeart(x,y){
+  var s=document.createElement('div'); s.className='fly'; s.textContent='💕';
+  s.style.left=(x-10)+'px'; s.style.top=(y-10)+'px'; document.body.appendChild(s);
+  requestAnimationFrame(function(){ s.style.transform='translateY(-90px) scale(1.7)'; s.style.opacity='0'; });
+  setTimeout(function(){ s.remove(); },880);
+}
+function heartRain(){
+  for(var i=0;i<16;i++){(function(i){
+    setTimeout(function(){
+      var s=document.createElement('div'); s.className='rain';
+      s.textContent=['💕','💗','💖','🌸','✨','🧋'][i%6];
+      s.style.left=(Math.random()*92+2)+'vw'; s.style.fontSize=(14+Math.random()*14)+'px';
+      document.body.appendChild(s);
+      requestAnimationFrame(function(){ s.style.transform='translateY(102vh) rotate('+(Math.random()*360)+'deg)'; s.style.opacity='0'; });
+      setTimeout(function(){ s.remove(); },2700);
+    }, i*90);
+  })(i);}
+}
+
+/* ═══════════ 导航 ═══════════ */
+var PAGES=['pgOrder','pgCart','pgOrders','pgManage'];
+function go(id){
+  PAGES.forEach(function(p){ document.getElementById(p).classList.toggle('hide', p!==id); });
+  PAGES.forEach(function(p,i){ var b=document.getElementById('nb'+i); if(b) b.classList.toggle('on', p===id); });
+  document.getElementById('bottomBar').classList.toggle('hide', id!=='pgOrder');
+  window.scrollTo(0,0);
+  if(id==='pgCart') renderCart();
+  if(id==='pgOrders') renderOrders();
+  if(id==='pgManage') renderManage();
+}
+function openCart(){ go('pgCart'); }
+
+/* ═══════════ 渲染 ═══════════ */
+function renderAll(){
+  renderTop(); renderHero(); renderAddr(); renderTips(); renderTabs(); renderDishes(); renderBar(); renderMode();
+}
+function renderTop(){
+  document.getElementById('topTitle').textContent = isHer()? '宝贝的点单页' : '给她点奶茶';
+  document.getElementById('topSub').textContent   = isHer()? '挑好告诉 TA，TA 去下单' : '她点单 · 你下单';
+  document.getElementById('whoBtn').textContent   = isHer()? '👩 我是宝贝' : '🧑 我是TA';
+  document.getElementById('nb2t').textContent     = isHer()? '我点过的' : '收单箱';
+}
+function renderMode(){
+  var her=isHer();
+  document.getElementById('pushCard').classList.toggle('hide', her);
+  document.getElementById('linkCard').classList.toggle('hide', her);
+  document.getElementById('inboxCard').classList.toggle('hide', her);
+  document.getElementById('submitBtn').innerHTML = her? '💕 告诉 TA 我想喝' : '💕 生成订单 · 一键复制';
+  document.getElementById('coTitle').textContent = her? '想对 TA 说' : '备注 & 送达';
+  document.getElementById('coExtra').innerHTML = her? '' :
+    '<div class="row2" style="margin-top:8px">'+
+      '<div><div class="muted" style="margin-bottom:5px">送达方式</div><select class="inp" id="shipInp">'+
+      '<option>外卖送到楼下</option><option>自提 / 到店取</option><option>我帮她远程下单</option></select></div>'+
+      '<div><div class="muted" style="margin-bottom:5px">支付方式</div><select class="inp" id="payInp">'+
+      '<option>我付（远程代付）</option><option>她到付</option><option>校园卡 / 其他</option></select></div>'+
+    '</div>';
+}
+function renderHero(){
+  document.getElementById('heroTitle').textContent = D.hero.title;
+  document.getElementById('heroSub').textContent = D.hero.sub;
+  var h=''; for(var i=0;i<9;i++) h+='<span style="position:absolute;left:'+(Math.random()*94)+'%;top:'+(Math.random()*88)+'%;opacity:'+(0.2+Math.random()*0.5)+'">💕</span>';
+  document.getElementById('heroHearts').innerHTML=h;
+}
+function renderAddr(){
+  var a=D.addr;
+  document.getElementById('addrMain').textContent = a.campus || '还没填地址';
+  var s=[]; if(a.detail) s.push(a.detail); if(a.name) s.push(a.name); if(a.phone) s.push(a.phone);
+  document.getElementById('addrSub').textContent = s.length? s.join(' · ') : '点这里填写楼栋 / 门牌 / 电话';
+}
+function renderTips(){
+  document.getElementById('tipTitle').textContent = isHer()? '点单小提示' : '外卖小提示';
+  document.getElementById('tipBox').innerHTML = (isHer()? TIPS_HER : TIPS_ME).map(function(t){ return '· '+t; }).join('<br>');
+}
+function renderTabs(){
+  var h='';
+  D.brands.forEach(function(b){
+    h+='<button class="tab'+(b.id===curBrand?' on':'')+(b.on?'':' off')+'" onclick="pickBrand(\''+b.id+'\')">'+b.emoji+' '+esc(b.name)+(b.on?'':'（不送）')+'</button>';
+  });
+  document.getElementById('brandTabs').innerHTML=h;
+}
+function pickBrand(id){ curBrand=id; renderTabs(); renderDishes(); }
+function renderDishes(){
+  var b=null;
+  for(var i=0;i<D.brands.length;i++) if(D.brands[i].id===curBrand) b=D.brands[i];
+  if(!b){ document.getElementById('dishList').innerHTML='<div class="empty"><div class="e">🧋</div>先在「设置」里加个品牌吧</div>'; return; }
+  var h='<div class="card" style="padding:12px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:22px">'+b.emoji+'</span><div><b style="font-size:15px">'+esc(b.name)+'</b>'+(b.on?'':'<span class="muted"> · 已隐藏</span>')+'<div class="muted">共 '+b.items.length+' 款 · 点右边 ＋ 选规格</div></div></div></div>';
+  b.items.forEach(function(it){
+    h+='<div class="dish"><div class="emo">'+b.emoji+'</div><div class="m"><b>'+esc(it.name)+'</b>'+
+       (it.note?'<div class="n">'+esc(it.note)+'</div>':'')+
+       '<div class="p"><i>¥</i>'+it.price+'</div></div>'+
+       '<button class="add" onclick="openSpec(\''+b.id+'\',\''+it.id+'\',event)">＋</button></div>';
+  });
+  if(!b.items.length) h+='<div class="empty"><div class="e">🥤</div>这个品牌还没加饮品</div>';
+  document.getElementById('dishList').innerHTML=h;
+}
+function renderBar(){
+  var n=0,t=0; D.cart.forEach(function(c){ n+=c.qty; t+=c.qty*c.unit; });
+  document.getElementById('barTotal').textContent='¥'+t;
+  document.getElementById('barCount').textContent = n? ('共 '+n+' 杯 · '+D.cart.length+' 种') : '购物车还是空的';
+  var d=document.getElementById('cartDot');
+  if(n){ d.textContent=n; d.classList.remove('hide'); } else d.classList.add('hide');
+}
+
+/* ═══════════ 规格选择 ═══════════ */
+function openSpec(bid, iid, ev){
+  var b=null,it=null;
+  for(var i=0;i<D.brands.length;i++) if(D.brands[i].id===bid) b=D.brands[i];
+  if(!b) return;
+  for(var j=0;j<b.items.length;j++) if(b.items[j].id===iid) it=b.items[j];
+  if(!it) return;
+  curItem={b:b, it:it};
+  curSpec={}; SPEC.forEach(function(g){ curSpec[g.k]=g.o[0][0]; });
+  drawSpec();
+  document.getElementById('mask').classList.add('on');
+  document.getElementById('specSheet').classList.add('on');
+  if(ev) flyHeart(ev.clientX, ev.clientY);
+}
+function drawSpec(){
+  var it=curItem.it, b=curItem.b, extra=specExtra();
+  var h='<div class="sh"><div class="m"><b>'+esc(b.name)+' · '+esc(it.name)+'</b><div class="p">¥'+(it.price+extra)+'</div></div><button class="x" onclick="closeSheet()">✕</button></div>';
+  SPEC.forEach(function(g){
+    h+='<div class="grp"><div class="g">'+g.t+'</div><div class="opts">';
+    g.o.forEach(function(o){
+      var d=o[1]? '<span class="d">+'+o[1]+'</span>':'';
+      h+='<button class="opt'+(curSpec[g.k]===o[0]?' on':'')+'" onclick="pickSpec(\''+g.k+'\',\''+o[0]+'\')">'+o[0]+d+'</button>';
+    });
+    h+='</div></div>';
+  });
+  h+='<div class="grp"><div class="g">'+(isHer()?'想对 TA 说':'想对她说')+'</div><input class="inp" id="specNote" placeholder="'+(isHer()?'想喝热的～（可留空）':'这杯给你加双倍珍珠～（可留空）')+'"></div>';
+  h+='<button class="btn block" onclick="addToCart()">加入购物车 💕</button>';
+  document.getElementById('specSheet').innerHTML=h;
+  var n=document.getElementById('specNote'); if(n&&curSpec.note) n.value=curSpec.note;
+}
+function pickSpec(k,v){
+  curSpec[k]=v;
+  var n=document.getElementById('specNote'); if(n) curSpec.note=n.value;
+  drawSpec();
+}
+function specExtra(){
+  var e=0;
+  SPEC.forEach(function(g){
+    for(var i=0;i<g.o.length;i++) if(g.o[i][0]===curSpec[g.k]) e+=g.o[i][1]||0;
+  });
+  return e;
+}
+function closeSheet(){
+  document.getElementById('mask').classList.remove('on');
+  document.getElementById('specSheet').classList.remove('on');
+}
+
+/* ═══════════ 购物车 ═══════════ */
+function specKey(s){ return SPEC.map(function(g){ return s[g.k]||''; }).join('|')+'|'+(s.note||''); }
+function addToCart(){
+  var n=document.getElementById('specNote'); if(n) curSpec.note=n.value||'';
+  var it=curItem.it, b=curItem.b, unit=it.price+specExtra();
+  var key=b.id+'#'+it.id+'#'+specKey(curSpec);
+  var hit=null;
+  for(var i=0;i<D.cart.length;i++) if(D.cart[i].key===key) hit=D.cart[i];
+  if(hit) hit.qty++;
+  else D.cart.push({key:key, brand:b.name, emoji:b.emoji, name:it.name, unit:unit,
+                    spec:JSON.parse(JSON.stringify(curSpec)), qty:1});
+  save(); closeSheet(); renderBar(); toast('加好啦：'+it.name+' 💕');
+}
+function chg(key, d){
+  for(var i=0;i<D.cart.length;i++) if(D.cart[i].key===key){
+    D.cart[i].qty+=d;
+    if(D.cart[i].qty<=0){ D.cart.splice(i,1); toast('已移除'); }
+    break;
+  }
+  save(); renderCart(); renderBar();
+}
+function clearCart(){ if(!D.cart.length) return; D.cart=[]; save(); renderCart(); renderBar(); toast('购物车已清空'); }
+function renderCart(){
+  var box=document.getElementById('cartBox');
+  if(!D.cart.length){
+    box.innerHTML='<div class="empty"><div class="e">🛒</div>还没挑呢，去「点单」选一杯吧</div>';
+    document.getElementById('checkoutBox').classList.add('hide');
+    return;
+  }
+  document.getElementById('checkoutBox').classList.remove('hide');
+  var h='', n=0, t=0;
+  D.cart.forEach(function(c){
+    n+=c.qty; t+=c.qty*c.unit;
+    var sp='';
+    SPEC.forEach(function(g){ if(c.spec[g.k]) sp+='<em>'+esc(c.spec[g.k])+'</em>'; });
+    if(c.spec.note) sp+='<em>💬 '+esc(c.spec.note)+'</em>';
+    h+='<div class="ci"><div class="m"><b>'+c.emoji+' '+esc(c.brand)+' · '+esc(c.name)+'</b>'+
+       '<div class="sp">'+sp+'</div><div class="pr">¥'+c.unit+' × '+c.qty+' = ¥'+(c.unit*c.qty)+'</div></div>'+
+       '<div class="r"><div class="qty"><button onclick="chg(\''+c.key+'\',-1)">－</button><b>'+c.qty+'</b><button onclick="chg(\''+c.key+'\',1)">＋</button></div>'+
+       '<button class="del" onclick="chg(\''+c.key+'\',-999)">删除</button></div></div>';
+  });
+  h='<div class="card" style="padding:12px"><div class="ttl">购物车（'+n+' 杯）</div>'+h+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:9px;border-top:1px dashed var(--line)">'+
+    '<span class="muted">合计</span><b style="color:var(--primary);font-size:20px">¥'+t+'</b></div>'+
+    '<button class="btn gray block sm" style="margin-top:10px" onclick="clearCart()">清空购物车</button></div>';
+  box.innerHTML=h;
+}
+
+/* ═══════════ 订单文本 ═══════════ */
+function orderText(o){
+  var a=o.addr, L=[];
+  L.push((o.her? '🧋 宝贝想喝 · 新订单' : '🧋 奶茶订单 · 来自「给她点奶茶」'));
+  L.push('────────────');
+  L.push('📍 '+(a.campus||'')+(a.detail? ' '+a.detail : ''));
+  if(a.name||a.phone) L.push('👤 '+(a.name||'她')+(a.phone? '  '+a.phone : ''));
+  if(o.ship) L.push('🚚 '+o.ship+'　💳 '+o.pay);
+  L.push('────────────');
+  o.items.forEach(function(c,i){
+    L.push((i+1)+'. '+c.brand+' · '+c.name+'  ×'+c.qty+'  ¥'+(c.unit*c.qty));
+    var s=[]; SPEC.forEach(function(g){ if(c.spec[g.k]) s.push(c.spec[g.k]); });
+    if(s.length) L.push('   └ '+s.join(' / '));
+    if(c.spec.note) L.push('   └ 💬 '+c.spec.note);
+  });
+  L.push('────────────');
+  L.push('🧾 共 '+o.count+' 杯　合计 ¥'+o.total);
+  if(o.note) L.push('📝 备注：'+o.note);
+  L.push('⏰ '+o.ts);
+  return L.join('\n');
+}
+
+/* ═══════════ 推送 ═══════════ */
+function pushReady(){ var p=D.push||{}; return !!(p.type && p.key); }
+function sendPush(title, body){
+  var p=D.push||{};
+  if(!p.type || !p.key) return Promise.resolve(false);
+  var url, opt;
+  if(p.type==='sct'){
+    url='https://sctapi.ftqq.com/'+encodeURIComponent(p.key)+'.send';
+    opt={method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+         body:'title='+encodeURIComponent(title)+'&desp='+encodeURIComponent(body)};
+  } else if(p.type==='pushplus'){
+    url='https://www.pushplus.plus/send';
+    opt={method:'POST', headers:{'Content-Type':'application/json'},
+         body:JSON.stringify({token:p.key, title:title, content:body, template:'txt'})};
+  } else if(p.type==='wxpusher'){
+    url='https://wxpusher.zjiecode.com/api/send/message';
+    opt={method:'POST', headers:{'Content-Type':'application/json'},
+         body:JSON.stringify({appToken:p.key, content:body, summary:title, contentType:3, uids:(p.uid?[p.uid]:[])})};
+  } else if(p.type==='bark'){
+    url='https://api.day.app/'+encodeURIComponent(p.key)+'/'+encodeURIComponent(title)+'/'+encodeURIComponent(body);
+    opt={method:'GET'};
+  } else return Promise.resolve(false);
+  return fetch(url, opt).then(function(){ return true; }).catch(function(){ return false; });
+}
+
+/* ═══════════ 下单 ═══════════ */
+function submitOrder(){
+  if(!D.cart.length){ toast('购物车还是空的呀'); return; }
+  var note=document.getElementById('noteInp').value||'';
+  var ship='', pay='';
+  if(!isHer()){
+    var s=document.getElementById('shipInp'), y=document.getElementById('payInp');
+    ship=s? s.value:''; pay=y? y.value:'';
+  }
+  var d=new Date(), p=function(x){ return x<10?'0'+x:''+x; };
+  var ts=d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  var count=0,total=0;
+  D.cart.forEach(function(c){ count+=c.qty; total+=c.qty*c.unit; });
+  var o={id:'O'+Date.now(), ts:ts, addr:JSON.parse(JSON.stringify(D.addr)),
+         items:JSON.parse(JSON.stringify(D.cart)), count:count, total:total, note:note,
+         ship:ship, pay:pay, status:'待下单', her:isHer()};
+  o.text=orderText(o);
+  D.orders.unshift(o); D.cart=[]; save();
+  renderBar();
+  heartRain();
+
+  if(isHer() && pushReady()){
+    toast('正在通知 TA…');
+    sendPush('🧋 宝贝想喝：'+o.items[0].name+' 等 '+o.count+' 杯（¥'+o.total+'）', o.text)
+      .then(function(ok){
+        if(ok){
+          o.status='已通知TA'; save();
+          showDone(o, true);
+        } else {
+          showDone(o, false);
+        }
+      });
+  } else {
+    showDone(o, null);
+  }
+}
+function showDone(o, pushed){
+  var her=isHer();
+  var h='<div class="sh"><div class="m"><b>'+(her?'好啦，告诉 TA 了 💕':'订单已生成 💕')+'</b>'+
+        '<div class="muted" style="margin-top:3px">'+o.count+' 杯 · 合计 ¥'+o.total+'</div></div>'+
+        '<button class="x" onclick="closeSheet()">✕</button></div>';
+  if(pushed===true){
+    h+='<div class="ok-box">✅ <b>已经推到 TA 的微信啦</b>，等 TA 给你点～</div>';
+  } else if(pushed===false){
+    h+='<div class="note">⚠️ 推送没成功（key 可能填错了）。<b>直接复制下面的文字发微信给 TA</b> 也一样～</div>';
+  } else if(her){
+    h+='<div class="note">📋 <b>复制下面的订单，发微信给 TA</b> —— TA 收到就去给你点～</div>';
+  }
+  h+='<div class="linkbox" style="max-height:34vh;font-size:12.5px">'+esc(o.text)+'</div>';
+  h+='<div class="row2" style="margin-top:11px">'+
+     '<button class="btn sm" onclick="copyOrderById(\''+o.id+'\')">📋 复制订单</button>'+
+     '<button class="btn ghost sm" onclick="closeSheet()">'+(her?'再看看':'知道了')+'</button></div>';
+  var sh=document.getElementById('specSheet');
+  sh.innerHTML=h;
+  document.getElementById('mask').classList.add('on');
+  sh.classList.add('on');
+  if(pushed===null && !her) copy(o.text);
+  go(her? 'pgOrders' : 'pgOrders');
+  renderOrders();
+  if(her && pushed===true) toast('已通知 TA，等着吧 💕');
+}
+function copy(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).catch(function(){ fallbackCopy(t); });
+  } else fallbackCopy(t);
+}
+function fallbackCopy(t){
+  var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  ta.remove();
+}
+
+/* ═══════════ 收单箱 / 订单 ═══════════ */
+function renderOrders(){
+  // 收单箱（他）
+  var box=document.getElementById('inboxList');
+  if(!isHer()){
+    var ih='';
+    (D.inbox||[]).forEach(function(x,i){
+      ih+='<div class="oi"><div class="h"><b>'+(x.title||'她发来的订单')+'</b><span class="t">'+x.ts+'</span></div>'+
+          '<div class="bd">'+esc(x.text)+'</div><div class="f">'+
+          '<button class="btn sm ghost" onclick="copyInbox('+i+')">📋 复制</button>'+
+          '<button class="btn sm ghost" onclick="doneInbox('+i+')">✓ 已下单</button>'+
+          '<button class="btn sm gray" onclick="delInbox('+i+')">删除</button></div></div>';
+    });
+    box.innerHTML = ih || '<div class="muted" style="padding:8px 2px">还没有收进来的订单</div>';
+  }
+  // 我的订单
+  var ob=document.getElementById('orderBox');
+  if(!D.orders.length){ ob.innerHTML='<div class="empty"><div class="e">📋</div>'+(isHer()?'你还没点过，去挑一杯吧':'还没有订单')+'</div>'; return; }
+  var h='<div class="muted" style="margin:2px 2px 8px">'+(isHer()?'我点过的':'本机的订单记录')+'</div>';
+  D.orders.forEach(function(o,i){
+    var cls = o.status==='已送达'?'':(o.status==='已通知TA'?' b':' w');
+    h+='<div class="oi"><div class="h"><b>'+o.count+' 杯 · ¥'+o.total+'</b>'+
+       '<span class="t">'+o.ts+' <span class="badge'+cls+'">'+o.status+'</span></span></div>'+
+       '<div class="bd">'+esc(o.text)+'</div><div class="f">'+
+       '<button class="btn sm ghost" onclick="copyOrder('+i+')">📋 复制文字</button>'+
+       '<button class="btn sm ghost" onclick="again('+i+')">🔁 再来一单</button>'+
+       (isHer()?'':'<button class="btn sm ghost" onclick="setStatus('+i+')">✓ 标记已下单</button>')+
+       '<button class="btn sm gray" onclick="delOrder('+i+')">删除</button></div></div>';
+  });
+  ob.innerHTML=h;
+}
+function copyOrderById(id){
+  for(var i=0;i<D.orders.length;i++) if(D.orders[i].id===id) copy(D.orders[i].text);
+  toast('已复制，去微信发给 TA 吧 💕');
+}
+function copyOrder(i){ copy(D.orders[i].text); toast('已复制 💕'); }
+function again(i){
+  var o=D.orders[i];
+  o.items.forEach(function(c){
+    var hit=null;
+    for(var j=0;j<D.cart.length;j++) if(D.cart[j].key===c.key) hit=D.cart[j];
+    if(hit) hit.qty+=c.qty; else D.cart.push(JSON.parse(JSON.stringify(c)));
+  });
+  save(); renderBar(); go('pgCart'); toast('已放回购物车');
+}
+function setStatus(i){ D.orders[i].status='已送达'; save(); renderOrders(); toast('已下单啦，告诉她一声 🎉'); }
+function delOrder(i){ D.orders.splice(i,1); save(); renderOrders(); toast('已删除'); }
+function pasteIn(){
+  var t=document.getElementById('pasteInp').value.trim();
+  if(!t){ toast('先粘贴她发来的文字'); return; }
+  var d=new Date(), p=function(x){ return x<10?'0'+x:''+x; };
+  var first=(t.split('\n')[0]||'她发来的订单').slice(0,20);
+  D.inbox=D.inbox||[];
+  D.inbox.unshift({title:first, text:t,
+    ts:d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())});
+  document.getElementById('pasteInp').value='';
+  save(); renderOrders(); toast('收进来啦 💕');
+}
+function copyInbox(i){ copy(D.inbox[i].text); toast('已复制，去美团下单吧'); }
+function doneInbox(i){ D.inbox.splice(i,1); save(); renderOrders(); toast('搞定，记得跟她说一声 🎉'); }
+function delInbox(i){ D.inbox.splice(i,1); save(); renderOrders(); toast('已删除'); }
+
+/* ═══════════ 设置 ═══════════ */
+function renderManage(){
+  document.getElementById('fCampus').value=D.addr.campus||'';
+  document.getElementById('fDetail').value=D.addr.detail||'';
+  document.getElementById('fName').value=D.addr.name||'';
+  document.getElementById('fPhone').value=D.addr.phone||'';
+  document.getElementById('fTitle').value=D.hero.title||'';
+  document.getElementById('fSub').value=D.hero.sub||'';
+  var p=D.push||{};
+  document.getElementById('fPushType').value=p.type||'';
+  document.getElementById('fPushKey').value=p.key||'';
+  document.getElementById('fPushUid').value=p.uid||'';
+  onPushType();
+  var h='';
+  D.brands.forEach(function(b){
+    h+='<div class="mb"><div class="l"><b>'+b.emoji+' '+esc(b.name)+'</b><span>'+b.items.length+' 款</span></div>'+
+       '<div class="sw'+(b.on?' on':'')+'" onclick="toggleBrand(\''+b.id+'\')"><i></i></div>'+
+       '<button class="btn gray sm" style="margin-left:8px" onclick="editItems(\''+b.id+'\')">'+(editBrand===b.id?'收起':'编辑')+'</button>'+
+       '<button class="btn gray sm" style="margin-left:6px" onclick="delBrand(\''+b.id+'\')">删</button></div>';
+    if(editBrand===b.id){
+      h+='<div style="background:#fffafc;border:1px dashed var(--line);border-radius:12px;padding:10px;margin:-2px 0 10px">';
+      b.items.forEach(function(it){
+        h+='<div style="display:flex;align-items:center;gap:8px;padding:5px 2px;border-bottom:1px solid #fbeef4">'+
+           '<span style="flex:1;font-size:13px">'+esc(it.name)+' <span class="muted">¥'+it.price+'</span></span>'+
+           '<button class="btn gray sm" onclick="delItem(\''+b.id+'\',\''+it.id+'\')">删</button></div>';
+      });
+      h+='<div class="row2" style="margin-top:8px"><input class="inp" id="ni'+b.id+'" placeholder="新品名">'+
+         '<input class="inp" id="np'+b.id+'" placeholder="价格" type="number" style="max-width:88px"></div>'+
+         '<button class="btn ghost block sm" style="margin-top:8px" onclick="addItem(\''+b.id+'\')">＋ 加入这个品牌</button></div>';
+    }
+  });
+  document.getElementById('brandMgr').innerHTML=h||'<div class="muted">没有品牌了，下面加一个</div>';
+}
+function onPushType(){
+  var t=document.getElementById('fPushType').value;
+  document.getElementById('keyLabel').textContent = t==='pushplus'? 'token' : (t==='wxpusher'? 'appToken' : (t==='bark'? 'Bark key' : 'SendKey'));
+  document.getElementById('uidRow').classList.toggle('hide', t!=='wxpusher');
+  document.getElementById('pushHelp').innerHTML = PUSH_HELP[t]||PUSH_HELP[''];
+  document.getElementById('fPushKey').placeholder = t==='sct'? 'SCT开头的一串' : (t==='bark'? 'Bark 地址里的 key' : '粘贴这里');
+}
+function savePush(){
+  D.push={type:document.getElementById('fPushType').value,
+          key:document.getElementById('fPushKey').value.trim(),
+          uid:document.getElementById('fPushUid').value.trim()};
+  save(); toast(D.push.type? '通知设置已保存 💕' : '已关闭推送');
+}
+function testPush(){
+  var t=document.getElementById('fPushType').value;
+  var k=document.getElementById('fPushKey').value.trim();
+  if(!t||!k){ toast('先选方式并填 key'); return; }
+  var old=D.push; D.push={type:t, key:k, uid:document.getElementById('fPushUid').value.trim()};
+  toast('发送中…');
+  sendPush('🧋 测试通知', '收到就说明配置成功啦～\n—— 来自「给她点奶茶」')
+    .then(function(ok){ D.push=old; toast(ok? '✅ 成功！去看手机有没有收到' : '❌ 没成功，检查 key 是否正确'); });
+}
+function saveAddr(){
+  D.addr.campus=document.getElementById('fCampus').value.trim();
+  D.addr.detail=document.getElementById('fDetail').value.trim();
+  D.addr.name=document.getElementById('fName').value.trim();
+  D.addr.phone=document.getElementById('fPhone').value.trim();
+  save(); renderAddr(); toast('收货信息已保存 💕');
+}
+function saveText(){
+  D.hero.title=document.getElementById('fTitle').value.trim()||'宝贝今天想喝点什么？';
+  D.hero.sub=document.getElementById('fSub').value.trim();
+  save(); renderHero(); toast('文案已更新');
+}
+function toggleBrand(id){
+  for(var i=0;i<D.brands.length;i++) if(D.brands[i].id===id) D.brands[i].on=!D.brands[i].on;
+  save(); renderManage(); renderTabs(); renderDishes();
+}
+function editItems(id){ editBrand = (editBrand===id? '' : id); renderManage(); }
+function addBrand(){
+  var n=document.getElementById('nbName').value.trim();
+  var e=document.getElementById('nbEmoji').value.trim()||'🧋';
+  if(!n){ toast('先填品牌名'); return; }
+  D.brands.push({id:'b'+Date.now(), name:n, emoji:e, on:true, items:[]});
+  document.getElementById('nbName').value=''; document.getElementById('nbEmoji').value='';
+  save(); renderManage(); renderTabs(); toast('已添加 '+n);
+}
+function delBrand(id){
+  D.brands=D.brands.filter(function(b){ return b.id!==id; });
+  if(curBrand===id) curBrand = D.brands.length? D.brands[0].id : '';
+  save(); renderManage(); renderTabs(); renderDishes(); toast('已删除');
+}
+function addItem(id){
+  var n=document.getElementById('ni'+id).value.trim();
+  var p=parseFloat(document.getElementById('np'+id).value);
+  if(!n||isNaN(p)){ toast('名称和价格都要填'); return; }
+  for(var i=0;i<D.brands.length;i++) if(D.brands[i].id===id)
+    D.brands[i].items.push({id:'i'+Date.now(), name:n, price:p, note:'自定义'});
+  save(); renderManage(); renderDishes(); toast('已加入 '+n);
+}
+function delItem(bid,iid){
+  for(var i=0;i<D.brands.length;i++) if(D.brands[i].id===bid)
+    D.brands[i].items=D.brands[i].items.filter(function(x){ return x.id!==iid; });
+  save(); renderManage(); renderDishes(); toast('已删除');
+}
+function exportData(){
+  var blob=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='给她点奶茶_备份_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); },1500);
+  toast('备份已导出');
+}
+function importData(el){
+  var f=el.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var o=JSON.parse(r.result);
+      if(!o||!o.brands) throw 0;
+      D=o; save(); boot(); toast('导入成功 💕');
+    }catch(e){ toast('文件格式不对'); }
+    el.value='';
+  };
+  r.readAsText(f);
+}
+function resetBrands(){ D.brands=defBrands(); curBrand=D.brands[0].id; save(); boot(); toast('已恢复默认 15 个品牌'); }
+function clearAll(){
+  if(!confirm('确定清空全部数据？订单、设置都会没有。')) return;
+  D=JSON.parse(JSON.stringify(DEF)); D.brands=defBrands(); curBrand=D.brands[0].id;
+  save(); boot(); toast('已清空');
+}
+
+/* ═══════════ 链接分享 / 角色 ═══════════ */
+function b64e(s){ return btoa(unescape(encodeURIComponent(s))); }
+function b64d(s){ return decodeURIComponent(escape(atob(s))); }
+function genLink(noCopy){
+  var cfg={p:D.push||{}};
+  if(D.addr.campus) cfg.a=D.addr.campus;
+  if(D.addr.detail) cfg.d=D.addr.detail;
+  if(D.addr.name)   cfg.n=D.addr.name;
+  if(D.addr.phone)  cfg.h=D.addr.phone;
+  if(D.hero.title)  cfg.t=D.hero.title;
+  var base=location.origin && location.origin!=='null' ? (location.origin+location.pathname) : location.href.split('#')[0];
+  var url=base+'#c='+encodeURIComponent(b64e(JSON.stringify(cfg)));
+  document.getElementById('linkOut').innerHTML='<div class="linkbox">'+esc(url)+'</div>';
+  if(!noCopy){ copy(url); toast('链接已复制，发给她吧 💕'); }
+}
+function switchRole(){
+  D.role = isHer()? 'me':'her';
+  save(); renderAll(); renderCart(); renderOrders();
+  toast(isHer()? '已切到「宝贝」视角' : '已切到「TA」视角');
+}
+function readCfg(){
+  var m=location.hash.match(/[#&]c=([^&]+)/);
+  if(!m) return;
+  try{
+    var cfg=JSON.parse(b64d(decodeURIComponent(m[1])));
+    D.role='her';
+    if(cfg.p) D.push=cfg.p;
+    if(cfg.a) D.addr.campus=cfg.a;
+    if(cfg.d) D.addr.detail=cfg.d;
+    if(cfg.n) D.addr.name=cfg.n;
+    if(cfg.h) D.addr.phone=cfg.h;
+    if(cfg.t) D.hero.title=cfg.t;
+    D.hero.sub='挑好 → 点「告诉 TA 我想喝」→ TA 就去给你点 🥤';
+    save();
+  }catch(e){}
+}
+
+/* ═══════════ 启动 ═══════════ */
+function boot(){
+  if(!D.brands.length){ D.brands=defBrands(); save(); }
+  if(!D.inbox) D.inbox=[];
+  if(!D.push) D.push={type:'',key:'',uid:''};
+  if(!curBrand || !D.brands.some(function(b){ return b.id===curBrand; })) curBrand=D.brands[0].id;
+  renderAll(); renderCart(); renderOrders();
+}
+D=load();
+readCfg();
+boot();
+go('pgOrder');
+</script>
+</body>
+</html>
