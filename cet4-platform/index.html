@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大学英语四级（CET-4）备考学习平台 · 四六级统一版</title>
+<meta name="description" content="大学英语四级（CET-4）备考学习平台：四阶段逐日计划打卡、核心能力速记、在线刷题、听力阅读写作翻译专项与备考方法。">
+<style>
+:root{
+  --bg:#f5f6fd; --card:#ffffff; --fg:#1a1c2e; --muted:#6b7280; --border:#e6e8f2;
+  --primary:#4f46e5; --primary-2:#0ea5c6; --primary-fg:#ffffff;
+  --ok:#16a34a; --warn:#d97706; --soft:#eef0fd;
+  --radius:16px; --shadow:0 2px 12px rgba(79,70,229,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--fg);line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px 64px}
+/* hero */
+.hero{background:linear-gradient(135deg,#312e81 0%,#4f46e5 46%,#0e9fae 100%);color:#fff;padding:44px 16px 88px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(14,165,198,.45),transparent 42%),radial-gradient(circle at 12% 85%,rgba(79,70,229,.4),transparent 40%);pointer-events:none}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:1px;position:relative;z-index:1}
+.hero .sub{margin-top:8px;font-size:14px;opacity:.88;position:relative;z-index:1}
+.badges{margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:99px;font-size:12.5px}
+.countdown-card{max-width:720px;margin:-52px auto 0;background:var(--card);border-radius:var(--radius);box-shadow:0 8px 28px rgba(49,46,129,.18);padding:22px 24px;position:relative;z-index:2;display:flex;align-items:center;justify-content:space-around;gap:8px;flex-wrap:wrap}
+.cd-item{text-align:center;min-width:64px}
+.cd-num{font-size:34px;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums}
+.cd-label{font-size:12px;color:var(--muted)}
+.cd-sep{font-size:26px;color:var(--border);font-weight:700;padding-bottom:14px}
+.cd-title{width:100%;font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+/* tabs */
+.tabs{display:flex;gap:6px;margin:26px 0 20px;background:var(--card);padding:6px;border-radius:14px;box-shadow:var(--shadow);position:sticky;top:8px;z-index:50;overflow-x:auto}
+.tab{flex:1;min-width:max-content;text-align:center;padding:9px 14px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:transparent;transition:.18s;white-space:nowrap}
+.tab.on{background:var(--primary);color:#fff;box-shadow:0 3px 10px rgba(79,70,229,.32)}
+.panel{display:none;animation:fade .25s}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{font-size:19px;font-weight:800;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+h2.sec::before{content:"";width:4px;height:20px;border-radius:2px;background:linear-gradient(180deg,var(--primary),var(--primary-2));display:inline-block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{background:var(--soft);color:var(--primary);font-weight:700;padding:9px 10px;text-align:left;white-space:nowrap}
+.tbl td{padding:9px 10px;border-top:1px solid var(--border);vertical-align:top}
+.tbl tr:nth-child(even) td{background:#fafbff}
+.scrolly{overflow-x:auto}
+/* stage */
+.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;user-select:none}
+.stage-title{font-size:16px;font-weight:800}
+.stage-title small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:2px}
+.stage-prog{font-size:12.5px;color:var(--primary);font-weight:700;background:var(--soft);padding:4px 12px;border-radius:99px;white-space:nowrap}
+.days{display:none;margin-top:14px}
+.days.open{display:block}
+.day{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:12px;border:1px solid transparent;transition:.15s}
+.day:hover{background:var(--soft)}
+.day.today{background:#fff8ed;border-color:#f5c98a}
+.day.done{opacity:.62}
+.day .chk{margin-top:5px;width:20px;height:20px;flex:none;accent-color:var(--ok);cursor:pointer}
+.day .date{font-size:12.5px;color:var(--muted);min-width:76px;flex:none;font-weight:600;padding-top:2px}
+.day .date b{display:block;font-size:14px;color:var(--fg)}
+.day .body{flex:1}
+.day .task{font-size:14px}
+.day .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--primary);background:var(--soft);border-radius:6px;padding:1px 7px;margin-bottom:3px}
+.day .tag.tag-link{cursor:pointer;transition:.15s}
+.day .tag.tag-link::after{content:" ↗";font-size:10px}
+.day .tag.tag-link:hover{background:var(--primary);color:#fff}
+.day.today .tag{background:#fdeacc;color:#b45309}
+.today-mark{font-size:11px;color:#b45309;font-weight:800;margin-left:6px}
+.rest-day{background:#f0fdf4;border:1px dashed #86efac;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#166534;margin-top:10px}
+/* milestone */
+.miles{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.mile{flex:none;width:200px;background:linear-gradient(135deg,#312e81,#0e9fae);color:#fff;border-radius:14px;padding:14px 16px}
+.mile .d{font-size:12px;opacity:.8}
+.mile .t{font-size:15px;font-weight:800;margin-top:4px}
+.mile .s{font-size:12px;opacity:.85;margin-top:4px}
+/* knowledge accordion */
+.kb{border:1px solid var(--border);border-radius:14px;background:var(--card);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+.kb-head{padding:14px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.kb-head:hover{background:var(--soft)}
+.kb-head .arrow{margin-left:auto;color:var(--muted);transition:.2s;font-size:13px}
+.kb.open .arrow{transform:rotate(90deg)}
+.kb-title{font-weight:800;font-size:15px}
+.kb-chip{font-size:11px;font-weight:700;border-radius:6px;padding:1px 8px}
+.chip-master{background:#dcfce7;color:#15803d}
+.chip-familiar{background:#dbeafe;color:#1d4ed8}
+.chip-know{background:#f1f5f9;color:#64748b}
+.kb-body{display:none;padding:0 18px 16px;font-size:13.8px}
+.kb.open .kb-body{display:block}
+.kb-body .row{display:flex;gap:10px;margin-top:10px}
+.kb-body .k{flex:none;width:72px;font-weight:700;color:var(--primary);font-size:12.5px;padding-top:2px}
+.kb-body .v{flex:1}
+.kb-body .excel{background:var(--soft);border-radius:10px;padding:10px 12px}
+.kb-body .tip{background:#fff8ed;border-radius:10px;padding:10px 12px;color:#92400e}
+/* checklist */
+.ck{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px}
+.ck:hover{background:var(--soft)}
+.ck .chk{margin-top:4px;width:20px;height:20px;flex:none;accent-color:var(--ok);cursor:pointer}
+.ck .q{font-size:14.2px}
+.ck.done .q{text-decoration:line-through;color:var(--muted)}
+.progbar{height:10px;background:#e6edf7;border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.progbar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-2));border-radius:99px;transition:width .3s;width:0}
+.prog-txt{font-size:12.5px;color:var(--muted)}
+/* tips */
+.tip-card{display:flex;gap:12px;margin-bottom:12px}
+.tip-card .ico{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px}
+.tip-card b{font-size:14.5px}
+.tip-card p{font-size:13.5px;color:var(--muted);margin-top:2px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 40px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:#1a1c2e;color:#fff;padding:9px 20px;border-radius:99px;font-size:13px;opacity:0;transition:.25s;z-index:99;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.qz-opt{border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;margin-bottom:8px;font-size:14px;cursor:pointer;transition:.15s;background:var(--card)}
+.qz-opt:hover{border-color:var(--primary);background:var(--soft)}
+.qz-opt b{color:var(--primary);margin-right:4px}
+.qz-opt.correct{border-color:var(--ok);background:#f0fdf4;color:#15803d;font-weight:600}
+.qz-opt.wrong{border-color:#dc2626;background:#fef2f2;color:#b91c1c}
+.qz-ex{margin-top:12px;background:var(--soft);border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.8}
+.qz-ex b{color:var(--primary)}
+.chip-book{background:#fef3c7;color:#92400e}
+.chip-book2{background:#ede9fe;color:#6d28d9}
+.chip-book3{background:#dcfce7;color:#15803d}
+@media (max-width:560px){
+  .hero h1{font-size:20px}
+  .cd-num{font-size:26px}
+  .day .date{min-width:64px}
+  .countdown-card{padding:16px 12px}
+}
+
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:460px}
+.heat i{display:block;height:15px;border-radius:3px;background:#eef1f7}
+.heat i.plan{background:#dbeafe}
+.heat i.on{background:#16a34a}
+.heat i.td{outline:2px solid #4f46e5;outline-offset:1px}
+.heat-legend{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.heat-legend i.lg{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.heat-legend i.lg.on{background:#16a34a}
+.heat-legend i.lg.plan{background:#dbeafe}
+.heat-legend i.lg.td{background:#eef1f7;outline:2px solid #4f46e5}
+.wi{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--card)}
+.ww{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px}
+.wi .py{color:var(--muted);font-size:12.5px}
+.wi .lvl{font-size:11px;padding:1px 7px;border-radius:9px;background:#e0e7ff;color:#4338ca;font-weight:700}
+.wi .lvl.l1{background:#fee2e2;color:#b91c1c}
+.wi .lvl.l2{background:#f1f5f9;color:#475569}
+.wi .mst{font-size:11px;padding:1px 7px;border-radius:9px;background:#f1f5f9;color:#64748b}
+.wi .mst.m1{background:#fef9c3;color:#a16207}
+.wi .mst.m2{background:#dcfce7;color:#15803d}
+.wi .mst.m3{background:#d1fae5;color:#047857}
+.wm{margin-top:4px;font-size:13.5px}
+.we{margin-top:2px;font-size:12.5px;color:var(--muted)}
+.wbtns{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.wbtns button{font-size:11.5px;padding:3px 9px;border:1px solid var(--border);background:#fff;border-radius:7px;cursor:pointer;color:var(--muted)}
+.wbtns button:hover{border-color:var(--primary);color:var(--primary)}
+.flash{border:1px dashed var(--border);border-radius:12px;padding:26px 16px;text-align:center;cursor:pointer;background:var(--soft)}
+.flash .fw{font-size:26px;font-weight:800;letter-spacing:1px}
+.flash .fp{color:var(--muted);font-size:13px;margin-top:4px}
+.flash .fm{margin-top:10px;font-size:15px}
+.flash .fe{margin-top:6px;font-size:13px;color:var(--muted)}
+.flash .fhint{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.fbtns{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fbtns button{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:13px}
+.fbtns button.ghost{background:var(--soft)}
+.ni{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--card)}
+.ni .nt{font-size:12px;color:var(--muted)}
+.ni .nbody{margin-top:4px;font-size:13.8px;line-height:1.9}
+.ni .ndel{margin-top:6px;font-size:11.5px;border:1px solid var(--border);background:#fff;border-radius:7px;padding:2px 8px;cursor:pointer;color:#b91c1c}
+.muted{color:var(--muted);font-size:13.5px}
+
+/* ===== 记忆引擎 ===== */
+.mem-stat{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.mem-stat .ms{flex:1;min-width:84px;background:var(--soft);border-radius:10px;padding:9px 8px;text-align:center}
+.mem-stat .ms b{display:block;font-size:19px;color:var(--primary);line-height:1.35;font-variant-numeric:tabular-nums}
+.mem-stat .ms span{font-size:11.5px;color:var(--muted)}
+.mem-dist{display:flex;align-items:flex-end;gap:5px;height:78px;margin:8px 0 0}
+.mem-dist .bd{flex:1;background:var(--soft);border-radius:5px 5px 0 0;position:relative;height:100%;display:flex;align-items:flex-end}
+.mem-dist .bd i{display:block;width:100%;background:linear-gradient(180deg,var(--primary),#8b85f7);border-radius:5px 5px 0 0;min-height:2px}
+.mem-dist .bd em{position:absolute;top:-15px;left:0;right:0;text-align:center;font-size:10px;font-style:normal;color:var(--muted)}
+.mem-x{display:flex;gap:5px;font-size:10px;color:var(--muted);text-align:center;margin-top:3px}
+.mem-x span{flex:1}
+.mem-fore{display:flex;gap:4px;margin-top:8px}
+.mem-fore .fd{flex:1;text-align:center}
+.mem-fore .fd b{display:block;height:42px;background:var(--soft);border-radius:6px;position:relative;overflow:hidden}
+.mem-fore .fd b i{position:absolute;left:0;right:0;bottom:0;display:block;background:linear-gradient(180deg,var(--primary-2),#67c7dd)}
+.mem-fore .fd span{font-size:10px;color:var(--muted);line-height:1.5}
+.mem-set{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.mem-set .tab{padding:4px 10px;font-size:12px}
+.mem-bar{height:4px;background:var(--soft);border-radius:3px;overflow:hidden;margin-top:7px}
+.mem-bar i{display:block;height:100%;background:var(--primary);border-radius:3px;transition:width .3s}
+.pbadge{font-size:11px;padding:1px 7px;border-radius:20px;background:var(--soft);color:var(--muted);margin-left:6px;white-space:nowrap}
+.pbadge.hi{background:#dcfce7;color:#15803d}
+.pbadge.mid{background:#fef3c7;color:#b45309}
+.pbadge.lo{background:#fee2e2;color:#b91c1c}
+.fmeta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px}
+.fmeta b{color:var(--primary)}
+.fres{margin-top:12px;padding:10px 12px;background:var(--soft);border-radius:10px;font-size:12.5px;line-height:1.95}
+.fres b{color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>大学英语四级（CET-4）· 备考学习平台</h1>
+  <div class="sub">科学四阶段 · 每天 1.5—2 小时 · 听力 + 阅读 + 写作 + 翻译 全题型突破</div>
+  <div class="badges">
+    <span class="badge">🎯 考试日 2026-12-19（周六）</span>
+    <span class="badge">📅 四阶段逐日计划 · 打卡留存</span>
+    <span class="badge">💾 进度自动保存在本机</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="countdown-card">
+    <div class="cd-item"><div class="cd-num" id="cdD">--</div><div class="cd-label">天</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><div class="cd-num" id="cdH">--</div><div class="cd-label">时</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><div class="cd-num" id="cdM">--</div><div class="cd-label">分</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><div class="cd-num" id="cdS">--</div><div class="cd-label">秒</div></div>
+    <div class="cd-title">距离 2026 年 12 月 19 日 CET-4 考试还有</div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-p="p1">📊 备考总览</button>
+    <button class="tab" data-p="p2">🗓️ 逐日计划</button>
+    <button class="tab" data-p="p3">📚 知识点</button>
+    <button class="tab" data-p="p7">🎯 在线刷题</button>
+    <button class="tab" data-p="p5">💡 备考方法</button>
+    <button class="tab" data-p="p6">📚 资源中心</button>
+    <button class="tab" data-p="p8">📒 单词本</button>
+    <button class="tab" data-p="p9">🍅 专注</button>
+    <button class="tab" data-p="p10">📝 笔记日志</button>
+  </div>
+
+  <!-- ============ P1 总览 ============ -->
+  <div class="panel on" id="p1">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <b style="font-size:15.5px">📈 我的备考总进度</b>
+        <span class="prog-txt" id="allTxt">已完成 0 / 0 项</span>
+      </div>
+      <div class="progbar" style="margin-top:12px"><i id="allBar"></i></div>
+      <div class="prog-txt" id="allPct">0%</div>
+    </div>
+
+    <h2 class="sec">考试基本信息</h2>
+    <div class="card scrolly">
+      <table class="tbl">
+        <tr><th style="width:110px">项目</th><th>内容</th></tr>
+        <tr><td>考试名称</td><td>全国大学英语四级考试（CET-4）</td></tr>
+        <tr><td>主办单位</td><td>教育部教育考试院（NEEA）</td></tr>
+        <tr><td>考试时间</td><td>2026 年 12 月 19 日（第三个周六）上午 09:00—11:20</td></tr>
+        <tr><td>考试形式</td><td>笔试（含听力），满分 710 分；425 分及以上可获得成绩单（多数院校以此为通过线）</td></tr>
+        <tr><td>成绩构成</td><td>写作 15% ＋ 听力 35% ＋ 阅读 35% ＋ 翻译 15%</td></tr>
+        <tr><td>报名方式</td><td>学校统一组织报名，官网打印准考证、查询成绩</td></tr>
+      </table>
+    </div>
+
+    <h2 class="sec">四大题型与分值结构</h2>
+    <div class="card">
+      <div class="scrolly"><table class="tbl">
+        <tr><th>题型</th><th>题量/时长</th><th>分值</th><th>核心能力</th></tr>
+        <tr><td>写作</td><td>1 篇 / 30 分钟</td><td>106.5 分（15%）</td><td>三段式短文、审题、衔接与语法</td></tr>
+        <tr><td>听力</td><td>25 题 / 25 分钟</td><td>248.5 分（35%）</td><td>短篇新闻 7 题、长对话 8 题、听力篇章 10 题</td></tr>
+        <tr><td>阅读</td><td>30 题 / 40 分钟</td><td>248.5 分（35%）</td><td>选词填空 10、段落匹配 10、仔细阅读 10</td></tr>
+        <tr><td>翻译</td><td>1 段 / 30 分钟</td><td>106.5 分（15%）</td><td>汉译英（中国文化/社会发展类段落）</td></tr>
+      </table></div>
+    </div>
+
+    <h2 class="sec">四阶段备考路线</h2>
+    <div class="card scrolly">
+      <table class="tbl">
+        <tr><th>阶段</th><th>日期</th><th>天数</th><th>核心目标</th></tr>
+        <tr><td>一：基础夯实</td><td>9 月 6 日—9 月 27 日</td><td>22 天</td><td>高频词汇积累 + 语法体系重建</td></tr>
+        <tr><td>二：专项突破</td><td>9 月 28 日—11 月 8 日</td><td>42 天</td><td>听力三板块 + 阅读三板块 + 写作 + 翻译分项训练</td></tr>
+        <tr><td>三：刷题强化</td><td>11 月 9 日—12 月 6 日</td><td>28 天</td><td>真题套卷 + 错题回炉 + 弱项专训</td></tr>
+        <tr><td>四：考前冲刺</td><td>12 月 7 日—12 月 18 日</td><td>12 天</td><td>全真模拟 + 时间分配 + 心态与物品准备</td></tr>
+      </table>
+    </div>
+
+    <h2 class="sec">关键时间节点</h2>
+    <div class="miles">
+      <div class="mile"><div class="d">约 9 月—10 月</div><div class="t">学校报名</div><div class="s">关注本校教务处通知，在规定窗口完成报名缴费</div></div>
+      <div class="mile"><div class="d">考前约 2 周</div><div class="t">打印准考证</div><div class="s">登录 NEEA 官网下载打印，核对考试时间地点</div></div>
+      <div class="mile"><div class="d">2026-12-19 09:00</div><div class="t">正式考试</div><div class="s">带齐准考证、身份证、耳机（听力）；沉着应考 🏆</div></div>
+      <div class="mile"><div class="d">考后约 2 月</div><div class="t">查分</div><div class="s">NEEA 官网查询 710 分制成绩，≥425 视为通过</div></div>
+    </div>
+  </div>
+
+  <!-- ============ P2 逐日计划 ============ -->
+  <div class="panel" id="p2">
+    <div class="card">
+      <b style="font-size:15.5px">🔥 打卡热力图</b>
+      <div class="muted" style="margin:4px 0 8px">每完成一天计划就打勾，格子变绿；坚持比强度更重要。</div>
+      <div id="heatBox"></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <b style="font-size:15.5px">🗓️ 计划完成进度</b>
+        <span class="prog-txt" id="planTxt">0 / 0 天</span>
+      </div>
+      <div class="progbar" style="margin-top:12px"><i id="planBar"></i></div>
+      <div class="prog-txt">每天投入 1.5—2 小时；勾选即打卡，进度自动保存在本机浏览器。若进度落后，优先在周末补上。<b style="color:var(--primary)">点击每天的彩色标签，可直达对应知识点＋本模块刷题 →</b></div>
+    </div>
+    <div id="planBox"></div>
+  </div>
+
+  <!-- ============ P3 知识点 ============ -->
+  <div class="panel" id="p3">
+    <h2 class="sec">必背速记 · 10 模块（题库版）</h2>
+    <div id="kbBank"></div>
+    <h2 class="sec">核心能力 · 6 大板块</h2>
+    <div id="kbS1"></div>
+  </div>
+
+  <!-- ============ P7 在线刷题 ============ -->
+  <div class="panel" id="p7">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <b style="font-size:15.5px">🎯 刷题进度</b>
+        <span class="prog-txt" id="qzStat">--</span>
+      </div>
+      <div class="progbar" style="margin-top:12px"><i id="qzBar"></i></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px" id="qzChips"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+        <button class="tab" id="qzModeAll" style="background:var(--primary);color:#fff">全部题</button>
+        <button class="tab" id="qzModeWrong" style="background:var(--soft);color:var(--primary)">🔁 只刷错题</button>
+        <button class="tab" id="qzModeBook" style="background:var(--soft);color:#92400e">📚 平台题库</button>
+        <button class="tab" id="qzModeReal" style="background:var(--soft);color:#b91c1c">🎯 真题</button>
+        <button class="tab" id="qzReset" style="background:var(--soft);color:var(--muted)">🗑️ 重置记录</button>
+      </div>
+    </div>
+    <div id="qzCard"></div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:4px">
+      <button class="tab" id="qzPrev" style="background:var(--card);color:var(--primary);border:1px solid var(--border)">← 上一题</button>
+      <button class="tab" id="qzNext" style="background:var(--primary);color:#fff">下一题 →</button>
+    </div>
+  </div>
+
+  <!-- ============ P5 备考方法 ============ -->
+  <div class="panel" id="p5">
+    <div id="tipsBox"></div>
+    <div class="card" style="background:linear-gradient(135deg,#312e81,#0e9fae);color:#fff;border:none">
+      <b style="font-size:15.5px">🏅 冲刺目标</b>
+      <p style="font-size:13.5px;opacity:.92;margin-top:6px">稳过 425 分是基础目标；想冲高分，重点在<b>听力与阅读（合计 70%）</b>——这两块靠每日精听与精读可稳定提分。写作翻译靠模板与高频词突击可在短期明显见效。平时练习严格计时，把「听得懂、读得准、写得顺、译得对」变成肌肉记忆。</p>
+    </div>
+  </div>
+
+  <!-- ============ P6 资源中心 ============ -->
+  <div class="panel" id="p6">
+    <h2 class="sec">备考资源包</h2>
+    <div id="resBox"></div>
+
+    <h2 class="sec">各题型解题步骤</h2>
+    <div class="card" style="background:var(--soft);font-size:13.8px;line-height:2.1">
+      <b>🎧 听力</b>：发卷先扫读选项→圈名词/动词预测→听时抓首尾句与信号词（but / however / because）→边听边涂卡（听力结束即收卡，无单独涂卡时间）。<br>
+      <b>📖 阅读·选词填空</b>：先判词性→再判语法空位（n./v./adj./adv.）→代入排除→注意固定搭配。<br>
+      <b>📖 阅读·段落匹配</b>：先看题干划关键词（专有名词/数字/长词）→原文扫读定位同义替换→先易后难。<br>
+      <b>📖 阅读·仔细阅读</b>：先读题干不读选项→回原文定位句→对比选项找同义改写（答案多在定位句附近）。<br>
+      <b>✍️ 写作</b>：审题定体裁→三段式（现象/观点＋论证＋总结）→用 3—5 个高级衔接词与 1—2 个从句→留 3 分钟检查语法。<br>
+      <b>🌐 翻译</b>：通读理清主干（主谓宾）→处理修饰（定从/分词/介词短语）→不会的词用简单词解释绕开→检查时态与单复数。
+    </div>
+
+    <h2 class="sec">推荐练习顺序</h2>
+    <div class="card">
+      <div style="font-size:13.8px;line-height:2.1">
+        <b>①</b> 先读「<b>知识点</b>」页：背熟 <b>核心能力 6 板块</b>＋各模块<b>必背速记</b>（性价比最高）<br>
+        <b>②</b> 在「<b>在线刷题</b>」按模块刷完平台题库，错题本反复回炉（点「📚 平台题库」可单独筛选）<br>
+        <b>③</b> 下载<b>高频核心词汇表</b>，每天背 30—50 词并复习前日<br>
+        <b>④</b> 阶段三起每周做 1—2 套<b>真题/模拟套卷</b>，严格计时<br>
+        <b>⑤</b> 考前 2 周进入「全真模拟」节奏，固定上午 09:00 开考
+      </div>
+    </div>
+
+    <h2 class="sec">官方入口</h2>
+    <div class="card" id="linksBox"></div>
+  </div>
+
+  <div class="panel" id="p8">
+    <h2 class="sec">📒 单词本 · 669 词</h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="tab wfilter on" data-f="cet4">四级</button>
+        <button class="tab wfilter" data-f="cet6">六级</button>
+        <button class="tab wfilter" data-f="all">全部</button>
+        <input id="wSearch" placeholder="搜索单词或释义…" style="flex:1;min-width:150px;padding:8px 10px;border:1px solid var(--border);border-radius:8px">
+        <span id="wordCount" class="muted"></span>
+      </div>
+    </div>
+    <h2 class="sec">🧠 记忆引擎 · 半衰期调度</h2>
+    <div class="card" id="memBox"></div>
+    <h2 class="sec">🃏 智能复习队列</h2>
+    <div class="card">
+      <div id="flashBox"></div>
+      <button class="tab" id="newFlashBtn" style="margin-top:12px">🔀 换一批</button>
+    </div>
+    <h2 class="sec">单词列表</h2>
+    <div id="wordBox"></div>
+  </div>
+
+  <div class="panel" id="p9">
+    <h2 class="sec">🍅 番茄钟</h2>
+    <div class="card" style="text-align:center">
+      <div id="pmMode" class="muted">专注中</div>
+      <div id="pmTime" style="font-size:46px;font-weight:800;margin:8px 0;letter-spacing:2px">25:00</div>
+      <div class="progbar"><i id="pmBar" style="width:0%"></i></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+        <button class="tab pmbtn" data-m="work">专注 25′</button>
+        <button class="tab pmbtn" data-m="short">短休 5′</button>
+        <button class="tab pmbtn" data-m="long">长休 15′</button>
+        <button class="tab" id="pmStart">开始</button>
+        <button class="tab" id="pmReset">重置</button>
+      </div>
+      <div class="muted" style="margin-top:12px">一个番茄钟只做一件事：背词就背词，刷题就刷题，别来回切。</div>
+    </div>
+    <h2 class="sec">怎么用最有效</h2>
+    <div class="card muted" style="line-height:2.1">
+      <b>①</b> 背单词：2 个番茄钟（50 分钟），中间短休<br>
+      <b>②</b> 刷题：1—2 个番茄钟，错题当天复盘<br>
+      <b>③</b> 精听/精读：1 个番茄钟，做完必须复盘原文<br>
+      <b>④</b> 每 4 个番茄钟后长休 15 分钟，起来走动
+    </div>
+  </div>
+
+  <div class="panel" id="p10">
+    <h2 class="sec">📝 学习笔记 / 每日日志</h2>
+    <div class="card">
+      <textarea id="noteInput" rows="4" placeholder="今天学了什么？哪些题错了？明天要复习什么？" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:13.5px"></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="tab" id="noteSave">记一条</button>
+        <button class="tab" id="expAll">⬇ 导出备份</button>
+        <label class="tab" style="cursor:pointer">⬆ 导入备份<input type="file" id="impAll" accept="application/json" style="display:none"></label>
+      </div>
+      <div class="muted" style="margin-top:8px">数据只存在本机浏览器；换设备或清缓存前，记得「导出备份」。</div>
+    </div>
+    <h2 class="sec">日志时间线</h2>
+    <div id="noteList"></div>
+  </div>
+
+
+</div>
+
+<footer>
+  大学英语四级（CET-4）备考学习平台 · 四六级统一版（已合并英语四六级学习平台，资源与功能去重统一）<br>
+  所有打卡与刷题记录仅保存在你的浏览器本机（localStorage），不会上传任何服务器
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 数据（由 build_cet4.py 注入） ================= */
+var STAGES=[{"name": "阶段一 · 基础夯实", "range": "9 月 6 日 — 9 月 27 日 · 词汇积累＋语法体系", "days": [["2026-09-06", "9月6日", "日", "复习", "周复盘：滚动复习本周生词本；重做本周语法错题；听 1 篇轻松材料保持语感"], ["2026-09-07", "9月7日", "一", "词汇", "背 Unit 1 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-08", "9月8日", "二", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-09", "9月9日", "三", "词汇", "背 Unit 2 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-10", "9月10日", "四", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-11", "9月11日", "五", "词汇", "背 Unit 3 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-12", "9月12日", "六", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-13", "9月13日", "日", "复习", "周复盘：滚动复习本周生词本；重做本周语法错题；听 1 篇轻松材料保持语感"], ["2026-09-14", "9月14日", "一", "词汇", "背 Unit 4 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-15", "9月15日", "二", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-16", "9月16日", "三", "词汇", "背 Unit 5 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-17", "9月17日", "四", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-18", "9月18日", "五", "词汇", "背 Unit 6 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-19", "9月19日", "六", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-20", "9月20日", "日", "复习", "周复盘：滚动复习本周生词本；重做本周语法错题；听 1 篇轻松材料保持语感"], ["2026-09-21", "9月21日", "一", "词汇", "背 Unit 7 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-22", "9月22日", "二", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-23", "9月23日", "三", "词汇", "背 Unit 8 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-24", "9月24日", "四", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-25", "9月25日", "五", "词汇", "背 Unit 9 高频核心词 30 个＋熟词生义 5 个；用语境例句巩固；复习前日生词"], ["2026-09-26", "9月26日", "六", "语法", "语法专项：时态与语态梳理，做 10 道；整理非谓语/从句笔记，准备后续写作翻译运用"], ["2026-09-27", "9月27日", "日", "复习", "周复盘：滚动复习本周生词本；重做本周语法错题；听 1 篇轻松材料保持语感"]]}, {"name": "阶段二 · 专项突破", "range": "9 月 28 日 — 11 月 8 日 · 听力/阅读/写作/翻译分项训练", "days": [["2026-09-28", "9月28日", "一", "听力·新闻", "听力新闻：预读选项＋精听 3 篇（BBC/VOA 慢速），总结导语与数字捕捉（第 1 轮）"], ["2026-09-29", "9月29日", "二", "听力·对话", "听力长对话：精听 3 组，练『问答回答句』定位与态度判断（第 1 轮）"], ["2026-09-30", "9月30日", "三", "听力·篇章", "听力篇章：精听 2 篇，抓首句点题与结尾总结，记关键词（第 1 轮）"], ["2026-10-01", "10月1日", "四", "阅读·选词", "阅读选词填空：练 2 篇，先判词性再填，总结固定搭配（第 1 轮）"], ["2026-10-02", "10月2日", "五", "阅读·匹配", "阅读段落匹配：练 2 篇，先划题干关键词再扫读定位同义替换（第 1 轮）"], ["2026-10-03", "10月3日", "六", "阅读·仔细", "仔细阅读：精读 2 篇，定位句＋对比选项找同义改写，复盘替换对（第 1 轮）"], ["2026-10-04", "10月4日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"], ["2026-10-05", "10月5日", "一", "写作", "写作：背三段式模板 1 套；按真题提纲写 1 篇（现象/观点类），自查语法（第 1 轮）"], ["2026-10-06", "10月6日", "二", "翻译", "翻译：练 1 段汉译英（文化/社会类），先搭主干再挂修饰，积累文化专有词（第 1 轮）"], ["2026-10-07", "10月7日", "三", "听力·新闻", "听力新闻：预读选项＋精听 3 篇（BBC/VOA 慢速），总结导语与数字捕捉（第 2 轮）"], ["2026-10-08", "10月8日", "四", "听力·对话", "听力长对话：精听 3 组，练『问答回答句』定位与态度判断（第 2 轮）"], ["2026-10-09", "10月9日", "五", "听力·篇章", "听力篇章：精听 2 篇，抓首句点题与结尾总结，记关键词（第 2 轮）"], ["2026-10-10", "10月10日", "六", "阅读·选词", "阅读选词填空：练 2 篇，先判词性再填，总结固定搭配（第 2 轮）"], ["2026-10-11", "10月11日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"], ["2026-10-12", "10月12日", "一", "阅读·匹配", "阅读段落匹配：练 2 篇，先划题干关键词再扫读定位同义替换（第 2 轮）"], ["2026-10-13", "10月13日", "二", "阅读·仔细", "仔细阅读：精读 2 篇，定位句＋对比选项找同义改写，复盘替换对（第 2 轮）"], ["2026-10-14", "10月14日", "三", "写作", "写作：背三段式模板 1 套；按真题提纲写 1 篇（现象/观点类），自查语法（第 2 轮）"], ["2026-10-15", "10月15日", "四", "翻译", "翻译：练 1 段汉译英（文化/社会类），先搭主干再挂修饰，积累文化专有词（第 2 轮）"], ["2026-10-16", "10月16日", "五", "听力·新闻", "听力新闻：预读选项＋精听 3 篇（BBC/VOA 慢速），总结导语与数字捕捉（第 3 轮）"], ["2026-10-17", "10月17日", "六", "听力·对话", "听力长对话：精听 3 组，练『问答回答句』定位与态度判断（第 3 轮）"], ["2026-10-18", "10月18日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"], ["2026-10-19", "10月19日", "一", "听力·篇章", "听力篇章：精听 2 篇，抓首句点题与结尾总结，记关键词（第 3 轮）"], ["2026-10-20", "10月20日", "二", "阅读·选词", "阅读选词填空：练 2 篇，先判词性再填，总结固定搭配（第 3 轮）"], ["2026-10-21", "10月21日", "三", "阅读·匹配", "阅读段落匹配：练 2 篇，先划题干关键词再扫读定位同义替换（第 3 轮）"], ["2026-10-22", "10月22日", "四", "阅读·仔细", "仔细阅读：精读 2 篇，定位句＋对比选项找同义改写，复盘替换对（第 3 轮）"], ["2026-10-23", "10月23日", "五", "写作", "写作：背三段式模板 1 套；按真题提纲写 1 篇（现象/观点类），自查语法（第 3 轮）"], ["2026-10-24", "10月24日", "六", "翻译", "翻译：练 1 段汉译英（文化/社会类），先搭主干再挂修饰，积累文化专有词（第 3 轮）"], ["2026-10-25", "10月25日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"], ["2026-10-26", "10月26日", "一", "听力·新闻", "听力新闻：预读选项＋精听 3 篇（BBC/VOA 慢速），总结导语与数字捕捉（第 4 轮）"], ["2026-10-27", "10月27日", "二", "听力·对话", "听力长对话：精听 3 组，练『问答回答句』定位与态度判断（第 4 轮）"], ["2026-10-28", "10月28日", "三", "听力·篇章", "听力篇章：精听 2 篇，抓首句点题与结尾总结，记关键词（第 4 轮）"], ["2026-10-29", "10月29日", "四", "阅读·选词", "阅读选词填空：练 2 篇，先判词性再填，总结固定搭配（第 4 轮）"], ["2026-10-30", "10月30日", "五", "阅读·匹配", "阅读段落匹配：练 2 篇，先划题干关键词再扫读定位同义替换（第 4 轮）"], ["2026-10-31", "10月31日", "六", "阅读·仔细", "仔细阅读：精读 2 篇，定位句＋对比选项找同义改写，复盘替换对（第 4 轮）"], ["2026-11-01", "11月1日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"], ["2026-11-02", "11月2日", "一", "写作", "写作：背三段式模板 1 套；按真题提纲写 1 篇（现象/观点类），自查语法（第 4 轮）"], ["2026-11-03", "11月3日", "二", "翻译", "翻译：练 1 段汉译英（文化/社会类），先搭主干再挂修饰，积累文化专有词（第 4 轮）"], ["2026-11-04", "11月4日", "三", "听力·新闻", "听力新闻：预读选项＋精听 3 篇（BBC/VOA 慢速），总结导语与数字捕捉（第 5 轮）"], ["2026-11-05", "11月5日", "四", "听力·对话", "听力长对话：精听 3 组，练『问答回答句』定位与态度判断（第 5 轮）"], ["2026-11-06", "11月6日", "五", "听力·篇章", "听力篇章：精听 2 篇，抓首句点题与结尾总结，记关键词（第 5 轮）"], ["2026-11-07", "11月7日", "六", "阅读·选词", "阅读选词填空：练 2 篇，先判词性再填，总结固定搭配（第 5 轮）"], ["2026-11-08", "11月8日", "日", "复习", "周复盘：重做本周听力/阅读错题；听写 1 篇短文；整理写作模板与翻译词库"]]}, {"name": "阶段三 · 刷题强化", "range": "11 月 9 日 — 12 月 6 日 · 真题套卷＋错题回炉＋弱项专训", "days": [["2026-11-09", "11月9日", "一", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-10", "11月10日", "二", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-11", "11月11日", "三", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-12", "11月12日", "四", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-13", "11月13日", "五", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-14", "11月14日", "六", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-15", "11月15日", "日", "复习", "错题回炉：重做本週所有错题；听 1 套真题听力保持手感"], ["2026-11-16", "11月16日", "一", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-17", "11月17日", "二", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-18", "11月18日", "三", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-19", "11月19日", "四", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-20", "11月20日", "五", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-21", "11月21日", "六", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-22", "11月22日", "日", "复习", "错题回炉：重做本週所有错题；听 1 套真题听力保持手感"], ["2026-11-23", "11月23日", "一", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-24", "11月24日", "二", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-25", "11月25日", "三", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-26", "11月26日", "四", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-27", "11月27日", "五", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-11-28", "11月28日", "六", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-11-29", "11月29日", "日", "复习", "错题回炉：重做本週所有错题；听 1 套真题听力保持手感"], ["2026-11-30", "11月30日", "一", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-12-01", "12月1日", "二", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-12-02", "12月2日", "三", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-12-03", "12月3日", "四", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-12-04", "12月4日", "五", "套卷", "真题/模拟套卷 1 套（按考试时间计时完成：写作30′/听力25′/阅读40′/翻译30′），当晚核对答案"], ["2026-12-05", "12月5日", "六", "综合", "弱项专训：针对上套卷失分最多的题型，集中练 15 题＋看解析；整理错因"], ["2026-12-06", "12月6日", "日", "复习", "错题回炉：重做本週所有错题；听 1 套真题听力保持手感"]]}, {"name": "阶段四 · 考前冲刺", "range": "12 月 7 日 — 12 月 18 日 · 全真模拟＋时间分配＋心态与物品准备", "days": [["2026-12-07", "12月7日", "一", "模拟", "全真模拟 1：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"], ["2026-12-08", "12月8日", "二", "综合", "模拟复盘：逐题分析错因；最后过一遍高频词与写作模板；检查考试物品（准考证/身份证/耳机）"], ["2026-12-09", "12月9日", "三", "模拟", "全真模拟 2：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"], ["2026-12-10", "12月10日", "四", "综合", "模拟复盘：逐题分析错因；最后过一遍高频词与写作模板；检查考试物品（准考证/身份证/耳机）"], ["2026-12-11", "12月11日", "五", "模拟", "全真模拟 3：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"], ["2026-12-12", "12月12日", "六", "综合", "模拟复盘：逐题分析错因；最后过一遍高频词与写作模板；检查考试物品（准考证/身份证/耳机）"], ["2026-12-13", "12月13日", "日", "综合", "轻量复盘：翻看写作模板、翻译词库与错题本；早睡养精神"], ["2026-12-14", "12月14日", "一", "模拟", "全真模拟 4：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"], ["2026-12-15", "12月15日", "二", "综合", "模拟复盘：逐题分析错因；最后过一遍高频词与写作模板；检查考试物品（准考证/身份证/耳机）"], ["2026-12-16", "12月16日", "三", "模拟", "全真模拟 5：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"], ["2026-12-17", "12月17日", "四", "综合", "模拟复盘：逐题分析错因；最后过一遍高频词与写作模板；检查考试物品（准考证/身份证/耳机）"], ["2026-12-18", "12月18日", "五", "模拟", "全真模拟 6：严格 09:00 开考，完整做 1 套（写作→听力→阅读→翻译），训练涂卡与取舍"]]}];
+var KB1=[{"t": "1. 词汇积累策略", "chip": "掌握", "rows": [["大纲要点", "四级要求掌握约 4500 词汇量；核心是会『见词知义』，写作翻译才需拼写。按主题（教育/科技/环境/文化/健康）归类记忆效率更高。"], ["学习要点", "用词根词缀（un-/dis-/-tion/-able）扩词；用同义/反义网络记忆；结合例句与语境，避免死记中文释义；每天新词 30—50 + 滚动复习前日。"], ["训练要点", "准备生词本，记录『熟词生义』（如 book v. 预定、second v. 支持）；真题高频词优先；用 APP/卡片做间隔重复。"], ["应试提示", "阅读与听力只考识别，先保『认得』；写作翻译再补拼写。完形与选词填空考搭配，注意固定词组。"]]}, {"t": "2. 听力技巧", "chip": "掌握", "hot": true, "rows": [["大纲要点", "听力占 35%（短篇新闻 7 + 长对话 8 + 听力篇章 10 = 25 题）。听力结束即收答题卡，无单独涂卡时间。"], ["学习要点", "发卷先扫读所有选项，圈名词/动词预测话题；听时抓首尾句、转折（but/however）、因果（because/so）、数字与态度词；边听边涂卡。"], ["训练要点", "精听 4 步：盲听抓大意→看原文查漏→跟读模仿→再盲听到无障碍；每天 1—2 篇，配合真题音频。"], ["应试提示", "新闻常考首尾句与数字；长对话考对话意图与细节；篇章考主旨与举例。听不懂的题果断跳过，不纠结。"]]}, {"t": "3. 阅读技巧", "chip": "掌握", "hot": true, "rows": [["大纲要点", "阅读占 35%（选词填空 10 + 段落匹配 10 + 仔细阅读 10 = 30 题），建议用时 40 分钟。"], ["学习要点", "选词填空先判词性再填；段落匹配先读题干划关键词（专有名词/数字/长词）再扫读定位同义替换；仔细阅读先题干后原文、对比选项找改写。"], ["训练要点", "每天精读 1—2 篇，做完必复盘：定位句在哪、答案如何同义改写；积累『原文词→选项词』替换对。"], ["应试提示", "四级阅读答案 80% 是同义替换，很少照抄原文；绝对化选项（all/never）多为干扰。"]]}, {"t": "4. 写作模板", "chip": "熟悉", "rows": [["大纲要点", "写作 15%（106.5 分），30 分钟，多为议论文/现象描述/书信，120—180 词。"], ["学习要点", "三段式：首段引出话题/现象→主体段 2 个论据（举例/对比/因果）＋衔接词→尾段总结重申。背 3—5 套通用模板可保底。"], ["训练要点", "每周写 1—2 篇并自查：是否有 1—2 个从句、衔接是否自然、有无低级语法错；背诵高级衔接词（furthermore / nevertheless / as a result）。"], ["应试提示", "审题定体裁；卷面整洁；留 3 分钟检查主谓一致、时态、单复数。模板化可稳拿 80—90 分。"]]}, {"t": "5. 翻译技巧", "chip": "熟悉", "rows": [["大纲要点", "翻译 15%（106.5 分），汉译英段落，多考中国文化/社会发展/生态环保，140—160 汉字。"], ["学习要点", "先理清中文主干（主谓宾）→再挂修饰（定语用从句/分词、状语用介词短语）；不会的词用简单词解释绕开，不空着。"], ["训练要点", "积累『文化专有词』：四书五经、丝绸之路、改革开放、绿水青山等；练习『动词转名词/长句拆短句』的拆译。"], ["应试提示", "保证语法正确优先于辞藻华丽；检查时态、单复数、冠词；不会的词用解释法（如『旗袍』→ traditional Chinese dress）。"]]}, {"t": "6. 语法核心", "chip": "掌握", "rows": [["大纲要点", "写作翻译的语法底线：时态、语态、非谓语动词、三大从句（定/状/名）、虚拟语气、倒装。"], ["学习要点", "时态看时间状语；被动看主语承受；非谓语作定/状/补；定语从句 whose/which/that；名词性从句 what/that/whether。"], ["训练要点", "每类语法做 10 道专项，错题归类；写作中有意识地用 1—2 个从句与 1 个非谓语结构提档。"], ["应试提示", "虚拟语气（if I were / had done）与倒装（Not only...but also / 否定词开头）是高频考点，务必过关。"]]}];
+var QZBANK=[{"n": 1, "t": "词汇·核心词", "note": "必背：① 高频动词辨义——promote 促进 / prohibit 禁止 / expand 扩张 / reduce 减少；② 形近词——absent 缺席 / present 出席；economic 经济的 / economical 节约的；③ 固定搭配——have a passion for 热爱、a solution to ……的解决办法、the success of ……的成功。", "qs": [{"q": "The new policy will ______ economic growth in rural areas.", "o": ["promote", "prohibit", "prolong", "propose"], "a": "A", "ex": "promote 促进；prohibit 禁止；prolong 延长；propose 提议。促进经济增长用 promote。", "s": "", "b": 1}, {"q": "He was ______ from the meeting because of his serious illness.", "o": ["absent", "present", "assistant", "constant"], "a": "A", "ex": "absent 缺席的（be absent from）；present 出席的；assistant 助理；constant 持续的。", "s": "", "b": 1}, {"q": "The company plans to ______ its business to overseas markets.", "o": ["expand", "expend", "extend", "expose"], "a": "A", "ex": "expand 扩展（业务/市场）；expend 花费；extend 延长；expose 暴露。", "s": "", "b": 1}, {"q": "She has a strong ______ for classical music.", "o": ["passion", "patient", "pattern", "payment"], "a": "A", "ex": "have a passion for 对……有热情；patient 病人/耐心的；pattern 模式；payment 付款。", "s": "", "b": 1}, {"q": "The ______ of the project depends on adequate funding.", "o": ["success", "successive", "succeed", "such"], "a": "A", "ex": "success 名词『成功』，作主语；successive 连续的（形容词）；succeed 动词；such 如此的。", "s": "", "b": 1}, {"q": "We should ______ the use of plastic bags to protect the environment.", "o": ["reduce", "refuse", "regard", "reveal"], "a": "A", "ex": "reduce 减少；refuse 拒绝；regard 视为；reveal 揭示。环保语境用 reduce。", "s": "", "b": 1}]}, {"n": 2, "t": "语法·句子结构", "note": "必背：① 时态——by the time 用过去完成时(had done)；② 祈使句＋and/or＋将来时；③ 非谓语——lying 表『躺/位于』的状态；④ 虚拟语气 if I were；⑤ 定语从句 whose 表所属；⑥ 否定词开头用部分倒装（Not only did he…）。", "qs": [{"q": "By the time we arrived, the train ______.", "o": ["left", "has left", "had left", "leaves"], "a": "C", "ex": "by the time ＋ 过去动作，主句用过去完成时 had left。", "s": "", "b": 1}, {"q": "______ hard, and you will pass the exam.", "o": ["Study", "Studying", "To study", "Studied"], "a": "A", "ex": "祈使句（动词原形）＋ and ＋ 将来时，表『如果……就会』。", "s": "", "b": 1}, {"q": "The book ______ on the desk belongs to me.", "o": ["laying", "lying", "lay", "lain"], "a": "B", "ex": "现在分词 lying（lie 的现在分词）表『平躺/位于』的状态，作后置定语。", "s": "", "b": 1}, {"q": "If I ______ you, I would take the job offer.", "o": ["am", "was", "were", "be"], "a": "C", "ex": "虚拟语气与现在事实相反：if 从句用 were（所有人称）。", "s": "", "b": 1}, {"q": "The professor, ______ research focuses on AI, is very popular.", "o": ["who", "whose", "which", "that"], "a": "B", "ex": "whose 引导非限制性定语从句，表『教授的』研究。", "s": "", "b": 1}, {"q": "Not only ______ but he also finished the work ahead of time.", "o": ["he completed", "did he complete", "completed he", "he did complete"], "a": "B", "ex": "Not only 置于句首引起部分倒装：did he complete。", "s": "", "b": 1}]}, {"n": 3, "t": "听力·短篇新闻", "note": "技巧：新闻首尾句常是导语（核心事件）；注意数字、地点、原因（because/due to）；第一遍抓大意、第二遍补细节。下方题为『新闻文本理解』练习，正式训练请配合音频。", "qs": [{"q": "[新闻] A bridge in the south collapsed after days of heavy rain. What is the main cause?", "o": ["An earthquake", "Heavy rain", "A traffic accident", "A fire"], "a": "B", "ex": "原文明确 after days of heavy rain，主因是暴雨。", "s": "", "b": 1}, {"q": "[新闻] The government announced a new tax policy to support small businesses. Who benefits most?", "o": ["Big companies", "Small businesses", "Foreign investors", "Students"], "a": "B", "ex": "政策 purpose 是 support small businesses，受益最大的是小微企业。", "s": "", "b": 1}, {"q": "[新闻] A fire broke out in a downtown factory. Reports say ten people were injured. How many were injured?", "o": ["Five", "Ten", "Twenty", "None"], "a": "B", "ex": "原文 ten people were injured，受伤 10 人。", "s": "", "b": 1}, {"q": "[新闻] The mayor promised to improve public transport, starting with the suburbs. Which area gets priority?", "o": ["The suburbs", "Downtown", "The airport", "The port"], "a": "A", "ex": "starting with the suburbs 表明郊区优先。", "s": "", "b": 1}, {"q": "[新闻] Scientists discovered a new species of frog in the Amazon rainforest. Where was it found?", "o": ["The Amazon rainforest", "Africa", "Australia", "Antarctica"], "a": "A", "ex": "地点状语 in the Amazon rainforest。", "s": "", "b": 1}, {"q": "[新闻] The stock market dropped sharply, mainly due to rising inflation. What caused the drop?", "o": ["Rising inflation", "A new law", "Low interest", "Good earnings"], "a": "A", "ex": "due to rising inflation 点明原因：通胀上升。", "s": "", "b": 1}]}, {"n": 4, "t": "听力·长对话", "note": "技巧：长对话考『说话人意图、态度、细节数字』；注意问答中的回答句（W 的回答常是考点）；边听边在选项上做标记。下方为对话理解练习。", "qs": [{"q": "M: Can you finish the report by Friday? W: Sure, no problem. What does the woman mean?", "o": ["She cannot finish it", "She will finish it", "She needs help", "She is unsure"], "a": "B", "ex": "Sure, no problem 表示她能按时完成。", "s": "", "b": 1}, {"q": "W: The movie starts at 8. M: We'd better leave at 7:30. When will they leave?", "o": ["7:00", "7:30", "8:00", "8:30"], "a": "B", "ex": "男士说 leave at 7:30。", "s": "", "b": 1}, {"q": "M: How about going to the gym? W: I'd love to, but I have an exam tomorrow. What will she do?", "o": ["Go to the gym", "Study for the exam", "Watch a movie", "Take a nap"], "a": "B", "ex": "but 后是重点：她明天有考试，要去学习。", "s": "", "b": 1}, {"q": "M: Is the library open on Sunday? W: It closes at 5 p.m. What do we know?", "o": ["Open all day", "Closes at 5 on Sunday", "Closed on Sunday", "Open 24 hours"], "a": "B", "ex": "女士说周日 5 点关门，说明周日开放但 17:00 关闭。", "s": "", "b": 1}, {"q": "W: Your presentation was great! M: Thanks, I practiced a lot. How did he do?", "o": ["Poorly", "Very well", "Nervously", "Late"], "a": "B", "ex": "great / practiced a lot 表明表现很好。", "s": "", "b": 1}, {"q": "M: Do we need to bring anything? W: Just your ID and a pen. What should they bring?", "o": ["ID and a pen", "A book", "A laptop", "Nothing"], "a": "A", "ex": "女士说 Just your ID and a pen。", "s": "", "b": 1}]}, {"n": 5, "t": "听力·听力篇章", "note": "技巧：篇章（短文）考主旨、举例目的、数字细节与态度；首句常点题，结尾常总结。听时记关键词。下方为篇章理解练习。", "qs": [{"q": "[篇章·健康] A lecture says adults need 7—8 hours of sleep for good health. How many hours are recommended?", "o": ["5—6", "7—8", "9—10", "Over 10"], "a": "B", "ex": "原文 adults need 7—8 hours。", "s": "", "b": 1}, {"q": "[篇章·人物] The talk is about a scientist who developed a new vaccine. What is her achievement?", "o": ["A new vaccine", "A new planet", "A new book", "A new law"], "a": "A", "ex": "主题句点明 developed a new vaccine。", "s": "", "b": 1}, {"q": "[篇章·天气] The weather report says tomorrow will be sunny and warm. What will the weather be like?", "o": ["Rainy", "Sunny and warm", "Snowy", "Windy"], "a": "B", "ex": "原文 sunny and warm。", "s": "", "b": 1}, {"q": "[篇章·运动] The doctor suggests the best exercise is walking 30 minutes daily. What is the best exercise?", "o": ["Running a marathon", "Walking 30 min daily", "Lifting heavy weights", "Swimming weekly"], "a": "B", "ex": "原文 walking 30 minutes daily。", "s": "", "b": 1}, {"q": "[篇章·历史] The old factory was built in 1965 and closed in 2000. When was it built?", "o": ["1965", "1975", "1985", "2000"], "a": "A", "ex": "was built in 1965。", "s": "", "b": 1}, {"q": "[篇章·文化] The report says the festival attracts over 100,000 visitors each year. How many visitors?", "o": ["About 10,000", "Over 100,000", "1,000", "Exactly 50,000"], "a": "B", "ex": "over 100,000 visitors。", "s": "", "b": 1}]}, {"n": 6, "t": "阅读·选词填空", "note": "技巧：先判空格词性（n./v./adj./adv.），再在备选词中筛；注意固定搭配与单复数。下方为『词性＋词义』专项。", "qs": [{"q": "The ______ development has lifted millions out of poverty. (economy)", "o": ["economic", "economical", "economics", "economist"], "a": "A", "ex": "修饰 development 用形容词 economic（经济的）；economical 节约的；economics 经济学；economist 经济学家。", "s": "", "b": 1}, {"q": "She spoke ______ in the job interview and got the offer. (confident)", "o": ["confident", "confidence", "confidently", "confide"], "a": "C", "ex": "修饰动词 spoke 用副词 confidently。", "s": "", "b": 1}, {"q": "His ______ to help surprised everyone present. (refuse)", "o": ["refuse", "refusal", "refusable", "refused"], "a": "B", "ex": "His 后接名词 refusal（拒绝）。", "s": "", "b": 1}, {"q": "The ______ of the printing press changed human history. (invent)", "o": ["invent", "invention", "inventor", "inventive"], "a": "B", "ex": "the 后接名词 invention（发明）。", "s": "", "b": 1}, {"q": "We need a ______ to this environmental problem. (solve)", "o": ["solve", "solution", "solvent", "solving"], "a": "B", "ex": "a 后接名词 solution（解决办法），a solution to…。", "s": "", "b": 1}, {"q": "The children looked ______ at the birthday gift. (excite)", "o": ["excite", "excited", "exciting", "excitement"], "a": "B", "ex": "looked 为系动词，人作主语用 excited（感到兴奋的）。", "s": "", "b": 1}]}, {"n": 7, "t": "阅读·段落匹配", "note": "技巧：先读 10 个题干划『唯一关键词』（大写/数字/长难词），再回原文扫读定位同义替换；先易后难，已用段落划掉。下方为『定位策略』专项。", "qs": [{"q": "To find a specific year (like 1998) in a long passage quickly, you should first ______.", "o": ["read the whole text", "scan for the number", "guess the answer", "skip the headings"], "a": "B", "ex": "数字用 scanning（扫读）快速定位。", "s": "", "b": 1}, {"q": "In paragraph matching, the most efficient first step is to ______.", "o": ["read the passage fully", "match keywords from headings to paragraphs", "ignore all titles", "memorize the text"], "a": "B", "ex": "匹配题先拿题干关键词去段落中定位同义替换。", "s": "", "b": 1}, {"q": "A paragraph about 'cutting plastic waste' most likely matches a heading like ______.", "o": ["Climate Change", "Environmental Protection", "Higher Education", "Stock Market"], "a": "B", "ex": "减少塑料废物属于环保主题。", "s": "", "b": 1}, {"q": "When two headings look similar, choose the one that shares the ______ with the paragraph.", "o": ["exact keyword", "most words", "biggest font", "first position"], "a": "A", "ex": "相似标题靠『精确关键词』区分。", "s": "", "b": 1}, {"q": "Skimming a passage is mainly used to get its ______.", "o": ["detailed data", "general idea", "new vocabulary", "grammar rules"], "a": "B", "ex": "skimming（略读）用于把握主旨大意。", "s": "", "b": 1}, {"q": "Paragraph matching questions mainly test your ability to ______.", "o": ["memorize facts", "locate information fast", "translate sentences", "spell correctly"], "a": "B", "ex": "匹配题核心是快速信息定位。", "s": "", "b": 1}]}, {"n": 8, "t": "阅读·仔细阅读", "note": "技巧：先读题干（不看选项）→回原文定位句→对比选项找『同义替换』（答案多在此）→绝对化词（all/never/must）多为干扰。下方为理解专项。", "qs": [{"q": "[短文] Studies show people who read before bed fall asleep faster and sleep better. What is the finding?", "o": ["Reading causes insomnia", "Reading improves sleep", "Reading is harmful", "No effect at all"], "a": "B", "ex": "fall asleep faster and sleep better = 改善睡眠。", "s": "", "b": 1}, {"q": "In the text, 'sustainable' is closest in meaning to ______.", "o": ["temporary", "lasting", "expensive", "difficult"], "a": "B", "ex": "sustainable 可持续的，近义 lasting（持久的）。", "s": "", "b": 1}, {"q": "[短文] The startup failed due to poor management and cash flow problems. Why did it fail?", "o": ["Poor management", "Bad luck", "New technology", "Too many staff"], "a": "A", "ex": "due to poor management 直接给出原因。", "s": "", "b": 1}, {"q": "What is the main idea of a passage comparing online and offline shopping?", "o": ["Online is always cheaper", "Both have pros and cons", "Shops will disappear", "Nobody shops offline"], "a": "B", "ex": "对比类文章主旨通常是『各有优劣』。", "s": "", "b": 1}, {"q": "The author's attitude toward the new policy is described as ______.", "o": ["strongly supportive", "neutral and objective", "angry", "indifferent to the point of leaving"], "a": "B", "ex": "说明文作者态度多为中立客观（neutral and objective）。", "s": "", "b": 1}, {"q": "Which of the following is NOT mentioned in the passage about the festival?", "o": ["Its history", "Its location", "Its founder's favorite color", "Its activities"], "a": "C", "ex": "『创办人最喜欢的颜色』明显超范围、未被提及。", "s": "", "b": 1}]}, {"n": 9, "t": "翻译·汉译英", "note": "技巧：先搭主干（主谓宾）→再挂修饰（定语用从句/分词、状语用介词短语）；积累文化专有词；不会的词用解释法绕开。下方为『常用表达』选择专项。", "qs": [{"q": "『随着社会的发展』最恰当的英文翻译是？", "o": ["With the development of society", "Society develops", "Developing society", "Society's development"], "a": "A", "ex": "作状语用 With the development of society 最地道。", "s": "", "b": 1}, {"q": "『越来越少的人』可译为？", "o": ["Fewer and fewer people", "Many people", "People fewer", "The fewer people"], "a": "A", "ex": "『越来越……』用比较级叠加 fewer and fewer。", "s": "", "b": 1}, {"q": "『引起了广泛关注』可译为？", "o": ["attracted wide attention", "wide attention", "attention wide", "attract attention wide"], "a": "A", "ex": "attract wide attention 引起广泛关注，动词 attract 作谓语。", "s": "", "b": 1}, {"q": "『在……方面发挥着重要作用』对应？", "o": ["play an important role in", "important role", "role in important", "play role"], "a": "A", "ex": "固定搭配 play an important role in。", "s": "", "b": 1}, {"q": "『历史悠久』可译为？", "o": ["has a long history", "long history", "history long", "historical long"], "a": "A", "ex": "has a long history 作谓语。", "s": "", "b": 1}, {"q": "『绿色发展』对应？", "o": ["green development", "development green", "greenly develop", "develop green"], "a": "A", "ex": "green development 绿色发展，名词短语。", "s": "", "b": 1}]}, {"n": 10, "t": "写作·短文写作", "note": "技巧：三段式保底（引题→论证→总结）；用 3—5 个高级衔接词；主体段给具体论据（举例/数据/对比）；留 3 分钟检查语法。下方为『结构模板』选择专项。", "qs": [{"q": "四级写作最稳妥的结构通常是？", "o": ["一段式", "三段式", "五段式", "随意发挥"], "a": "B", "ex": "三段式（引题-论证-总结）最清晰易得高分。", "s": "", "b": 1}, {"q": "开头段最适合的作用是？", "o": ["直接给最终结论", "引出话题/现象", "堆砌细节", "罗列数据"], "a": "B", "ex": "开头段应引出话题或现象，再展开。", "s": "", "b": 1}, {"q": "下列哪个是表示『递进』的有效衔接词？", "o": ["and", "furthermore", "but", "because"], "a": "B", "ex": "furthermore 表递进；but 转折；because 因果。", "s": "", "b": 1}, {"q": "主体论证段应该？", "o": ["只重复观点", "提供论据(例子/数据)", "写无关内容", "留空白"], "a": "B", "ex": "论证段需具体论据支撑观点。", "s": "", "b": 1}, {"q": "结尾段最好？", "o": ["突然结束", "总结并重申观点", "引入全新话题", "道歉字数不够"], "a": "B", "ex": "结尾段总结并重申，首尾呼应。", "s": "", "b": 1}, {"q": "写作中最应避免的是？", "o": ["使用高级词汇", "明显语法错误", "三段式结构", "恰当衔接词"], "a": "B", "ex": "语法错误最拉分，应优先保证正确。", "s": "", "b": 1}]}];
+
+var TIPS=[
+["🎧","听力是分水岭","听力占 35%，且听完即收卡。每天精听 1—2 篇，盲听→看原文→跟读→再盲听，循环到无障碍。",
+ "🔤","词汇要『会认』优先于『会写』","阅读与听力只要求识别词义；写作翻译才需拼写。先保证高频词『见词知义』，再补拼写。",
+ "📖","仔细阅读找同义替换","四级阅读答案 80% 是同义改写，很少照抄原文。定位后对比选项，找 paraphrasing 而非原词。",
+ "✍️","写作背三段式模板","现象/观点段＋论证段（2 论据）＋总结段。模板化可保底 80—90 分，再靠高级衔接词提档。",
+ "🌐","翻译先主干后修饰","中文多短句，英文重结构。先定主谓宾，再用从句/分词/介词把修饰挂上去，避免逐字硬译。",
+ "⏱️","全真模拟严格计时","阶段三起按 09:00 开考、写作 30′/听力 25′/阅读 40′/翻译 30′ 计时，训练取舍与涂卡节奏。"]];
+
+/* ================= 存储 ================= */
+var KEY="cet4_progress_v1";
+var state={};try{state=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove("show")},1400)}
+
+/* ================= 计划 ⇄ 知识点 ⇄ 刷题 联动 ================= */
+function showPanel(pid){
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.dataset.p===pid)});
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("on",p.id===pid)});
+}
+function goQuiz(mod){
+  qzMod=mod;qzOnlyWrong=false;qzOnlyBook=false;qzOnlyReal=false;qzPos=0;
+  showPanel("p7");renderQzChips();renderQz();
+  if(typeof qzModeBtn==="function")qzModeBtn("qzModeAll","qzModeWrong","qzModeBook","qzModeReal");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goKnowledge(mods,kbs){
+  mods=mods||[];kbs=kbs||[];
+  showPanel("p3");
+  QZBANK.forEach(function(b){
+    var el=document.getElementById("bank-"+b.n);
+    if(el)el.classList.toggle("open",mods.indexOf(b.n)>=0);
+  });
+  kbs.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add("open")});
+  setTimeout(function(){
+    var first=mods.length?document.getElementById("bank-"+mods[0]):(kbs.length?document.getElementById(kbs[0]):null);
+    if(first)first.scrollIntoView({behavior:"smooth",block:"start"});
+  },80);
+}
+/* 根据当天任务（标签+内容）推断相关知识点模块 */
+function dayMods(tag,task){
+  var s=tag+" "+task,mods=[],kbs=[];
+  /* 基于 tag 精确匹配优先，task 仅作补充——避免任务文案里的『写作/翻译/语法』等词被误抢 */
+  if(s.indexOf("听力·新闻")>=0||s.indexOf("短篇新闻")>=0||tag.indexOf("新闻")>=0)return{mods:[3],kbs:["kb1-1"]};
+  if(s.indexOf("听力·对话")>=0||s.indexOf("长对话")>=0)return{mods:[4],kbs:["kb1-1"]};
+  if(s.indexOf("听力·篇章")>=0||s.indexOf("听力篇章")>=0)return{mods:[5],kbs:["kb1-1"]};
+  if(tag.indexOf("听力")>=0)return{mods:[3,4,5],kbs:["kb1-1"]};
+  if(s.indexOf("选词")>=0||s.indexOf("选词填空")>=0)return{mods:[6],kbs:["kb1-2"]};
+  if(s.indexOf("匹配")>=0||s.indexOf("长篇阅读")>=0)return{mods:[7],kbs:["kb1-2"]};
+  if(s.indexOf("仔细阅读")>=0)return{mods:[8],kbs:["kb1-2"]};
+  if(tag.indexOf("阅读")>=0)return{mods:[6,7,8],kbs:["kb1-2"]};
+  if(tag.indexOf("写作")>=0||tag.indexOf("模板")>=0)return{mods:[10],kbs:["kb1-3"]};
+  if(tag.indexOf("翻译")>=0||s.indexOf("汉译英")>=0||s.indexOf("中国文化")>=0)return{mods:[9],kbs:["kb1-4"]};
+  if(tag.indexOf("词汇")>=0||s.indexOf("核心词")>=0||s.indexOf("高频词")>=0||s.indexOf("辨析")>=0)return{mods:[1],kbs:["kb1-0"]};
+  if(tag.indexOf("语法")>=0||s.indexOf("时态")>=0||s.indexOf("语态")>=0||s.indexOf("从句")>=0||s.indexOf("非谓语")>=0||s.indexOf("虚拟")>=0||s.indexOf("倒装")>=0||s.indexOf("句子结构")>=0)return{mods:[2],kbs:["kb1-5"]};
+  return{mods:[],kbs:[]};
+}
+function dayGo(tag,task){
+  var s=tag+" "+task;
+  /* 专项日优先联动知识点，避免任务里的「综合/套卷」等词抢走路由 */
+  if(/词汇|语法|听力|阅读|写作|翻译/.test(tag)){
+    var m0=dayMods(tag,task);
+    if(m0.mods.length||m0.kbs.length){goKnowledge(m0.mods,m0.kbs);return}
+  }
+  if(/整体|官网|大纲|说明|摸底|资源/.test(s)){showPanel("p6");window.scrollTo({top:0,behavior:"smooth"});toast("📌 先看资源与说明");return}
+  if(/模拟|套卷|真题|综合|小测|回炉|收心|错题/.test(s)){goQuiz(0);toast("🎯 综合刷题模式：建议按模块过一遍错题");return}
+  var m=dayMods(tag,task);
+  if(!m.mods.length&&!m.kbs.length){goQuiz(0);return}
+  goKnowledge(m.mods,m.kbs);
+}
+
+/* ================= 倒计时 ================= */
+var TARGET=new Date("2026-12-19T09:00:00+08:00").getTime();
+function tick(){
+  var d=TARGET-Date.now();
+  if(d<=0){document.querySelector(".countdown-card").innerHTML='<div style="text-align:center"><div class="cd-num" style="font-size:26px">考试进行中</div><div class="cd-title">2026 年 12 月 19 日 09:00—11:20 · 沉着应考 🏆</div></div>';return}
+  var day=Math.floor(d/864e5),h=Math.floor(d%864e5/36e5),m=Math.floor(d%36e5/6e4),s=Math.floor(d%6e4/1e3);
+  document.getElementById("cdD").textContent=day;
+  document.getElementById("cdH").textContent=("0"+h).slice(-2);
+  document.getElementById("cdM").textContent=("0"+m).slice(-2);
+  document.getElementById("cdS").textContent=("0"+s).slice(-2);
+}
+tick();setInterval(tick,1000);
+
+/* ================= tabs ================= */
+var tabs=document.getElementById("tabs");
+tabs.addEventListener("click",function(e){
+  var b=e.target.closest(".tab");if(!b)return;
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t===b)});
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("on",p.id===b.dataset.p)});
+  if(b.dataset.p==="p8"){ if(typeof renderMem==="function") renderMem(); if(typeof renderWords==="function") renderWords() }
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* ================= 逐日计划渲染 ================= */
+var todayStr=new Date().toISOString().slice(0,10);
+var planBox=document.getElementById("planBox");
+STAGES.forEach(function(st,si){
+  var card=document.createElement("div");card.className="card";
+  var doneN=st.days.filter(function(d,i){return state["s"+si+"d"+i]}).length;
+  var head=document.createElement("div");head.className="stage-head";
+  head.innerHTML='<div class="stage-title">'+st.name+'<small>'+st.range+'</small></div><span class="stage-prog" id="sp'+si+'">'+doneN+' / '+st.days.length+'</span>';
+  var days=document.createElement("div");days.className="days";
+  head.addEventListener("click",function(){days.classList.toggle("open")});
+  st.days.forEach(function(d,di){
+    var id="s"+si+"d"+di;
+    var isToday=d[0]===todayStr;
+    var row=document.createElement("div");row.className="day"+(isToday?" today":"");
+    row.innerHTML='<input type="checkbox" class="chk" id="cb-'+id+'" '+(state[id]?"checked":"")+'>'+
+      '<div class="date">'+d[1]+'<b>'+d[2]+'</b></div>'+
+      '<div class="body"><span class="tag">'+d[3]+'</span>'+(isToday?'<span class="today-mark">今天</span>':'')+'<div class="task">'+d[4]+'</div></div>';
+    var cb=row.querySelector(".chk");
+    if(state[id])row.classList.add("done");
+    var tagEl=row.querySelector(".tag");
+    tagEl.classList.add("tag-link");
+    tagEl.title="点击查看本任务相关知识点＋刷题";
+    tagEl.addEventListener("click",function(e){e.stopPropagation();dayGo(d[3],d[4])});
+    cb.addEventListener("change",function(){
+      state[id]=cb.checked;if(!cb.checked)delete state[id];
+      row.classList.toggle("done",cb.checked);
+      save();refreshProg();if(cb.checked)toast("✅ 打卡成功，继续保持！");
+    });
+    days.appendChild(row);
+  });
+  if(si===0)days.classList.add("open");
+  card.appendChild(head);card.appendChild(days);planBox.appendChild(card);
+});
+
+/* ================= 知识点渲染 ================= */
+function renderKB(list,mount,prefix){
+  list.forEach(function(k,i){
+    var el=document.createElement("div");el.className="kb";el.id=prefix+"-"+i;
+    var chipClass=k.chip==="掌握"?"chip-master":(k.chip==="熟悉"?"chip-familiar":"chip-know");
+    var hot=k.hot?' <span class="kb-chip" style="background:#fee2e2;color:#b91c1c">高频</span>':"";
+    var rows=k.rows.map(function(r){return '<div class="row"><div class="k">'+r[0]+'</div><div class="v'+(r[0]==="训练要点"?" excel":"")+(r[0]==="应试提示"?" tip":"")+'">'+r[1]+'</div></div>'}).join("");
+    el.innerHTML='<div class="kb-head"><span class="kb-title">'+k.t+'</span><span class="kb-chip '+chipClass+'">'+k.chip+'</span>'+hot+'<span class="arrow">▶</span></div><div class="kb-body">'+rows+'</div>';
+    el.querySelector(".kb-head").addEventListener("click",function(){el.classList.toggle("open")});
+    document.getElementById(mount).appendChild(el);
+  });
+}
+renderKB(KB1,"kbS1","kb1");
+
+/* ================= 进度刷新（逐日计划） ================= */
+function refreshProg(){
+  var total=0,done=0;
+  STAGES.forEach(function(st,si){
+    var dn=0;
+    st.days.forEach(function(d,di){total++;if(state["s"+si+"d"+di]){done++;dn++}});
+    var sp=document.getElementById("sp"+si);if(sp)sp.textContent=dn+" / "+st.days.length;
+  });
+  var pt=document.getElementById("planTxt");pt.textContent=done+" / "+total+" 天";
+  document.getElementById("planBar").style.width=(total?done/total*100:0)+"%";
+  document.getElementById("allTxt").textContent="已打卡 "+done+" / "+total+" 天";
+  document.getElementById("allBar").style.width=(total?done/total*100:0)+"%";
+  document.getElementById("allPct").textContent="计划完成率 "+(total?Math.round(done/total*100):0)+"%";
+}
+refreshProg();
+
+/* ================= 资源中心：资料包 ================= */
+var BASE="files/";
+var RES=[
+{ico:"📖",t:"高频核心词汇表（速记版）",s:"按 8 大类整理的 CET-4 高频核心词 364 个（动词/名词/形容词/短语/听力场景/写作翻译/熟词僻义），含词性与释义，浏览器直接打开，可搜索、可另存为 PDF。",url:BASE+"cet4-vocab.html",act:"在线打开",ext:true},
+{ico:"🏛️",t:"官方报名 / 准考证 / 查分",s:"教育部教育考试院（NEEA）全国大学英语四、六级考试官网，报名、打印准考证与成绩查询的唯一官方入口。",url:"https://cet.neea.edu.cn",act:"前往官网",ext:true}];
+RES=RES.concat([{"ico":"📖","t":"墨墨背单词","s":"背单词工具 · 四六级核心词库+抗遗忘算法","url":"https://www.maimemo.com/","act":"前往","ext":true},{"ico":"📖","t":"不背单词","s":"背单词工具 · 真实语境例句，界面清爽","url":"https://www.bubeidanci.com/","act":"前往","ext":true},{"ico":"📖","t":"百词斩","s":"背单词工具 · 图背单词，入门友好","url":"https://www.baicizhan.com/","act":"前往","ext":true},{"ico":"🎧","t":"每日英语听力","s":"听力与口语 · 精听素材+四六级真题音频","url":"https://www.eudic.net/ting/","act":"前往","ext":true},{"ico":"🎧","t":"VOA / BBC Learning English","s":"听力与口语 · 慢速新闻，练听力+积累表达","url":"https://learningenglish.voanews.com/","act":"前往","ext":true},{"ico":"🎧","t":"TED","s":"听力与口语 · 六级讲座类听力进阶素材","url":"https://www.ted.com/","act":"前往","ext":true},{"ico":"📝","t":"全国大学英语四六级考试官网","s":"真题与资料 · 报名/成绩/大纲权威入口","url":"https://cet.neea.edu.cn/","act":"前往","ext":true},{"ico":"📝","t":"星火英语","s":"真题与资料 · 真题试卷+专项突破","url":"https://www.sparke.cn/","act":"前往","ext":true},{"ico":"📝","t":"华研外语","s":"真题与资料 · 真题详解+词汇书","url":"https://www.huayan.com.cn/","act":"前往","ext":true},{"ico":"🔗","t":"Grammarly","s":"写作与翻译 · 英语写作语法纠错","url":"https://www.grammarly.com/","act":"前往","ext":true},{"ico":"🔗","t":"chinadaily 双语新闻","s":"写作与翻译 · 翻译热点素材+地道表达","url":"https://www.chinadaily.com.cn/","act":"前往","ext":true},{"ico":"🔗","t":"网易有道词典","s":"写作与翻译 · 查词+例句+作文批改","url":"https://www.youdao.com/","act":"前往","ext":true}]);
+var resBox=document.getElementById("resBox");
+RES.forEach(function(r){
+  var c=document.createElement("div");c.className="card tip-card";
+  c.innerHTML='<div class="ico">'+r.ico+'</div><div style="flex:1"><b>'+r.t+'</b><p>'+r.s+'</p></div>'+
+    '<a class="tab" style="align-self:center;text-decoration:none;flex:none" href="'+r.url+'"'+(r.ext?' target="_blank" rel="noopener"':' download')+'>'+r.act+'</a>';
+  resBox.appendChild(c);
+});
+
+/* ================= 必背速记渲染 ================= */
+var kbBank=document.getElementById("kbBank");
+QZBANK.forEach(function(b){
+  var el=document.createElement("div");el.className="kb";el.id="bank-"+b.n;
+  el.innerHTML='<div class="kb-head"><span class="kb-title">'+b.n+'. '+b.t+'</span><span class="kb-chip chip-familiar">'+b.qs.length+' 题</span><span class="arrow">▶</span></div><div class="kb-body"><div class="row"><div class="k">必背</div><div class="v excel">'+b.note+'</div></div><div class="row"><div class="k">练一练</div><div class="v"><button class="tab" style="background:var(--soft);color:var(--primary)">🎯 刷本模块 '+b.qs.length+' 题</button></div></div></div>';
+  el.querySelector(".kb-head").addEventListener("click",function(){el.classList.toggle("open")});
+  el.querySelector("button").addEventListener("click",function(){goQuiz(b.n)});
+  kbBank.appendChild(el);
+});
+
+/* ================= 在线刷题 ================= */
+var QKEY="cet4_quiz_v1";
+var qz={};try{qz=JSON.parse(localStorage.getItem(QKEY))||{}}catch(e){qz={}}
+if(!qz.wrong)qz.wrong={};if(!qz.done)qz.done={};
+function qzSave(){try{localStorage.setItem(QKEY,JSON.stringify(qz))}catch(e){}}
+
+var ALLQ=[];
+QZBANK.forEach(function(b){b.qs.forEach(function(q){ALLQ.push({m:b.n,mt:b.t,q:q.q,o:q.o,a:q.a,ex:q.ex,s:q.s,b:q.b||0,gid:b.n+"-"+q.q.slice(0,24)})})});
+var BOOKN=ALLQ.filter(function(q){return q.b>0}).length;
+var REALN=ALLQ.filter(function(q){return q.s==="真题"}).length;
+var qzMod=0,qzOnlyWrong=false,qzOnlyBook=false,qzOnlyReal=false,qzPos=0;
+
+function qzList(){
+  var arr=ALLQ.filter(function(q){return !qzMod||q.m===qzMod});
+  if(qzOnlyWrong)arr=arr.filter(function(q){return qz.wrong[q.gid]});
+  if(qzOnlyBook)arr=arr.filter(function(q){return q.b>0});
+  if(qzOnlyReal)arr=arr.filter(function(q){return q.s==="真题"});
+  return arr;
+}
+function qzStats(){
+  var doneN=0,wrongN=0;
+  ALLQ.forEach(function(q){if(qz.done[q.gid]!==undefined)doneN++;if(qz.wrong[q.gid])wrongN++});
+  document.getElementById("qzStat").textContent="已刷 "+doneN+" / "+ALLQ.length+" 题 · 正确率 "+(doneN?Math.round((doneN-wrongN)/doneN*100):0)+"%";
+  document.getElementById("qzBar").style.width=(ALLQ.length?doneN/ALLQ.length*100:0)+"%";
+  document.getElementById("qzModeWrong").textContent="🔁 只刷错题（"+wrongN+"）";
+  document.getElementById("qzModeBook").textContent="📚 平台题库（"+BOOKN+"）";
+  document.getElementById("qzModeReal").textContent="🎯 真题（"+REALN+"）";
+}
+function renderQzChips(){
+  var box=document.getElementById("qzChips");box.innerHTML="";
+  var mk=function(label,val){
+    var b=document.createElement("button");b.className="tab";
+    b.style.cssText=val===qzMod?"background:var(--primary);color:#fff":"background:var(--soft);color:var(--primary)";
+    b.textContent=label;
+    b.addEventListener("click",function(){qzMod=val;qzPos=0;renderQzChips();renderQz()});
+    box.appendChild(b);
+  };
+  mk("全部模块",0);
+  QZBANK.forEach(function(b){mk(b.n+". "+b.t.slice(0,9),b.n)});
+}
+function renderQz(){
+  var list=qzList(),card=document.getElementById("qzCard");
+  qzStats();
+  if(!list.length){
+    card.className="card";card.innerHTML='<div style="text-align:center;padding:26px 10px"><div style="font-size:40px">🎉</div><b style="font-size:15.5px">'+(qzOnlyWrong?"错题已清空，太棒了！":"暂无题目")+'</b><p style="font-size:13px;color:var(--muted);margin-top:6px">'+(qzOnlyWrong?"回「全部题」模式继续巩固，或换模块练习。":"请选择模块开始刷题。")+'</p></div>';
+    return;
+  }
+  if(qzPos>=list.length)qzPos=list.length-1;
+  if(qzPos<0)qzPos=0;
+  var q=list[qzPos],pick=qz.done[q.gid],ansIdx="ABCD".indexOf(q.a);
+  var tags=[];
+  if(q.b===1)tags.push('<span class="kb-chip chip-book">📗 平台示例</span>');
+  if(q.b===2)tags.push('<span class="kb-chip chip-book2">📘 强化题</span>');
+  if(q.b===3)tags.push('<span class="kb-chip chip-book3">📙 易错题</span>');
+  if(q.s==="真题")tags.push('<span class="kb-chip chip-master">真题</span>');
+  var srcTag=tags.length?'<span style="display:flex;gap:6px;flex-wrap:wrap">'+tags.join("")+'</span>':"";
+  var opts=q.o.map(function(t,i){
+    var cls="qz-opt";
+    if(pick!==undefined){
+      if(i===ansIdx)cls+=" correct";
+      else if("ABCD"[i]===pick)cls+=" wrong";
+    }
+    return '<div class="'+cls+'" data-i="'+i+'"><b>'+"ABCD"[i]+'.</b> '+t+'</div>';
+  }).join("");
+  var exHtml=pick!==undefined?'<div class="qz-ex"><b>'+(pick===q.a?"✅ 答对了":"❌ 答错了 · 正确答案 "+q.a)+'</b><br>'+q.ex+'</div>':'<div class="prog-txt" style="margin-top:10px">点击选项即判分并显示解析</div>';
+  card.className="card";
+  card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="prog-txt">第 '+(qzPos+1)+' / '+list.length+' 题 · 模块 '+q.m+'</span>'+srcTag+'</div>'+
+    '<div style="font-size:15px;font-weight:700;line-height:1.8">'+q.q+'</div>'+
+    '<div style="margin-top:12px">'+opts+'</div>'+exHtml;
+  card.querySelectorAll(".qz-opt").forEach(function(el){
+    el.addEventListener("click",function(){
+      if(qz.done[q.gid]!==undefined)return;
+      var i=+el.dataset.i,pickL="ABCD"[i];
+      qz.done[q.gid]=pickL;
+      if(pickL===q.a)delete qz.wrong[q.gid];else qz.wrong[q.gid]=1;
+      qzSave();renderQz();
+      if(pickL===q.a)toast("✅ 答对了！");else toast("❌ 错了，已加入错题本");
+    });
+  });
+}
+document.getElementById("qzPrev").addEventListener("click",function(){qzPos--;renderQz()});
+document.getElementById("qzNext").addEventListener("click",function(){qzPos++;renderQz()});
+function qzModeBtn(allId,wrongId,bookId,realId){
+  var A=document.getElementById(allId),W=document.getElementById(wrongId),B=document.getElementById(bookId),R=document.getElementById(realId);
+  A.style.background=(qzOnlyWrong||qzOnlyBook||qzOnlyReal)?"var(--soft)":"var(--primary)";
+  A.style.color=(qzOnlyWrong||qzOnlyBook||qzOnlyReal)?"var(--primary)":"#fff";
+  W.style.background=qzOnlyWrong?"var(--primary)":"var(--soft)";
+  W.style.color=qzOnlyWrong?"#fff":"var(--primary)";
+  B.style.background=qzOnlyBook?"#d97706":"var(--soft)";
+  B.style.color=qzOnlyBook?"#fff":"#92400e";
+  R.style.background=qzOnlyReal?"#b91c1c":"var(--soft)";
+  R.style.color=qzOnlyReal?"#fff":"#b91c1c";
+  qzPos=0;renderQz();
+}
+document.getElementById("qzModeAll").addEventListener("click",function(){qzOnlyWrong=false;qzOnlyBook=false;qzOnlyReal=false;qzModeBtn("qzModeAll","qzModeWrong","qzModeBook","qzModeReal")});
+document.getElementById("qzModeWrong").addEventListener("click",function(){qzOnlyWrong=true;qzOnlyBook=false;qzOnlyReal=false;qzModeBtn("qzModeAll","qzModeWrong","qzModeBook","qzModeReal")});
+document.getElementById("qzModeBook").addEventListener("click",function(){qzOnlyWrong=false;qzOnlyBook=true;qzOnlyReal=false;qzModeBtn("qzModeAll","qzModeWrong","qzModeBook","qzModeReal")});
+document.getElementById("qzModeReal").addEventListener("click",function(){qzOnlyWrong=false;qzOnlyBook=false;qzOnlyReal=true;qzModeBtn("qzModeAll","qzModeWrong","qzModeBook","qzModeReal")});
+document.getElementById("qzReset").addEventListener("click",function(){
+  if(!confirm("确定清空全部刷题记录和错题本吗？"))return;
+  qz={wrong:{},done:{}};qzSave();renderQz();toast("已重置刷题记录");
+});
+renderQzChips();renderQz();
+
+/* ================= 官方入口 ================= */
+var LINKS=[
+["全国大学英语四、六级考试官网","https://cet.neea.edu.cn"],
+["准考证打印 / 成绩查询入口","https://cet-bm.neea.edu.cn"]];
+var lb=document.getElementById("linksBox");
+LINKS.forEach(function(l){
+  var a=document.createElement("div");a.style.cssText="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--border);font-size:13.8px;flex-wrap:wrap";
+  if(lb.children.length===0)a.style.borderTop="none";
+  a.innerHTML='<span>'+l[0]+'</span><a href="'+l[1]+'" target="_blank" rel="noopener" style="color:var(--primary);word-break:break-all">'+l[1]+'</a>';
+  lb.appendChild(a);
+});
+var ref=document.createElement("div");ref.style.cssText="font-size:12.5px;color:var(--muted);margin-top:10px";
+ref.textContent="参考依据：CET-4 考试大纲与主流备考体系（听力 35% / 阅读 35% / 写作 15% / 翻译 15%）。";
+lb.appendChild(ref);
+
+var VOCAB=[{"w":"abandon","py":"/əˈbændən/","m":"v. 抛弃；放弃","ex":"They abandoned the plan. 他们放弃了计划。","lvl":0},{"w":"abundant","py":"/əˈbʌndənt/","m":"adj. 丰富的；充裕的","ex":"abundant resources 丰富的资源","lvl":0},{"w":"accomplish","py":"/əˈkʌmplɪʃ/","m":"v. 完成；实现","ex":"accomplish a goal 实现目标","lvl":0},{"w":"accurate","py":"/ˈækjərət/","m":"adj. 准确的；精确的","ex":"an accurate answer 准确答案","lvl":0},{"w":"acquire","py":"/əˈkwaɪər/","m":"v. 获得；习得","ex":"acquire knowledge 习得知识","lvl":0},{"w":"adequate","py":"/ˈædɪkwət/","m":"adj. 充足的；适当的","ex":"adequate preparation 充分准备","lvl":0},{"w":"anticipate","py":"/ænˈtɪsɪpeɪt/","m":"v. 预期；期待","ex":"anticipate problems 预见问题","lvl":0},{"w":"appreciate","py":"/əˈpriːʃieɪt/","m":"v. 欣赏；感激；理解","ex":"I appreciate your help. 感谢你的帮助。","lvl":0},{"w":"circumstance","py":"/ˈsɜːkəmstæns/","m":"n. 环境；情况","ex":"under no circumstances 无论如何都不","lvl":0},{"w":"comprehensive","py":"/ˌkɒmprɪˈhensɪv/","m":"adj. 综合的；全面的","ex":"a comprehensive review 全面复习","lvl":0},{"w":"consequence","py":"/ˈkɒnsɪkwəns/","m":"n. 结果；后果","ex":"as a consequence 因此","lvl":0},{"w":"deliberate","py":"/dɪˈlɪbərət/","m":"adj. 故意的；深思熟虑的","ex":"a deliberate mistake 故意的错误","lvl":0},{"w":"eliminate","py":"/ɪˈlɪmɪneɪt/","m":"v. 消除；淘汰","ex":"eliminate poverty 消除贫困","lvl":0},{"w":"fundamental","py":"/ˌfʌndəˈmentl/","m":"adj. 基本的；根本的","ex":"fundamental skills 基本功","lvl":0},{"w":"genuine","py":"/ˈdʒenjʊɪn/","m":"adj. 真实的；真诚的","ex":"a genuine smile 真诚的微笑","lvl":0},{"w":"illustrate","py":"/ˈɪləstreɪt/","m":"v. 说明；阐明","ex":"The chart illustrates... 图表说明了…","lvl":0},{"w":"negotiate","py":"/nɪˈɡəʊʃieɪt/","m":"v. 谈判；协商","ex":"negotiate a deal 谈成一笔交易","lvl":0},{"w":"obstacle","py":"/ˈɒbstəkl/","m":"n. 障碍；阻碍","ex":"overcome an obstacle 克服障碍","lvl":0},{"w":"phenomenon","py":"/fəˈnɒmɪnən/","m":"n. 现象","ex":"a natural phenomenon 自然现象","lvl":0},{"w":"significant","py":"/sɪɡˈnɪfɪkənt/","m":"adj. 重要的；显著的","ex":"a significant change 显著变化","lvl":0},{"w":"abolish","py":"/əˈbɒlɪʃ/","m":"v. 废除；废止","ex":"abolish the law 废除该法律","lvl":1},{"w":"abstract","py":"/ˈæbstrækt/","m":"adj. 抽象的；n. 摘要","ex":"an abstract concept 抽象概念","lvl":1},{"w":"accumulate","py":"/əˈkjuːmjəleɪt/","m":"v. 积累；积聚","ex":"accumulate experience 积累经验","lvl":1},{"w":"acknowledge","py":"/əkˈnɒlɪdʒ/","m":"v. 承认；致谢","ex":"acknowledge a mistake 承认错误","lvl":1},{"w":"adverse","py":"/ˈædvɜːs/","m":"adj. 不利的；相反的","ex":"adverse effects 不利影响","lvl":1},{"w":"ambiguous","py":"/æmˈbɪɡjʊəs/","m":"adj. 模棱两可的","ex":"an ambiguous answer 含糊的回答","lvl":1},{"w":"compulsory","py":"/kəmˈpʌlsəri/","m":"adj. 强制的；义务的","ex":"compulsory education 义务教育","lvl":1},{"w":"conspicuous","py":"/kənˈspɪkjʊəs/","m":"adj. 显眼的；明显的","ex":"a conspicuous mistake 明显的错误","lvl":1},{"w":"deterioration","py":"/dɪˌtɪəriəˈreɪʃn/","m":"n. 恶化；退化","ex":"environmental deterioration 环境恶化","lvl":1},{"w":"transcend","py":"/trænˈsend/","m":"v. 超越；胜过","ex":"transcend boundaries 超越边界","lvl":1},{"w":"versatile","py":"/ˈvɜːsətaɪl/","m":"adj. 多才多艺的；多功能的","ex":"a versatile actor 多才多艺的演员","lvl":1},{"w":"vulnerable","py":"/ˈvʌlnərəbl/","m":"adj. 脆弱的；易受伤害的","ex":"vulnerable groups 弱势群体","lvl":1},{"w":"achieve","py":"/əˈtʃiːv/","m":"v. 达到；实现","ex":"achieve a goal 实现目标","lvl":0},{"w":"adapt","py":"/əˈdæpt/","m":"v. 适应；改编","ex":"adapt to the environment 适应环境","lvl":0},{"w":"adjust","py":"/əˈdʒʌst/","m":"v. 调整；适应","ex":"adjust to the new life 适应新生活","lvl":0},{"w":"adopt","py":"/əˈdɒpt/","m":"v. 采纳；收养","ex":"adopt a new method 采用新方法","lvl":0},{"w":"advocate","py":"/ˈædvəkeɪt/","m":"v. 提倡；主张","ex":"advocate green travel 提倡绿色出行","lvl":0},{"w":"afford","py":"/əˈfɔːd/","m":"v. 承担得起","ex":"afford the tuition 付得起学费","lvl":0},{"w":"analyze","py":"/ˈænəlaɪz/","m":"v. 分析","ex":"analyze the data 分析数据","lvl":0},{"w":"announce","py":"/əˈnaʊns/","m":"v. 宣布","ex":"announce the result 宣布结果","lvl":0},{"w":"annoy","py":"/əˈnɔɪ/","m":"v. 使烦恼","ex":"be annoyed with 对…感到生气","lvl":0},{"w":"apologize","py":"/əˈpɒlədʒaɪz/","m":"v. 道歉","ex":"apologize to sb 向某人道歉","lvl":0},{"w":"appeal","py":"/əˈpiːl/","m":"n./v. 呼吁；吸引力","ex":"appeal to 吸引；呼吁","lvl":0},{"w":"apply","py":"/əˈplaɪ/","m":"v. 申请；应用","ex":"apply for a job 申请工作","lvl":0},{"w":"appoint","py":"/əˈpɔɪnt/","m":"v. 任命；指定","ex":"appoint sb as 任命某人为","lvl":0},{"w":"approach","py":"/əˈprəʊtʃ/","m":"n./v. 方法；接近","ex":"a new approach 一种新方法","lvl":0},{"w":"approve","py":"/əˈpruːv/","m":"v. 批准；赞成","ex":"approve of 赞成","lvl":0},{"w":"arise","py":"/əˈraɪz/","m":"v. 出现；产生","ex":"problems arise 问题出现","lvl":0},{"w":"arrange","py":"/əˈreɪndʒ/","m":"v. 安排","ex":"arrange a meeting 安排会议","lvl":0},{"w":"assume","py":"/əˈsjuːm/","m":"v. 假定；承担","ex":"assume responsibility 承担责任","lvl":0},{"w":"attach","py":"/əˈtætʃ/","m":"v. 附上；使依恋","ex":"attach importance to 重视","lvl":0},{"w":"attempt","py":"/əˈtempt/","m":"n./v. 尝试","ex":"attempt to do 尝试做","lvl":0},{"w":"attract","py":"/əˈtrækt/","m":"v. 吸引","ex":"attract attention 吸引注意","lvl":0},{"w":"avoid","py":"/əˈvɔɪd/","m":"v. 避免","ex":"avoid doing 避免做","lvl":0},{"w":"balance","py":"/ˈbæləns/","m":"n./v. 平衡","ex":"balance work and life 平衡工作与生活","lvl":0},{"w":"ban","py":"/bæn/","m":"v./n. 禁止","ex":"ban smoking 禁止吸烟","lvl":0},{"w":"behave","py":"/bɪˈheɪv/","m":"v. 表现；举止","ex":"behave well 表现良好","lvl":0},{"w":"benefit","py":"/ˈbenɪfɪt/","m":"n./v. 好处；受益","ex":"benefit from 从…受益","lvl":0},{"w":"blame","py":"/bleɪm/","m":"v./n. 责备","ex":"blame sb for sth 因某事责备某人","lvl":0},{"w":"boost","py":"/buːst/","m":"v. 促进；增强","ex":"boost the economy 促进经济","lvl":0},{"w":"broadcast","py":"/ˈbrɔːdkɑːst/","m":"v./n. 广播","ex":"live broadcast 直播","lvl":0},{"w":"calculate","py":"/ˈkælkjuleɪt/","m":"v. 计算","ex":"calculate the cost 计算成本","lvl":0},{"w":"campaign","py":"/kæmˈpeɪn/","m":"n. 运动；活动","ex":"an advertising campaign 广告攻势","lvl":0},{"w":"cancel","py":"/ˈkænsl/","m":"v. 取消","ex":"cancel the meeting 取消会议","lvl":0},{"w":"cautious","py":"/ˈkɔːʃəs/","m":"a. 谨慎的","ex":"be cautious about 对…谨慎","lvl":0},{"w":"celebrate","py":"/ˈselɪbreɪt/","m":"v. 庆祝","ex":"celebrate the festival 庆祝节日","lvl":0},{"w":"challenge","py":"/ˈtʃælɪndʒ/","m":"n./v. 挑战","ex":"face a challenge 面对挑战","lvl":0},{"w":"character","py":"/ˈkærəktə/","m":"n. 性格；角色","ex":"the main character 主角","lvl":0},{"w":"charge","py":"/tʃɑːdʒ/","m":"v./n. 收费；指控","ex":"free of charge 免费","lvl":0},{"w":"claim","py":"/kleɪm/","m":"v./n. 声称；索赔","ex":"claim that 声称","lvl":0},{"w":"classify","py":"/ˈklæsɪfaɪ/","m":"v. 分类","ex":"classify the documents 将文件分类","lvl":0},{"w":"combine","py":"/kəmˈbaɪn/","m":"v. 结合","ex":"combine…with… 把…与…结合","lvl":0},{"w":"comment","py":"/ˈkɒment/","m":"n./v. 评论","ex":"comment on 对…评论","lvl":0},{"w":"commit","py":"/kəˈmɪt/","m":"v. 犯（错）；承诺","ex":"commit a crime 犯罪","lvl":0},{"w":"communicate","py":"/kəˈmjuːnɪkeɪt/","m":"v. 交流","ex":"communicate with 与…交流","lvl":0},{"w":"compare","py":"/kəmˈpeə/","m":"v. 比较","ex":"compare…with 把…与…比较","lvl":0},{"w":"compete","py":"/kəmˈpiːt/","m":"v. 竞争","ex":"compete with 与…竞争","lvl":0},{"w":"complain","py":"/kəmˈpleɪn/","m":"v. 抱怨","ex":"complain about 抱怨","lvl":0},{"w":"concentrate","py":"/ˈkɒnsntreɪt/","m":"v. 集中；专心","ex":"concentrate on 集中于","lvl":0},{"w":"conclude","py":"/kənˈkluːd/","m":"v. 得出结论；结束","ex":"conclude that 得出结论","lvl":0},{"w":"conduct","py":"/kənˈdʌkt/","m":"v. 进行；指挥","ex":"conduct a survey 进行调查","lvl":0},{"w":"confident","py":"/ˈkɒnfɪdənt/","m":"a. 自信的","ex":"be confident of 对…有信心","lvl":0},{"w":"confirm","py":"/kənˈfɜːm/","m":"v. 确认","ex":"confirm the booking 确认预订","lvl":0},{"w":"conflict","py":"/ˈkɒnflɪkt/","m":"n./v. 冲突","ex":"come into conflict with 与…冲突","lvl":0},{"w":"confuse","py":"/kənˈfjuːz/","m":"v. 使困惑","ex":"be confused about 对…感到困惑","lvl":0},{"w":"congratulate","py":"/kənˈɡrætjuleɪt/","m":"v. 祝贺","ex":"congratulate sb on 祝贺某人","lvl":0},{"w":"connect","py":"/kəˈnekt/","m":"v. 连接","ex":"connect…to 把…连接到","lvl":0},{"w":"conscious","py":"/ˈkɒnʃəs/","m":"a. 有意识的","ex":"be conscious of 意识到","lvl":0},{"w":"conserve","py":"/kənˈsɜːv/","m":"v. 保护；节约","ex":"conserve energy 节约能源","lvl":0},{"w":"consist","py":"/kənˈsɪst/","m":"v. 由…组成","ex":"consist of 由…组成","lvl":0},{"w":"constant","py":"/ˈkɒnstənt/","m":"a. 持续的；不变的","ex":"constant pressure 持续的压力","lvl":0},{"w":"consult","py":"/kənˈsʌlt/","m":"v. 咨询","ex":"consult a doctor 咨询医生","lvl":0},{"w":"consume","py":"/kənˈsjuːm/","m":"v. 消费；消耗","ex":"consume energy 消耗能量","lvl":0},{"w":"contact","py":"/ˈkɒntækt/","m":"v./n. 联系","ex":"keep in contact with 与…保持联系","lvl":0},{"w":"contain","py":"/kənˈteɪn/","m":"v. 包含","ex":"contain vitamin C 含维生素C","lvl":0},{"w":"contest","py":"/ˈkɒntest/","m":"n. 比赛","ex":"a speech contest 演讲比赛","lvl":0},{"w":"contribute","py":"/kənˈtrɪbjuːt/","m":"v. 贡献；导致","ex":"contribute to 有助于；导致","lvl":0},{"w":"convince","py":"/kənˈvɪns/","m":"v. 使信服","ex":"convince sb of 使某人相信","lvl":0},{"w":"cooperate","py":"/kəʊˈɒpəreɪt/","m":"v. 合作","ex":"cooperate with 与…合作","lvl":0},{"w":"cope","py":"/kəʊp/","m":"v. 应对","ex":"cope with 处理；应对","lvl":0},{"w":"count","py":"/kaʊnt/","m":"v. 计数；重要","ex":"count on 依靠","lvl":0},{"w":"courage","py":"/ˈkʌrɪdʒ/","m":"n. 勇气","ex":"have the courage to 有勇气做","lvl":0},{"w":"crash","py":"/kræʃ/","m":"v./n. 碰撞；崩溃","ex":"a car crash 车祸","lvl":0},{"w":"create","py":"/kriˈeɪt/","m":"v. 创造","ex":"create jobs 创造就业","lvl":0},{"w":"crucial","py":"/ˈkruːʃl/","m":"a. 至关重要的","ex":"a crucial moment 关键时刻","lvl":0},{"w":"cultivate","py":"/ˈkʌltɪveɪt/","m":"v. 培养；耕作","ex":"cultivate the habit of 培养…的习惯","lvl":0},{"w":"curious","py":"/ˈkjʊəriəs/","m":"a. 好奇的","ex":"be curious about 对…好奇","lvl":0},{"w":"decrease","py":"/dɪˈkriːs/","m":"v./n. 减少","ex":"on the decrease 在减少","lvl":0},{"w":"deliver","py":"/dɪˈlɪvə/","m":"v. 递送；发表","ex":"deliver a speech 发表演讲","lvl":0},{"w":"demand","py":"/dɪˈmɑːnd/","m":"v./n. 要求；需求","ex":"in demand 有需求的","lvl":0},{"w":"demonstrate","py":"/ˈdemənstreɪt/","m":"v. 证明；演示","ex":"demonstrate the ability 证明能力","lvl":0},{"w":"deny","py":"/dɪˈnaɪ/","m":"v. 否认","ex":"deny doing 否认做过","lvl":0},{"w":"describe","py":"/dɪˈskraɪb/","m":"v. 描述","ex":"describe…as 把…描述为","lvl":0},{"w":"deserve","py":"/dɪˈzɜːv/","m":"v. 值得","ex":"deserve attention 值得关注","lvl":0},{"w":"desire","py":"/dɪˈzaɪə/","m":"v./n. 渴望","ex":"a strong desire 强烈的愿望","lvl":0},{"w":"destroy","py":"/dɪˈstrɔɪ/","m":"v. 破坏","ex":"destroy the environment 破坏环境","lvl":0},{"w":"determine","py":"/dɪˈtɜːmɪn/","m":"v. 决定；决心","ex":"be determined to 决心做","lvl":0},{"w":"develop","py":"/dɪˈveləp/","m":"v. 发展；开发","ex":"develop a habit 养成习惯","lvl":0},{"w":"devote","py":"/dɪˈvəʊt/","m":"v. 奉献","ex":"devote…to 把…奉献给","lvl":0},{"w":"differ","py":"/ˈdɪfə/","m":"v. 不同","ex":"differ from 与…不同","lvl":0},{"w":"disappear","py":"/ˌdɪsəˈpɪə/","m":"v. 消失","ex":"disappear from 从…消失","lvl":0},{"w":"discipline","py":"/ˈdɪsɪplɪn/","m":"n./v. 纪律；训练","ex":"self-discipline 自律","lvl":0},{"w":"dismiss","py":"/dɪsˈmɪs/","m":"v. 解雇；不予考虑","ex":"dismiss the idea 否定这个想法","lvl":0},{"w":"display","py":"/dɪˈspleɪ/","m":"v./n. 展示","ex":"on display 展出","lvl":0},{"w":"distinguish","py":"/dɪˈstɪŋɡwɪʃ/","m":"v. 区分","ex":"distinguish…from 把…与…区分","lvl":0},{"w":"distribute","py":"/dɪˈstrɪbjuːt/","m":"v. 分发；分配","ex":"distribute the leaflets 分发传单","lvl":0},{"w":"disturb","py":"/dɪˈstɜːb/","m":"v. 打扰","ex":"Sorry to disturb you 抱歉打扰","lvl":0},{"w":"diverse","py":"/daɪˈvɜːs/","m":"a. 多样的","ex":"diverse cultures 多元文化","lvl":0},{"w":"economy","py":"/ɪˈkɒnəmi/","m":"n. 经济","ex":"the global economy 全球经济","lvl":0},{"w":"effective","py":"/ɪˈfektɪv/","m":"a. 有效的","ex":"an effective way 有效的方法","lvl":0},{"w":"efficient","py":"/ɪˈfɪʃnt/","m":"a. 高效的","ex":"energy-efficient 节能的","lvl":0},{"w":"embarrass","py":"/ɪmˈbærəs/","m":"v. 使尴尬","ex":"feel embarrassed 感到尴尬","lvl":0},{"w":"emphasize","py":"/ˈemfəsaɪz/","m":"v. 强调","ex":"emphasize the importance of 强调…的重要性","lvl":0},{"w":"enable","py":"/ɪˈneɪbl/","m":"v. 使能够","ex":"enable sb to do 使某人能够做","lvl":0},{"w":"encounter","py":"/ɪnˈkaʊntə/","m":"v./n. 遭遇","ex":"encounter difficulties 遭遇困难","lvl":0},{"w":"encourage","py":"/ɪnˈkʌrɪdʒ/","m":"v. 鼓励","ex":"encourage sb to do 鼓励某人做","lvl":0},{"w":"engage","py":"/ɪnˈɡeɪdʒ/","m":"v. 从事；参与","ex":"be engaged in 从事于","lvl":0},{"w":"enhance","py":"/ɪnˈhɑːns/","m":"v. 提高；增强","ex":"enhance the quality 提高质量","lvl":0},{"w":"enormous","py":"/ɪˈnɔːməs/","m":"a. 巨大的","ex":"an enormous amount of 大量的","lvl":0},{"w":"ensure","py":"/ɪnˈʃʊə/","m":"v. 确保","ex":"ensure safety 确保安全","lvl":0},{"w":"enthusiasm","py":"/ɪnˈθjuːziæzəm/","m":"n. 热情","ex":"with enthusiasm 满怀热情","lvl":0},{"w":"environment","py":"/ɪnˈvaɪrənmənt/","m":"n. 环境","ex":"protect the environment 保护环境","lvl":0},{"w":"equal","py":"/ˈiːkwəl/","m":"a./v. 平等的；等于","ex":"be equal to 等于；能胜任","lvl":0},{"w":"equip","py":"/ɪˈkwɪp/","m":"v. 装备；使具备","ex":"be equipped with 配备有","lvl":0},{"w":"essential","py":"/ɪˈsenʃl/","m":"a. 必要的","ex":"be essential to 对…必不可少","lvl":0},{"w":"establish","py":"/ɪˈstæblɪʃ/","m":"v. 建立","ex":"establish a company 创办公司","lvl":0},{"w":"estimate","py":"/ˈestɪmeɪt/","m":"v./n. 估计","ex":"It is estimated that 据估计","lvl":0},{"w":"evaluate","py":"/ɪˈvæljueɪt/","m":"v. 评估","ex":"evaluate the performance 评估表现","lvl":0},{"w":"eventually","py":"/ɪˈventʃuəli/","m":"ad. 最终","ex":"eventually succeed 最终成功","lvl":0},{"w":"evidence","py":"/ˈevɪdəns/","m":"n. 证据","ex":"There is evidence that 有证据表明","lvl":0},{"w":"evolve","py":"/ɪˈvɒlv/","m":"v. 进化；演变","ex":"evolve into 演变成","lvl":0},{"w":"exaggerate","py":"/ɪɡˈzædʒəreɪt/","m":"v. 夸大","ex":"Don't exaggerate. 别夸大其词","lvl":0},{"w":"examine","py":"/ɪɡˈzæmɪn/","m":"v. 检查","ex":"examine the patient 检查病人","lvl":0},{"w":"exceed","py":"/ɪkˈsiːd/","m":"v. 超过","ex":"exceed the limit 超过限制","lvl":0},{"w":"exchange","py":"/ɪksˈtʃeɪndʒ/","m":"v./n. 交流；交换","ex":"exchange students 交换生","lvl":0},{"w":"expand","py":"/ɪkˈspænd/","m":"v. 扩张","ex":"expand the market 拓展市场","lvl":0},{"w":"expense","py":"/ɪkˈspens/","m":"n. 费用","ex":"at the expense of 以…为代价","lvl":0},{"w":"experience","py":"/ɪkˈspɪəriəns/","m":"n./v. 经验；经历","ex":"work experience 工作经验","lvl":0},{"w":"experiment","py":"/ɪkˈsperɪmənt/","m":"n./v. 实验","ex":"do an experiment 做实验","lvl":0},{"w":"expert","py":"/ˈekspɜːt/","m":"n. 专家","ex":"an expert in 某领域专家","lvl":0},{"w":"explore","py":"/ɪkˈsplɔː/","m":"v. 探索","ex":"explore the possibility 探索可能性","lvl":0},{"w":"expose","py":"/ɪkˈspəʊz/","m":"v. 暴露；揭露","ex":"be exposed to 接触到","lvl":0},{"w":"express","py":"/ɪkˈspres/","m":"v. 表达","ex":"express gratitude 表达感谢","lvl":0},{"w":"extend","py":"/ɪkˈstend/","m":"v. 延伸；延长","ex":"extend the deadline 延长截止日期","lvl":0},{"w":"extent","py":"/ɪkˈstent/","m":"n. 程度","ex":"to some extent 某种程度上","lvl":0},{"w":"facility","py":"/fəˈsɪləti/","m":"n. 设施","ex":"sports facilities 体育设施","lvl":0},{"w":"factor","py":"/ˈfæktə/","m":"n. 因素","ex":"a key factor 一个关键因素","lvl":0},{"w":"fashion","py":"/ˈfæʃn/","m":"n. 时尚；方式","ex":"come into fashion 流行起来","lvl":0},{"w":"feature","py":"/ˈfiːtʃə/","m":"n. 特征；v. 以…为特色","ex":"a common feature 共同特征","lvl":0},{"w":"figure","py":"/ˈfɪɡə/","m":"n. 数字；人物","ex":"figure out 弄明白","lvl":0},{"w":"finance","py":"/ˈfaɪnæns/","m":"n./v. 财政；资助","ex":"finance the project 为项目提供资金","lvl":0},{"w":"flexible","py":"/ˈfleksəbl/","m":"a. 灵活的","ex":"flexible hours 弹性工作时间","lvl":0},{"w":"focus","py":"/ˈfəʊkəs/","m":"v./n. 集中","ex":"focus on 专注于","lvl":0},{"w":"forbid","py":"/fəˈbɪd/","m":"v. 禁止","ex":"be forbidden to do 被禁止做","lvl":0},{"w":"forecast","py":"/ˈfɔːkɑːst/","m":"v./n. 预测","ex":"weather forecast 天气预报","lvl":0},{"w":"formal","py":"/ˈfɔːml/","m":"a. 正式的","ex":"formal education 正式教育","lvl":0},{"w":"former","py":"/ˈfɔːmə/","m":"a. 以前的","ex":"the former 前者","lvl":0},{"w":"fortune","py":"/ˈfɔːtʃuːn/","m":"n. 财富；运气","ex":"make a fortune 发财","lvl":0},{"w":"foster","py":"/ˈfɒstə/","m":"v. 培养；促进","ex":"foster a positive attitude 培养积极态度","lvl":0},{"w":"frequent","py":"/ˈfriːkwənt/","m":"a. 频繁的","ex":"a frequent visitor 常客","lvl":0},{"w":"frustrate","py":"/frʌˈstreɪt/","m":"v. 使沮丧","ex":"feel frustrated 感到沮丧","lvl":0},{"w":"function","py":"/ˈfʌŋkʃn/","m":"n./v. 功能；运行","ex":"the function of …的功能","lvl":0},{"w":"generate","py":"/ˈdʒenəreɪt/","m":"v. 产生","ex":"generate electricity 发电","lvl":0},{"w":"generous","py":"/ˈdʒenərəs/","m":"a. 慷慨的","ex":"a generous donation 慷慨的捐赠","lvl":0},{"w":"grasp","py":"/ɡrɑːsp/","m":"v. 抓住；理解","ex":"grasp the meaning 理解含义","lvl":0},{"w":"gratitude","py":"/ˈɡrætɪtjuːd/","m":"n. 感激","ex":"express gratitude 表达感激","lvl":0},{"w":"guarantee","py":"/ˌɡærənˈtiː/","m":"v./n. 保证","ex":"guarantee the quality 保证质量","lvl":0},{"w":"handle","py":"/ˈhændl/","m":"v. 处理","ex":"handle the problem 处理问题","lvl":0},{"w":"harmony","py":"/ˈhɑːməni/","m":"n. 和谐","ex":"in harmony with 与…和谐","lvl":0},{"w":"hesitate","py":"/ˈhezɪteɪt/","m":"v. 犹豫","ex":"hesitate to do 犹豫做","lvl":0},{"w":"highlight","py":"/ˈhaɪlaɪt/","m":"v./n. 强调；亮点","ex":"highlight the key points 强调要点","lvl":0},{"w":"humor","py":"/ˈhjuːmə/","m":"n. 幽默","ex":"a sense of humor 幽默感","lvl":0},{"w":"ignore","py":"/ɪɡˈnɔː/","m":"v. 忽视","ex":"ignore the warning 忽视警告","lvl":0},{"w":"imagine","py":"/ɪˈmædʒɪn/","m":"v. 想象","ex":"imagine doing 想象做","lvl":0},{"w":"imitate","py":"/ˈɪmɪteɪt/","m":"v. 模仿","ex":"imitate the style 模仿风格","lvl":0},{"w":"impact","py":"/ˈɪmpækt/","m":"n./v. 影响","ex":"have an impact on 对…有影响","lvl":0},{"w":"imply","py":"/ɪmˈplaɪ/","m":"v. 暗示","ex":"What do you imply? 你暗示什么？","lvl":0},{"w":"impose","py":"/ɪmˈpəʊz/","m":"v. 强加；征收","ex":"impose…on 把…强加于","lvl":0},{"w":"impress","py":"/ɪmˈpres/","m":"v. 使印象深刻","ex":"be impressed by 对…印象深刻","lvl":0},{"w":"improve","py":"/ɪmˈpruːv/","m":"v. 改善","ex":"improve the skills 提高技能","lvl":0},{"w":"incline","py":"/ɪnˈklaɪn/","m":"v. 倾向于","ex":"be inclined to 倾向于","lvl":0},{"w":"incredible","py":"/ɪnˈkredəbl/","m":"a. 难以置信的","ex":"an incredible story 难以置信的故事","lvl":0},{"w":"indicate","py":"/ˈɪndɪkeɪt/","m":"v. 表明","ex":"indicate that 表明","lvl":0},{"w":"indifferent","py":"/ɪnˈdɪfrənt/","m":"a. 冷漠的","ex":"be indifferent to 对…冷漠","lvl":0},{"w":"individual","py":"/ˌɪndɪˈvɪdʒuəl/","m":"a./n. 个人的；个体","ex":"individual differences 个体差异","lvl":0},{"w":"influence","py":"/ˈɪnfluəns/","m":"n./v. 影响","ex":"have a negative influence on 对…有负面影响","lvl":0},{"w":"inform","py":"/ɪnˈfɔːm/","m":"v. 通知","ex":"inform sb of 通知某人","lvl":0},{"w":"initial","py":"/ɪˈnɪʃl/","m":"a. 最初的","ex":"the initial stage 初期","lvl":0},{"w":"initiative","py":"/ɪˈnɪʃətɪv/","m":"n. 主动性","ex":"take the initiative 采取主动","lvl":0},{"w":"innovative","py":"/ˈɪnəveɪtɪv/","m":"a. 创新的","ex":"innovative thinking 创新思维","lvl":0},{"w":"insist","py":"/ɪnˈsɪst/","m":"v. 坚持","ex":"insist on 坚持","lvl":0},{"w":"inspect","py":"/ɪnˈspekt/","m":"v. 检查；视察","ex":"inspect the factory 视察工厂","lvl":0},{"w":"inspire","py":"/ɪnˈspaɪə/","m":"v. 鼓舞；启发","ex":"inspire sb to do 激励某人做","lvl":0},{"w":"instance","py":"/ˈɪnstəns/","m":"n. 例子","ex":"for instance 例如","lvl":0},{"w":"institute","py":"/ˈɪnstɪtjuːt/","m":"n. 学院；研究所","ex":"a research institute 研究所","lvl":0},{"w":"instruct","py":"/ɪnˈstrʌkt/","m":"v. 指示；教授","ex":"instruct sb to do 指示某人做","lvl":0},{"w":"instrument","py":"/ˈɪnstrəmənt/","m":"n. 乐器；仪器","ex":"musical instruments 乐器","lvl":0},{"w":"intend","py":"/ɪnˈtend/","m":"v. 打算","ex":"intend to do 打算做","lvl":0},{"w":"intense","py":"/ɪnˈtens/","m":"a. 强烈的","ex":"intense competition 激烈竞争","lvl":0},{"w":"interfere","py":"/ˌɪntəˈfɪə/","m":"v. 干涉","ex":"interfere with 干扰","lvl":0},{"w":"internal","py":"/ɪnˈtɜːnl/","m":"a. 内部的","ex":"internal affairs 内部事务","lvl":0},{"w":"interpret","py":"/ɪnˈtɜːprɪt/","m":"v. 口译；解释","ex":"interpret the law 解释法律","lvl":0},{"w":"interrupt","py":"/ˌɪntəˈrʌpt/","m":"v. 打断","ex":"interrupt the conversation 打断谈话","lvl":0},{"w":"interview","py":"/ˈɪntəvjuː/","m":"n./v. 面试；采访","ex":"a job interview 求职面试","lvl":0},{"w":"intimate","py":"/ˈɪntɪmət/","m":"a. 亲密的","ex":"intimate friends 密友","lvl":0},{"w":"introduce","py":"/ˌɪntrəˈdjuːs/","m":"v. 介绍；引入","ex":"introduce…to 把…介绍给","lvl":0},{"w":"invade","py":"/ɪnˈveɪd/","m":"v. 侵略","ex":"invade a country 侵略国家","lvl":0},{"w":"invent","py":"/ɪnˈvent/","m":"v. 发明","ex":"invent a device 发明一种装置","lvl":0},{"w":"invest","py":"/ɪnˈvest/","m":"v. 投资","ex":"invest in 投资于","lvl":0},{"w":"investigate","py":"/ɪnˈvestɪɡeɪt/","m":"v. 调查","ex":"investigate the case 调查案件","lvl":0},{"w":"invite","py":"/ɪnˈvaɪt/","m":"v. 邀请","ex":"invite sb to 邀请某人","lvl":0},{"w":"involve","py":"/ɪnˈvɒlv/","m":"v. 涉及；卷入","ex":"involve in 涉及","lvl":0},{"w":"issue","py":"/ˈɪʃuː/","m":"n./v. 问题；发行","ex":"a key issue 关键问题","lvl":0},{"w":"judge","py":"/dʒʌdʒ/","m":"v./n. 判断；法官","ex":"judge by 由…判断","lvl":0},{"w":"justify","py":"/ˈdʒʌstɪfaɪ/","m":"v. 证明…正当","ex":"justify the decision 证明决定合理","lvl":0},{"w":"keen","py":"/kiːn/","m":"a. 热衷的","ex":"be keen on 热衷于","lvl":0},{"w":"launch","py":"/lɔːntʃ/","m":"v. 发起；发射","ex":"launch a campaign 发起运动","lvl":0},{"w":"limit","py":"/ˈlɪmɪt/","m":"v./n. 限制","ex":"limit the number 限制数量","lvl":0},{"w":"maintain","py":"/meɪnˈteɪn/","m":"v. 维持；保养","ex":"maintain order 维持秩序","lvl":0},{"w":"major","py":"/ˈmeɪdʒə/","m":"a./n. 主要的；专业","ex":"major in 主修","lvl":0},{"w":"manage","py":"/ˈmænɪdʒ/","m":"v. 管理；设法","ex":"manage to do 成功做到","lvl":0},{"w":"manner","py":"/ˈmænə/","m":"n. 方式；礼仪","ex":"good manners 有礼貌","lvl":0},{"w":"measure","py":"/ˈmeʒə/","m":"n./v. 措施；测量","ex":"take measures 采取措施","lvl":0},{"w":"media","py":"/ˈmiːdiə/","m":"n. 媒体","ex":"mass media 大众传媒","lvl":0},{"w":"mention","py":"/ˈmenʃn/","m":"v./n. 提到","ex":"as mentioned above 如上所述","lvl":0},{"w":"mislead","py":"/ˌmɪsˈliːd/","m":"v. 误导","ex":"mislead the public 误导公众","lvl":0},{"w":"modest","py":"/ˈmɒdɪst/","m":"a. 谦虚的","ex":"a modest person 谦虚的人","lvl":0},{"w":"monitor","py":"/ˈmɒnɪtə/","m":"v./n. 监测","ex":"monitor the situation 监测形势","lvl":0},{"w":"moral","py":"/ˈmɒrəl/","m":"a./n. 道德的","ex":"moral standards 道德标准","lvl":0},{"w":"motivate","py":"/ˈməʊtɪveɪt/","m":"v. 激励","ex":"motivate sb to do 激励某人做","lvl":0},{"w":"narrow","py":"/ˈnærəʊ/","m":"a. 狭窄的","ex":"a narrow road 狭窄的路","lvl":0},{"w":"necessity","py":"/nəˈsesəti/","m":"n. 必需品","ex":"daily necessities 日用品","lvl":0},{"w":"negative","py":"/ˈneɡətɪv/","m":"a. 消极的；负面的","ex":"negative effects 负面影响","lvl":0},{"w":"neglect","py":"/nɪˈɡlekt/","m":"v./n. 忽视","ex":"neglect the duty 玩忽职守","lvl":0},{"w":"notify","py":"/ˈnəʊtɪfaɪ/","m":"v. 通知","ex":"notify sb of 通知某人","lvl":0},{"w":"numerous","py":"/ˈnjuːmərəs/","m":"a. 众多的","ex":"numerous advantages 众多优势","lvl":0},{"w":"obey","py":"/əˈbeɪ/","m":"v. 服从","ex":"obey the rules 遵守规则","lvl":0},{"w":"object","py":"/ˈɒbdʒɪkt/","m":"n./v. 物体；反对","ex":"object to 反对","lvl":0},{"w":"obligation","py":"/ˌɒblɪˈɡeɪʃn/","m":"n. 义务","ex":"legal obligations 法律义务","lvl":0},{"w":"observe","py":"/əbˈzɜːv/","m":"v. 观察；遵守","ex":"observe the law 遵守法律","lvl":0},{"w":"obtain","py":"/əbˈteɪn/","m":"v. 获得","ex":"obtain permission 获得许可","lvl":0},{"w":"occupy","py":"/ˈɒkjupaɪ/","m":"v. 占据","ex":"be occupied with 忙于","lvl":0},{"w":"occur","py":"/əˈkɜː/","m":"v. 发生","ex":"occur to 想到","lvl":0},{"w":"offend","py":"/əˈfend/","m":"v. 冒犯","ex":"feel offended 感到被冒犯","lvl":0},{"w":"official","py":"/əˈfɪʃl/","m":"a./n. 官方的","ex":"official figures 官方数据","lvl":0},{"w":"operate","py":"/ˈɒpəreɪt/","m":"v. 操作；运营","ex":"operate a business 经营企业","lvl":0},{"w":"opinion","py":"/əˈpɪnjən/","m":"n. 观点","ex":"in my opinion 依我看来","lvl":0},{"w":"opportunity","py":"/ˌɒpəˈtjuːnəti/","m":"n. 机会","ex":"seize the opportunity 抓住机会","lvl":0},{"w":"oppose","py":"/əˈpəʊz/","m":"v. 反对","ex":"be opposed to 反对","lvl":0},{"w":"optimistic","py":"/ˌɒptɪˈmɪstɪk/","m":"a. 乐观的","ex":"be optimistic about 对…乐观","lvl":0},{"w":"option","py":"/ˈɒpʃn/","m":"n. 选择","ex":"have no option 别无选择","lvl":0},{"w":"organize","py":"/ˈɔːɡənaɪz/","m":"v. 组织","ex":"organize an event 组织活动","lvl":0},{"w":"origin","py":"/ˈɒrɪdʒɪn/","m":"n. 起源","ex":"the origin of …的起源","lvl":0},{"w":"overcome","py":"/ˌəʊvəˈkʌm/","m":"v. 克服","ex":"overcome difficulties 克服困难","lvl":0},{"w":"overlook","py":"/ˌəʊvəˈlʊk/","m":"v. 忽视；俯瞰","ex":"overlook the details 忽视细节","lvl":0},{"w":"overwhelm","py":"/ˌəʊvəˈwelm/","m":"v. 压倒","ex":"be overwhelmed by 被…压垮","lvl":0},{"w":"participate","py":"/pɑːˈtɪsɪpeɪt/","m":"v. 参加","ex":"participate in 参加","lvl":0},{"w":"particular","py":"/pəˈtɪkjʊlə/","m":"a. 特别的","ex":"in particular 尤其","lvl":0},{"w":"patience","py":"/ˈpeɪʃns/","m":"n. 耐心","ex":"lose patience 失去耐心","lvl":0},{"w":"perform","py":"/pəˈfɔːm/","m":"v. 表演；表现","ex":"perform well 表现良好","lvl":0},{"w":"permanent","py":"/ˈpɜːmənənt/","m":"a. 永久的","ex":"a permanent job 固定工作","lvl":0},{"w":"permit","py":"/pəˈmɪt/","m":"v./n. 允许；许可证","ex":"a work permit 工作许可","lvl":0},{"w":"persuade","py":"/pəˈsweɪd/","m":"v. 说服","ex":"persuade sb to do 说服某人做","lvl":0},{"w":"pessimistic","py":"/ˌpesɪˈmɪstɪk/","m":"a. 悲观的","ex":"a pessimistic view 悲观的看法","lvl":0},{"w":"pollute","py":"/pəˈluːt/","m":"v. 污染","ex":"air pollution 空气污染","lvl":0},{"w":"possess","py":"/pəˈzes/","m":"v. 拥有","ex":"possess the ability 具备能力","lvl":0},{"w":"potential","py":"/pəˈtenʃl/","m":"a./n. 潜在的；潜力","ex":"realize the potential 发挥潜力","lvl":0},{"w":"poverty","py":"/ˈpɒvəti/","m":"n. 贫困","ex":"live in poverty 生活贫困","lvl":0},{"w":"practical","py":"/ˈpræktɪkl/","m":"a. 实际的","ex":"practical experience 实践经验","lvl":0},{"w":"praise","py":"/preɪz/","m":"v./n. 表扬","ex":"win praise 赢得赞扬","lvl":0},{"w":"precious","py":"/ˈpreʃəs/","m":"a. 珍贵的","ex":"precious time 宝贵的时间","lvl":0},{"w":"precise","py":"/prɪˈsaɪs/","m":"a. 精确的","ex":"to be precise 确切地说","lvl":0},{"w":"predict","py":"/prɪˈdɪkt/","m":"v. 预测","ex":"predict the future 预测未来","lvl":0},{"w":"prefer","py":"/prɪˈfɜː/","m":"v. 更喜欢","ex":"prefer…to 比…更喜欢","lvl":0},{"w":"prepare","py":"/prɪˈpeə/","m":"v. 准备","ex":"prepare for 为…做准备","lvl":0},{"w":"preserve","py":"/prɪˈzɜːv/","m":"v. 保存；保护","ex":"preserve the environment 保护环境","lvl":0},{"w":"pressure","py":"/ˈpreʃə/","m":"n. 压力","ex":"under pressure 在压力下","lvl":0},{"w":"pretend","py":"/prɪˈtend/","m":"v. 假装","ex":"pretend to do 假装做","lvl":0},{"w":"prevent","py":"/prɪˈvent/","m":"v. 防止","ex":"prevent…from 阻止…做","lvl":0},{"w":"previous","py":"/ˈpriːviəs/","m":"a. 以前的","ex":"the previous day 前一天","lvl":0},{"w":"pride","py":"/praɪd/","m":"n. 骄傲","ex":"take pride in 以…为傲","lvl":0},{"w":"primary","py":"/ˈpraɪməri/","m":"a. 主要的；初级的","ex":"primary school 小学","lvl":0},{"w":"privilege","py":"/ˈprɪvəlɪdʒ/","m":"n. 特权","ex":"enjoy the privilege 享受特权","lvl":0},{"w":"proceed","py":"/prəˈsiːd/","m":"v. 继续","ex":"proceed with 继续进行","lvl":0},{"w":"process","py":"/ˈprəʊses/","m":"n./v. 过程；处理","ex":"in the process 在此过程中","lvl":0},{"w":"produce","py":"/prəˈdjuːs/","m":"v. 生产","ex":"produce goods 生产商品","lvl":0},{"w":"profession","py":"/prəˈfeʃn/","m":"n. 职业","ex":"the medical profession 医疗职业","lvl":0},{"w":"profit","py":"/ˈprɒfɪt/","m":"n./v. 利润；受益","ex":"make a profit 获利","lvl":0},{"w":"progress","py":"/ˈprəʊɡres/","m":"n./v. 进步","ex":"make progress 取得进步","lvl":0},{"w":"prominent","py":"/ˈprɒmɪnənt/","m":"a. 杰出的；显著的","ex":"a prominent role 突出作用","lvl":0},{"w":"promote","py":"/prəˈməʊt/","m":"v. 促进；晋升","ex":"promote sales 促销","lvl":0},{"w":"protect","py":"/prəˈtekt/","m":"v. 保护","ex":"protect…from 保护…免受","lvl":0},{"w":"prove","py":"/pruːv/","m":"v. 证明","ex":"prove to be 证明是","lvl":0},{"w":"provide","py":"/prəˈvaɪd/","m":"v. 提供","ex":"provide sb with 向某人提供","lvl":0},{"w":"publish","py":"/ˈpʌblɪʃ/","m":"v. 出版；发表","ex":"publish a paper 发表论文","lvl":0},{"w":"purchase","py":"/ˈpɜːtʃəs/","m":"v./n. 购买","ex":"purchase online 网上购物","lvl":0},{"w":"pursue","py":"/pəˈsjuː/","m":"v. 追求","ex":"pursue a career 追求事业","lvl":0},{"w":"abide","py":"/əˈbaɪd/","m":"v. 遵守；忍受","ex":"abide by the rules 遵守规则","lvl":1},{"w":"absurd","py":"/əbˈsɜːd/","m":"a. 荒谬的","ex":"an absurd idea 荒谬的想法","lvl":1},{"w":"accountable","py":"/əˈkaʊntəbl/","m":"a. 负有责任的","ex":"be accountable for 对…负责","lvl":1},{"w":"acquisition","py":"/ˌækwɪˈzɪʃn/","m":"n. 获得；收购","ex":"the acquisition of skills 技能的习得","lvl":1},{"w":"administer","py":"/ədˈmɪnɪstə/","m":"v. 管理；执行","ex":"administer the funds 管理资金","lvl":1},{"w":"aesthetic","py":"/iːsˈθetɪk/","m":"a. 美学的；审美的","ex":"aesthetic values 审美价值","lvl":1},{"w":"aggravate","py":"/ˈæɡrəveɪt/","m":"v. 加重；恶化","ex":"aggravate the situation 使形势恶化","lvl":1},{"w":"alleviate","py":"/əˈliːvieɪt/","m":"v. 减轻；缓解","ex":"alleviate the pain 减轻疼痛","lvl":1},{"w":"amateur","py":"/ˈæmətə/","m":"n./a. 业余爱好者","ex":"an amateur team 业余队伍","lvl":1},{"w":"analogy","py":"/əˈnælədʒi/","m":"n. 类比","ex":"by analogy 类推","lvl":1},{"w":"anonymous","py":"/əˈnɒnɪməs/","m":"a. 匿名的","ex":"an anonymous letter 匿名信","lvl":1},{"w":"applicable","py":"/əˈplɪkəbl/","m":"a. 适用的","ex":"be applicable to 适用于","lvl":1},{"w":"arbitrary","py":"/ˈɑːbɪtrəri/","m":"a. 任意的；武断的","ex":"an arbitrary decision 武断的决定","lvl":1},{"w":"articulate","py":"/ɑːˈtɪkjuleɪt/","m":"v./a. 清晰表达；善于表达的","ex":"articulate the idea 清晰表达想法","lvl":1},{"w":"assess","py":"/əˈses/","m":"v. 评估","ex":"assess the impact 评估影响","lvl":1},{"w":"asset","py":"/ˈæset/","m":"n. 资产；优势","ex":"personal assets 个人资产","lvl":1},{"w":"assimilate","py":"/əˈsɪməleɪt/","m":"v. 吸收；同化","ex":"assimilate knowledge 吸收知识","lvl":1},{"w":"attain","py":"/əˈteɪn/","m":"v. 达到；获得","ex":"attain the goal 达到目标","lvl":1},{"w":"authentic","py":"/ɔːˈθentɪk/","m":"a. 真实的；正宗的","ex":"authentic cuisine 正宗菜肴","lvl":1},{"w":"authoritative","py":"/ɔːˈθɒrɪtətɪv/","m":"a. 权威的","ex":"an authoritative source 权威来源","lvl":1},{"w":"autonomous","py":"/ɔːˈtɒnəməs/","m":"a. 自治的；自主的","ex":"autonomous regions 自治区","lvl":1},{"w":"avert","py":"/əˈvɜːt/","m":"v. 避免；转移","ex":"avert a crisis 避免危机","lvl":1},{"w":"baffle","py":"/ˈbæfl/","m":"v. 使困惑","ex":"be baffled by 感到困惑","lvl":1},{"w":"benevolent","py":"/bəˈnevələnt/","m":"a. 仁慈的","ex":"a benevolent act 善举","lvl":1},{"w":"betray","py":"/bɪˈtreɪ/","m":"v. 背叛","ex":"betray one's trust 辜负信任","lvl":1},{"w":"bizarre","py":"/bɪˈzɑː/","m":"a. 奇异的","ex":"a bizarre story 离奇的故事","lvl":1},{"w":"bureaucracy","py":"/bjʊəˈrɒkrəsi/","m":"n. 官僚主义","ex":"bureaucratic procedures 官僚程序","lvl":1},{"w":"casualty","py":"/ˈkæʒuəlti/","m":"n. 伤亡人员","ex":"heavy casualties 重大伤亡","lvl":1},{"w":"cater","py":"/ˈkeɪtə/","m":"v. 迎合；提供饮食","ex":"cater to the needs 迎合需求","lvl":1},{"w":"cherish","py":"/ˈtʃerɪʃ/","m":"v. 珍惜","ex":"cherish the memory 珍藏记忆","lvl":1},{"w":"chronic","py":"/ˈkrɒnɪk/","m":"a. 慢性的；长期的","ex":"a chronic disease 慢性病","lvl":1},{"w":"circulate","py":"/ˈsɜːkjuleɪt/","m":"v. 循环；流通","ex":"circulate the air 使空气流通","lvl":1},{"w":"cite","py":"/saɪt/","m":"v. 引用","ex":"cite an example 举例说明","lvl":1},{"w":"clarify","py":"/ˈklærɪfaɪ/","m":"v. 澄清","ex":"clarify the misunderstanding 澄清误会","lvl":1},{"w":"coincide","py":"/ˌkəʊɪnˈsaɪd/","m":"v. 一致；同时发生","ex":"coincide with 与…一致","lvl":1},{"w":"collaborate","py":"/kəˈlæbəreɪt/","m":"v. 合作","ex":"collaborate on a project 合作项目","lvl":1},{"w":"collapse","py":"/kəˈlæps/","m":"v./n. 倒塌；崩溃","ex":"the collapse of …的崩溃","lvl":1},{"w":"commemorate","py":"/kəˈmeməreɪt/","m":"v. 纪念","ex":"commemorate the hero 纪念英雄","lvl":1},{"w":"commence","py":"/kəˈmens/","m":"v. 开始","ex":"commence the project 启动项目","lvl":1},{"w":"compatible","py":"/kəmˈpætəbl/","m":"a. 兼容的；合得来的","ex":"be compatible with 兼容","lvl":1},{"w":"compensate","py":"/ˈkɒmpenseɪt/","m":"v. 补偿","ex":"compensate for 弥补","lvl":1},{"w":"complement","py":"/ˈkɒmplɪment/","m":"v./n. 补充","ex":"complement each other 相辅相成","lvl":1},{"w":"comply","py":"/kəmˈplaɪ/","m":"v. 遵从","ex":"comply with 遵守","lvl":1},{"w":"compress","py":"/kəmˈpres/","m":"v. 压缩","ex":"compress the file 压缩文件","lvl":1},{"w":"conceive","py":"/kənˈsiːv/","m":"v. 构想；设想","ex":"conceive a plan 构想计划","lvl":1},{"w":"condemn","py":"/kənˈdem/","m":"v. 谴责","ex":"condemn the violence 谴责暴力","lvl":1},{"w":"confidential","py":"/ˌkɒnfɪˈdenʃl/","m":"a. 机密的","ex":"confidential documents 机密文件","lvl":1},{"w":"conform","py":"/kənˈfɔːm/","m":"v. 符合；遵照","ex":"conform to 符合","lvl":1},{"w":"consecutive","py":"/kənˈsekjʊtɪv/","m":"a. 连续的","ex":"three consecutive days 连续三天","lvl":1},{"w":"consensus","py":"/kənˈsensəs/","m":"n. 共识","ex":"reach a consensus 达成共识","lvl":1},{"w":"consolidate","py":"/kənˈsɒlɪdeɪt/","m":"v. 巩固","ex":"consolidate the gains 巩固成果","lvl":1},{"w":"contaminate","py":"/kənˈtæmɪneɪt/","m":"v. 污染","ex":"contaminate the water 污染水源","lvl":1},{"w":"contemplate","py":"/ˈkɒntəmpleɪt/","m":"v. 沉思；考虑","ex":"contemplate the future 思考未来","lvl":1},{"w":"contradict","py":"/ˌkɒntrəˈdɪkt/","m":"v. 反驳；矛盾","ex":"contradict each other 相互矛盾","lvl":1},{"w":"controversy","py":"/ˈkɒntrəvɜːsi/","m":"n. 争议","ex":"cause a controversy 引起争议","lvl":1},{"w":"converge","py":"/kənˈvɜːdʒ/","m":"v. 汇聚","ex":"converge on 汇聚于","lvl":1},{"w":"coordinate","py":"/kəʊˈɔːdɪneɪt/","m":"v. 协调","ex":"coordinate the efforts 协调各方努力","lvl":1},{"w":"correlate","py":"/ˈkɒrəleɪt/","m":"v. 相关","ex":"correlate with 与…相关","lvl":1},{"w":"corrupt","py":"/kəˈrʌpt/","m":"a./v. 腐败的","ex":"corrupt officials 腐败官员","lvl":1},{"w":"cumulative","py":"/ˈkjuːmjʊlətɪv/","m":"a. 累积的","ex":"the cumulative effect 累积效应","lvl":1},{"w":"curb","py":"/kɜːb/","m":"v. 控制；抑制","ex":"curb the spending 控制开支","lvl":1},{"w":"deceive","py":"/dɪˈsiːv/","m":"v. 欺骗","ex":"deceive sb into 诱骗某人","lvl":1},{"w":"dedicate","py":"/ˈdedɪkeɪt/","m":"v. 奉献","ex":"dedicate…to 把…献给","lvl":1},{"w":"deduce","py":"/dɪˈdjuːs/","m":"v. 推断","ex":"deduce the conclusion 推出结论","lvl":1},{"w":"defect","py":"/ˈdiːfekt/","m":"n. 缺点；缺陷","ex":"a genetic defect 基因缺陷","lvl":1},{"w":"deficiency","py":"/dɪˈfɪʃnsi/","m":"n. 缺乏","ex":"a deficiency of 缺乏","lvl":1},{"w":"deficit","py":"/ˈdefɪsɪt/","m":"n. 赤字；亏损","ex":"a budget deficit 预算赤字","lvl":1},{"w":"degrade","py":"/dɪˈɡreɪd/","m":"v. 降级；使退化","ex":"degrade the environment 使环境退化","lvl":1},{"w":"delegate","py":"/ˈdelɪɡeɪt/","m":"v./n. 委派；代表","ex":"delegate the task 委派任务","lvl":1},{"w":"deprive","py":"/dɪˈpraɪv/","m":"v. 剥夺","ex":"deprive sb of 剥夺某人","lvl":1},{"w":"designate","py":"/ˈdezɪɡneɪt/","m":"v. 指定","ex":"designate sb as 指定某人为","lvl":1},{"w":"despise","py":"/dɪˈspaɪz/","m":"v. 鄙视","ex":"despise the behavior 鄙视行为","lvl":1},{"w":"deteriorate","py":"/dɪˈtɪəriəreɪt/","m":"v. 恶化","ex":"deteriorate rapidly 迅速恶化","lvl":1},{"w":"deviate","py":"/ˈdiːvieɪt/","m":"v. 偏离","ex":"deviate from 偏离","lvl":1},{"w":"devise","py":"/dɪˈvaɪz/","m":"v. 设计；想出","ex":"devise a plan 设计计划","lvl":1},{"w":"discard","py":"/dɪsˈkɑːd/","m":"v. 丢弃","ex":"discard the old ideas 抛弃旧观念","lvl":1},{"w":"discern","py":"/dɪˈsɜːn/","m":"v. 辨别","ex":"discern the difference 辨别差异","lvl":1},{"w":"disclose","py":"/dɪsˈkləʊz/","m":"v. 透露","ex":"disclose the information 披露信息","lvl":1},{"w":"discrimination","py":"/dɪˌskrɪmɪˈneɪʃn/","m":"n. 歧视","ex":"racial discrimination 种族歧视","lvl":1},{"w":"disguise","py":"/dɪsˈɡaɪz/","m":"v./n. 伪装","ex":"in disguise 伪装","lvl":1},{"w":"dismay","py":"/dɪsˈmeɪ/","m":"n./v. 沮丧","ex":"to one's dismay 令人沮丧的是","lvl":1},{"w":"dispatch","py":"/dɪˈspætʃ/","m":"v. 派遣","ex":"dispatch a team 派遣团队","lvl":1},{"w":"disperse","py":"/dɪˈspɜːs/","m":"v. 分散","ex":"disperse the crowd 驱散人群","lvl":1},{"w":"dispose","py":"/dɪˈspəʊz/","m":"v. 处理","ex":"dispose of 处置","lvl":1},{"w":"distort","py":"/dɪˈstɔːt/","m":"v. 歪曲","ex":"distort the facts 歪曲事实","lvl":1},{"w":"divert","py":"/daɪˈvɜːt/","m":"v. 转移","ex":"divert the funds 转移资金","lvl":1},{"w":"dilemma","py":"/dɪˈlemə/","m":"n. 困境；两难","ex":"face a dilemma 面临两难","lvl":1},{"w":"duplicate","py":"/ˈdjuːplɪkeɪt/","m":"v./n. 复制","ex":"duplicate the key 配钥匙","lvl":1},{"w":"eccentric","py":"/ɪkˈsentrɪk/","m":"a. 古怪的","ex":"an eccentric person 古怪的人","lvl":1},{"w":"eligible","py":"/ˈelɪdʒəbl/","m":"a. 有资格的","ex":"be eligible for 有资格","lvl":1},{"w":"embark","py":"/ɪmˈbɑːk/","m":"v. 上船；着手","ex":"embark on 着手","lvl":1},{"w":"embody","py":"/ɪmˈbɒdi/","m":"v. 体现","ex":"embody the spirit 体现精神","lvl":1},{"w":"eminent","py":"/ˈemɪnənt/","m":"a. 杰出的","ex":"an eminent scientist 杰出的科学家","lvl":1},{"w":"endeavor","py":"/ɪnˈdevə/","m":"n./v. 努力","ex":"make every endeavor 尽一切努力","lvl":1},{"w":"endow","py":"/ɪnˈdaʊ/","m":"v. 捐赠；赋予","ex":"be endowed with 天生具有","lvl":1},{"w":"enrich","py":"/ɪnˈrɪtʃ/","m":"v. 充实；使丰富","ex":"enrich the content 充实内容","lvl":1},{"w":"entity","py":"/ˈentɪti/","m":"n. 实体","ex":"a legal entity 法人实体","lvl":1},{"w":"epidemic","py":"/ˌepɪˈdemɪk/","m":"n. 流行病","ex":"an epidemic outbreak 疫情爆发","lvl":1},{"w":"equilibrium","py":"/ˌiːkwɪˈlɪbriəm/","m":"n. 平衡","ex":"reach equilibrium 达到平衡","lvl":1},{"w":"erode","py":"/ɪˈrəʊd/","m":"v. 侵蚀","ex":"erode the confidence 削弱信心","lvl":1},{"w":"essence","py":"/ˈesns/","m":"n. 本质","ex":"in essence 本质上","lvl":1},{"w":"eternal","py":"/ɪˈtɜːnl/","m":"a. 永恒的","ex":"eternal love 永恒的爱","lvl":1},{"w":"evoke","py":"/ɪˈvəʊk/","m":"v. 唤起","ex":"evoke the memories 唤起回忆","lvl":1},{"w":"exert","py":"/ɪɡˈzɜːt/","m":"v. 施加","ex":"exert influence 施加影响","lvl":1},{"w":"expedition","py":"/ˌekspəˈdɪʃn/","m":"n. 探险","ex":"a scientific expedition 科学考察","lvl":1},{"w":"expire","py":"/ɪkˈspaɪə/","m":"v. 到期","ex":"the contract expires 合同到期","lvl":1},{"w":"explicit","py":"/ɪkˈsplɪsɪt/","m":"a. 明确的","ex":"explicit instructions 明确指示","lvl":1},{"w":"exquisite","py":"/ɪkˈskwɪzɪt/","m":"a. 精美的","ex":"an exquisite design 精美设计","lvl":1},{"w":"extravagant","py":"/ɪkˈstrævəɡənt/","m":"a. 奢侈的","ex":"an extravagant lifestyle 奢侈的生活方式","lvl":1},{"w":"fabricate","py":"/ˈfæbrɪkeɪt/","m":"v. 捏造","ex":"fabricate the story 编造故事","lvl":1},{"w":"facilitate","py":"/fəˈsɪlɪteɪt/","m":"v. 促进","ex":"facilitate the process 促进进程","lvl":1},{"w":"feeble","py":"/ˈfiːbl/","m":"a. 虚弱的","ex":"a feeble excuse 站不住脚的借口","lvl":1},{"w":"fluctuate","py":"/ˈflʌktʃueɪt/","m":"v. 波动","ex":"fluctuate wildly 剧烈波动","lvl":1},{"w":"formulate","py":"/ˈfɔːmjuleɪt/","m":"v. 制定","ex":"formulate a policy 制定政策","lvl":1},{"w":"furnish","py":"/ˈfɜːnɪʃ/","m":"v. 提供；布置","ex":"furnish the room 布置房间","lvl":1},{"w":"futile","py":"/ˈfjuːtaɪl/","m":"a. 徒劳的","ex":"a futile attempt 徒劳的尝试","lvl":1},{"w":"gauge","py":"/ɡeɪdʒ/","m":"v./n. 测量；评估","ex":"gauge the mood 评估情绪","lvl":1},{"w":"gossip","py":"/ˈɡɒsɪp/","m":"n./v. 流言","ex":"gossip about 说闲话","lvl":1},{"w":"grieve","py":"/ɡriːv/","m":"v. 悲伤","ex":"grieve for 为…悲伤","lvl":1},{"w":"hamper","py":"/ˈhæmpə/","m":"v. 阻碍","ex":"hamper the progress 阻碍进展","lvl":1},{"w":"hierarchy","py":"/ˈhaɪərɑːki/","m":"n. 等级制度","ex":"social hierarchy 社会等级","lvl":1},{"w":"hinder","py":"/ˈhɪndə/","m":"v. 阻碍","ex":"hinder the development 阻碍发展","lvl":1},{"w":"hollow","py":"/ˈhɒləʊ/","m":"a. 空心的；空虚的","ex":"a hollow promise 空洞的承诺","lvl":1},{"w":"hostile","py":"/ˈhɒstaɪl/","m":"a. 敌对的","ex":"a hostile attitude 敌对态度","lvl":1},{"w":"humiliate","py":"/hjuːˈmɪlieɪt/","m":"v. 羞辱","ex":"feel humiliated 感到羞辱","lvl":1},{"w":"hypothesis","py":"/haɪˈpɒθəsɪs/","m":"n. 假设","ex":"test the hypothesis 验证假设","lvl":1},{"w":"ignite","py":"/ɪɡˈnaɪt/","m":"v. 点燃","ex":"ignite the debate 引发争论","lvl":1},{"w":"immerse","py":"/ɪˈmɜːs/","m":"v. 沉浸","ex":"be immersed in 沉浸于","lvl":1},{"w":"immune","py":"/ɪˈmjuːn/","m":"a. 免疫的","ex":"be immune to 对…免疫","lvl":1},{"w":"impair","py":"/ɪmˈpeə/","m":"v. 损害","ex":"impair the hearing 损害听力","lvl":1},{"w":"implicit","py":"/ɪmˈplɪsɪt/","m":"a. 含蓄的","ex":"implicit criticism 含蓄批评","lvl":1},{"w":"incentive","py":"/ɪnˈsentɪv/","m":"n. 激励","ex":"offer an incentive 提供激励","lvl":1},{"w":"inclusive","py":"/ɪnˈkluːsɪv/","m":"a. 包容的","ex":"an inclusive society 包容的社会","lvl":1},{"w":"incorporate","py":"/ɪnˈkɔːpəreɪt/","m":"v. 合并","ex":"incorporate…into 把…并入","lvl":1},{"w":"incur","py":"/ɪnˈkɜː/","m":"v. 招致","ex":"incur a loss 招致损失","lvl":1},{"w":"indulge","py":"/ɪnˈdʌldʒ/","m":"v. 放纵","ex":"indulge in 沉溺于","lvl":1},{"w":"infect","py":"/ɪnˈfekt/","m":"v. 感染","ex":"be infected with 感染","lvl":1},{"w":"infer","py":"/ɪnˈfɜː/","m":"v. 推断","ex":"infer from 由…推断","lvl":1},{"w":"infrastructure","py":"/ˈɪnfrəstrʌktʃə/","m":"n. 基础设施","ex":"infrastructure construction 基础设施建设","lvl":1},{"w":"inherent","py":"/ɪnˈhɪərənt/","m":"a. 固有的","ex":"an inherent flaw 固有缺陷","lvl":1},{"w":"inhibit","py":"/ɪnˈhɪbɪt/","m":"v. 抑制","ex":"inhibit the growth 抑制生长","lvl":1},{"w":"initiate","py":"/ɪˈnɪʃieɪt/","m":"v. 发起","ex":"initiate a dialogue 发起对话","lvl":1},{"w":"innovation","py":"/ˌɪnəˈveɪʃn/","m":"n. 创新","ex":"technological innovation 技术创新","lvl":1},{"w":"insight","py":"/ˈɪnsaɪt/","m":"n. 洞察力","ex":"gain an insight into 深入了解","lvl":1},{"w":"integral","py":"/ˈɪntɪɡrəl/","m":"a. 不可或缺的","ex":"an integral part 不可分割的一部分","lvl":1},{"w":"integrate","py":"/ˈɪntɪɡreɪt/","m":"v. 整合","ex":"integrate…into 把…融入","lvl":1},{"w":"integrity","py":"/ɪnˈteɡrəti/","m":"n. 正直；完整","ex":"personal integrity 个人操守","lvl":1},{"w":"intensify","py":"/ɪnˈtensɪfaɪ/","m":"v. 加剧","ex":"intensify the effort 加大力度","lvl":1},{"w":"interact","py":"/ˌɪntərˈækt/","m":"v. 互动","ex":"interact with 与…互动","lvl":1},{"w":"intermediate","py":"/ˌɪntəˈmiːdiət/","m":"a. 中级的","ex":"an intermediate level 中级水平","lvl":1},{"w":"intervene","py":"/ˌɪntəˈviːn/","m":"v. 干预","ex":"intervene in 干预","lvl":1},{"w":"intimidate","py":"/ɪnˈtɪmɪdeɪt/","m":"v. 恐吓","ex":"intimidate the witnesses 威吓证人","lvl":1},{"w":"intricate","py":"/ˈɪntrɪkət/","m":"a. 复杂的","ex":"an intricate design 复杂的设计","lvl":1},{"w":"intrinsic","py":"/ɪnˈtrɪnzɪk/","m":"a. 内在的","ex":"intrinsic value 内在价值","lvl":1},{"w":"intuition","py":"/ˌɪntjuˈɪʃn/","m":"n. 直觉","ex":"trust your intuition 相信直觉","lvl":1},{"w":"invalid","py":"/ɪnˈvælɪd/","m":"a. 无效的","ex":"an invalid argument 无效论据","lvl":1},{"w":"invaluable","py":"/ɪnˈvæljuəbl/","m":"a. 无价的","ex":"invaluable experience 宝贵经验","lvl":1},{"w":"invariably","py":"/ɪnˈveəriəbli/","m":"ad. 总是","ex":"invariably arrive late 总是迟到","lvl":1},{"w":"irritate","py":"/ˈɪrɪteɪt/","m":"v. 激怒","ex":"feel irritated 感到恼火","lvl":1},{"w":"jeopardize","py":"/ˈdʒepədaɪz/","m":"v. 危及","ex":"jeopardize the plan 危及计划","lvl":1},{"w":"junction","py":"/ˈdʒʌŋkʃn/","m":"n. 交叉路口","ex":"a busy junction 繁忙路口","lvl":1},{"w":"legislation","py":"/ˌledʒɪsˈleɪʃn/","m":"n. 立法","ex":"new legislation 新立法","lvl":1},{"w":"legitimate","py":"/lɪˈdʒɪtɪmət/","m":"a. 合法的","ex":"legitimate business 合法经营","lvl":1},{"w":"liable","py":"/ˈlaɪəbl/","m":"a. 有责任的；易于","ex":"be liable to 易于","lvl":1},{"w":"literacy","py":"/ˈlɪtərəsi/","m":"n. 识字；素养","ex":"digital literacy 数字素养","lvl":1},{"w":"litter","py":"/ˈlɪtə/","m":"n./v. 垃圾；乱扔","ex":"litter the streets 乱扔垃圾","lvl":1},{"w":"magnify","py":"/ˈmæɡnɪfaɪ/","m":"v. 放大","ex":"magnify the image 放大图像","lvl":1},{"w":"manifest","py":"/ˈmænɪfest/","m":"v./a. 表明；明显的","ex":"manifest the quality 显现品质","lvl":1},{"w":"manipulate","py":"/məˈnɪpjuleɪt/","m":"v. 操纵","ex":"manipulate the data 操纵数据","lvl":1},{"w":"margin","py":"/ˈmɑːdʒɪn/","m":"n. 边缘；余量","ex":"profit margins 利润率","lvl":1},{"w":"mediate","py":"/ˈmiːdieɪt/","m":"v. 调解","ex":"mediate the dispute 调解纠纷","lvl":1},{"w":"merge","py":"/mɜːdʒ/","m":"v. 合并","ex":"merge with 与…合并","lvl":1},{"w":"meticulous","py":"/məˈtɪkjʊləs/","m":"a. 一丝不苟的","ex":"meticulous work 细致的工作","lvl":1},{"w":"migrate","py":"/maɪˈɡreɪt/","m":"v. 迁移","ex":"migrate to 迁往","lvl":1},{"w":"milestone","py":"/ˈmaɪlstəʊn/","m":"n. 里程碑","ex":"a major milestone 重要里程碑","lvl":1},{"w":"minimize","py":"/ˈmɪnɪmaɪz/","m":"v. 最小化","ex":"minimize the risk 将风险降至最低","lvl":1},{"w":"mobilize","py":"/ˈməʊbəlaɪz/","m":"v. 动员","ex":"mobilize the resources 调动资源","lvl":1},{"w":"momentum","py":"/məˈmentəm/","m":"n. 势头","ex":"gain momentum 加快发展","lvl":1},{"w":"monopoly","py":"/məˈnɒpəli/","m":"n. 垄断","ex":"a state monopoly 国家垄断","lvl":1},{"w":"mortgage","py":"/ˈmɔːɡɪdʒ/","m":"n. 抵押贷款","ex":"pay off the mortgage 还清房贷","lvl":1},{"w":"mourn","py":"/mɔːn/","m":"v. 哀悼","ex":"mourn the dead 哀悼逝者","lvl":1},{"w":"multitude","py":"/ˈmʌltɪtjuːd/","m":"n. 众多","ex":"a multitude of 大量","lvl":1},{"w":"municipal","py":"/mjuːˈnɪsɪpl/","m":"a. 市政的","ex":"the municipal government 市政府","lvl":1},{"w":"mutual","py":"/ˈmjuːtʃuəl/","m":"a. 相互的","ex":"mutual respect 相互尊重","lvl":1},{"w":"notion","py":"/ˈnəʊʃn/","m":"n. 观念","ex":"reject the notion 否定观念","lvl":1},{"w":"nurture","py":"/ˈnɜːtʃə/","m":"v. 培养","ex":"nurture the talent 培养人才","lvl":1},{"w":"obedient","py":"/əˈbiːdiənt/","m":"a. 顺从的","ex":"an obedient child 听话的孩子","lvl":1},{"w":"obsolete","py":"/ˈɒbsəliːt/","m":"a. 过时的","ex":"obsolete technology 淘汰的技术","lvl":1},{"w":"offset","py":"/ˈɒfset/","m":"v. 抵消","ex":"offset the cost 抵消成本","lvl":1},{"w":"ominous","py":"/ˈɒmɪnəs/","m":"a. 不祥的","ex":"an ominous sign 不祥之兆","lvl":1},{"w":"optimize","py":"/ˈɒptɪmaɪz/","m":"v. 优化","ex":"optimize the process 优化流程","lvl":1},{"w":"orient","py":"/ˈɔːriənt/","m":"v. 适应；定向","ex":"be oriented towards 面向","lvl":1},{"w":"outbreak","py":"/ˈaʊtbreɪk/","m":"n. 爆发","ex":"an outbreak of disease 疾病爆发","lvl":1},{"w":"outrage","py":"/ˈaʊtreɪdʒ/","m":"n./v. 愤怒","ex":"public outrage 公众愤怒","lvl":1},{"w":"paradox","py":"/ˈpærədɒks/","m":"n. 悖论","ex":"a curious paradox 有趣的悖论","lvl":1},{"w":"patent","py":"/ˈpeɪtnt/","m":"n. 专利","ex":"apply for a patent 申请专利","lvl":1},{"w":"patriotic","py":"/ˌpætriˈɒtɪk/","m":"a. 爱国的","ex":"patriotic sentiment 爱国情怀","lvl":1},{"w":"penalty","py":"/ˈpenəlti/","m":"n. 处罚","ex":"the death penalty 死刑","lvl":1},{"w":"pending","py":"/ˈpendɪŋ/","m":"a. 待定的","ex":"pending approval 待批准","lvl":1},{"w":"perceive","py":"/pəˈsiːv/","m":"v. 感知","ex":"perceive the difference 感知差异","lvl":1},{"w":"perplex","py":"/pəˈpleks/","m":"v. 使困惑","ex":"be perplexed by 感到费解","lvl":1},{"w":"persist","py":"/pəˈsɪst/","m":"v. 坚持","ex":"persist in 坚持","lvl":1},{"w":"perspective","py":"/pəˈspektɪv/","m":"n. 视角","ex":"from a different perspective 从不同角度看","lvl":1},{"w":"plead","py":"/pliːd/","m":"v. 恳求；申辩","ex":"plead guilty 认罪","lvl":1},{"w":"plunge","py":"/plʌndʒ/","m":"v. 暴跌；跳入","ex":"plunge into 跳入","lvl":1},{"w":"portray","py":"/pɔːˈtreɪ/","m":"v. 描绘","ex":"portray the character 刻画人物","lvl":1},{"w":"predominant","py":"/prɪˈdɒmɪnənt/","m":"a. 主要的","ex":"the predominant factor 主导因素","lvl":1},{"w":"premature","py":"/ˈpremətʃə/","m":"a. 过早的","ex":"a premature decision 过早的决定","lvl":1},{"w":"prescribe","py":"/prɪˈskraɪb/","m":"v. 开处方；规定","ex":"prescribe the medicine 开药","lvl":1},{"w":"preside","py":"/prɪˈzaɪd/","m":"v. 主持","ex":"preside over 主持","lvl":1},{"w":"prestige","py":"/preˈstiːʒ/","m":"n. 声望","ex":"national prestige 国家声望","lvl":1},{"w":"presumably","py":"/prɪˈzjuːməbli/","m":"ad. 大概","ex":"presumably correct 大概正确","lvl":1},{"w":"prevail","py":"/prɪˈveɪl/","m":"v. 盛行；获胜","ex":"prevail over 获胜","lvl":1},{"w":"proficiency","py":"/prəˈfɪʃnsi/","m":"n. 熟练","ex":"English proficiency 英语水平","lvl":1},{"w":"profound","py":"/prəˈfaʊnd/","m":"a. 深刻的","ex":"a profound influence 深远影响","lvl":1},{"w":"prohibit","py":"/prəˈhɪbɪt/","m":"v. 禁止","ex":"prohibit smoking 禁止吸烟","lvl":1},{"w":"prolong","py":"/prəˈlɒŋ/","m":"v. 延长","ex":"prolong the life 延长寿命","lvl":1},{"w":"prompt","py":"/prɒmpt/","m":"v./a. 促使；迅速的","ex":"prompt sb to do 促使某人做","lvl":1},{"w":"propel","py":"/prəˈpel/","m":"v. 推进","ex":"propel the economy 推动经济","lvl":1},{"w":"proportion","py":"/prəˈpɔːʃn/","m":"n. 比例","ex":"in proportion to 与…成比例","lvl":1},{"w":"prospect","py":"/ˈprɒspekt/","m":"n. 前景","ex":"career prospects 职业前景","lvl":1},{"w":"prosperity","py":"/prɒˈsperəti/","m":"n. 繁荣","ex":"economic prosperity 经济繁荣","lvl":1},{"w":"provoke","py":"/prəˈvəʊk/","m":"v. 激怒；引起","ex":"provoke an argument 挑起争论","lvl":1},{"w":"punctual","py":"/ˈpʌŋktʃuəl/","m":"a. 准时的","ex":"be punctual for 准时","lvl":1},{"w":"pursuit","py":"/pəˈsjuːt/","m":"n. 追求","ex":"in pursuit of 追求","lvl":1},{"w":"qualitative","py":"/ˈkwɒlɪtətɪv/","m":"a. 定性的","ex":"qualitative analysis 定性分析","lvl":1},{"w":"questionnaire","py":"/ˌkwestʃəˈneə/","m":"n. 问卷","ex":"fill out a questionnaire 填写问卷","lvl":1},{"w":"quota","py":"/ˈkwəʊtə/","m":"n. 配额","ex":"meet the quota 完成配额","lvl":1},{"w":"radiate","py":"/ˈreɪdieɪt/","m":"v. 辐射","ex":"radiate heat 散发热量","lvl":1},{"w":"radical","py":"/ˈrædɪkl/","m":"a. 激进的；根本的","ex":"radical changes 重大变革","lvl":1},{"w":"readily","py":"/ˈredɪli/","m":"ad. 容易地","ex":"readily available 随时可获得的","lvl":1},{"w":"reckon","py":"/ˈrekən/","m":"v. 认为；估算","ex":"reckon on 指望","lvl":1},{"w":"reconcile","py":"/ˈrekənsaɪl/","m":"v. 和解","ex":"reconcile with 与…和解","lvl":1},{"w":"refine","py":"/rɪˈfaɪn/","m":"v. 提炼；改进","ex":"refine the technique 改进技术","lvl":1},{"w":"refute","py":"/rɪˈfjuːt/","m":"v. 反驳","ex":"refute the argument 驳斥论点","lvl":1},{"w":"reinforce","py":"/ˌriːɪnˈfɔːs/","m":"v. 加强","ex":"reinforce the belief 强化信念","lvl":1},{"w":"relay","py":"/ˈriːleɪ/","m":"v./n. 转播；接力","ex":"a relay race 接力赛","lvl":1},{"w":"relevant","py":"/ˈreləvənt/","m":"a. 相关的","ex":"be relevant to 与…相关","lvl":1},{"w":"reliable","py":"/rɪˈlaɪəbl/","m":"a. 可靠的","ex":"a reliable source 可靠来源","lvl":1},{"w":"relieve","py":"/rɪˈliːv/","m":"v. 缓解","ex":"relieve the pain 缓解疼痛","lvl":1},{"w":"reluctant","py":"/rɪˈlʌktənt/","m":"a. 不情愿的","ex":"be reluctant to 不愿","lvl":1},{"w":"remedy","py":"/ˈremədi/","m":"n./v. 补救","ex":"a natural remedy 天然疗法","lvl":1},{"w":"render","py":"/ˈrendə/","m":"v. 使成为；提供","ex":"render help 提供帮助","lvl":1},{"w":"resemble","py":"/rɪˈzembl/","m":"v. 相似","ex":"resemble each other 彼此相像","lvl":1},{"w":"resent","py":"/rɪˈzent/","m":"v. 怨恨","ex":"resent the treatment 怨恨这种对待","lvl":1},{"w":"reside","py":"/rɪˈzaɪd/","m":"v. 居住","ex":"reside in 居住在","lvl":1},{"w":"resign","py":"/rɪˈzaɪn/","m":"v. 辞职","ex":"resign from 辞去","lvl":1},{"w":"resistant","py":"/rɪˈzɪstənt/","m":"a. 抵抗的","ex":"be resistant to 对…有抵抗力","lvl":1},{"w":"resolve","py":"/rɪˈzɒlv/","m":"v. 解决；决心","ex":"resolve the conflict 解决冲突","lvl":1},{"w":"resort","py":"/rɪˈzɔːt/","m":"v./n. 求助；度假村","ex":"resort to 诉诸","lvl":1},{"w":"restore","py":"/rɪˈstɔː/","m":"v. 恢复","ex":"restore the order 恢复秩序","lvl":1},{"w":"restrain","py":"/rɪˈstreɪn/","m":"v. 抑制","ex":"restrain oneself 克制自己","lvl":1},{"w":"restrict","py":"/rɪˈstrɪkt/","m":"v. 限制","ex":"restrict access 限制访问","lvl":1},{"w":"retain","py":"/rɪˈteɪn/","m":"v. 保留","ex":"retain the talent 留住人才","lvl":1},{"w":"retrieve","py":"/rɪˈtriːv/","m":"v. 取回；检索","ex":"retrieve the data 检索数据","lvl":1},{"w":"revenue","py":"/ˈrevənjuː/","m":"n. 收入","ex":"tax revenue 税收收入","lvl":1},{"w":"reverse","py":"/rɪˈvɜːs/","m":"v./n. 颠倒","ex":"reverse the decision 撤销决定","lvl":1},{"w":"revise","py":"/rɪˈvaɪz/","m":"v. 修改","ex":"revise the plan 修改计划","lvl":1},{"w":"revive","py":"/rɪˈvaɪv/","m":"v. 复苏","ex":"revive the economy 复兴经济","lvl":1},{"w":"rigid","py":"/ˈrɪdʒɪd/","m":"a. 严格的；僵化的","ex":"rigid rules 死板的规定","lvl":1},{"w":"ritual","py":"/ˈrɪtʃuəl/","m":"n. 仪式","ex":"religious rituals 宗教仪式","lvl":1},{"w":"robust","py":"/rəʊˈbʌst/","m":"a. 强健的","ex":"a robust economy 强劲的经济","lvl":1},{"w":"rural","py":"/ˈrʊərəl/","m":"a. 农村的","ex":"rural areas 农村地区","lvl":1},{"w":"scale","py":"/skeɪl/","m":"n. 规模","ex":"on a large scale 大规模","lvl":1},{"w":"scan","py":"/skæn/","m":"v. 扫描","ex":"scan the document 扫描文件","lvl":1},{"w":"scandal","py":"/ˈskændl/","m":"n. 丑闻","ex":"a political scandal 政治丑闻","lvl":1},{"w":"scatter","py":"/ˈskætə/","m":"v. 散开","ex":"scatter the seeds 播撒种子","lvl":1},{"w":"scheme","py":"/skiːm/","m":"n. 计划","ex":"a training scheme 培训计划","lvl":1},{"w":"scratch","py":"/skrætʃ/","m":"v. 抓","ex":"from scratch 从零开始","lvl":1},{"w":"secondary","py":"/ˈsekəndri/","m":"a. 次要的；中等的","ex":"secondary school 中学","lvl":1},{"w":"segment","py":"/ˈseɡmənt/","m":"n. 部分；细分市场","ex":"market segments 市场细分","lvl":1},{"w":"sensible","py":"/ˈsensəbl/","m":"a. 明智的","ex":"a sensible choice 明智的选择","lvl":1},{"w":"sentiment","py":"/ˈsentɪmənt/","m":"n. 情绪","ex":"public sentiment 公众情绪","lvl":1},{"w":"sequence","py":"/ˈsiːkwəns/","m":"n. 顺序","ex":"in sequence 按顺序","lvl":1},{"w":"sheer","py":"/ʃɪə/","m":"a. 纯粹的","ex":"sheer luck 纯属运气","lvl":1},{"w":"shrewd","py":"/ʃruːd/","m":"a. 精明的","ex":"a shrewd businessman 精明的商人","lvl":1},{"w":"shrink","py":"/ʃrɪŋk/","m":"v. 缩小","ex":"shrink the market 市场萎缩","lvl":1},{"w":"simultaneous","py":"/ˌsɪmlˈteɪniəs/","m":"a. 同时的","ex":"simultaneous interpretation 同声传译","lvl":1},{"w":"skeptical","py":"/ˈskeptɪkl/","m":"a. 怀疑的","ex":"be skeptical of 对…怀疑","lvl":1},{"w":"sole","py":"/səʊl/","m":"a. 唯一的","ex":"the sole reason 唯一原因","lvl":1},{"w":"solemn","py":"/ˈsɒləm/","m":"a. 庄严的","ex":"a solemn ceremony 庄严的仪式","lvl":1},{"w":"sophisticated","py":"/səˈfɪstɪkeɪtɪd/","m":"a. 复杂的；先进的","ex":"sophisticated technology 先进技术","lvl":1},{"w":"specify","py":"/ˈspesɪfaɪ/","m":"v. 明确","ex":"specify the requirements 明确要求","lvl":1},{"w":"speculate","py":"/ˈspekjuleɪt/","m":"v. 推测","ex":"speculate about 猜测","lvl":1},{"w":"sphere","py":"/sfɪə/","m":"n. 领域","ex":"the economic sphere 经济领域","lvl":1},{"w":"spontaneous","py":"/spɒnˈteɪniəs/","m":"a. 自发的","ex":"spontaneous applause 自发的掌声","lvl":1},{"w":"stimulate","py":"/ˈstɪmjuleɪt/","m":"v. 刺激","ex":"stimulate the economy 刺激经济","lvl":1},{"w":"strain","py":"/streɪn/","m":"n./v. 压力；拉伤","ex":"under great strain 承受巨大压力","lvl":1},{"w":"strive","py":"/straɪv/","m":"v. 力求","ex":"strive for 为…奋斗","lvl":1},{"w":"stubborn","py":"/ˈstʌbən/","m":"a. 固执的","ex":"a stubborn man 固执的人","lvl":1},{"w":"subordinate","py":"/səˈbɔːdɪnət/","m":"a./n. 下级的","ex":"a subordinate role 从属地位","lvl":1},{"w":"subsidy","py":"/ˈsʌbsədi/","m":"n. 补贴","ex":"government subsidies 政府补贴","lvl":1},{"w":"substance","py":"/ˈsʌbstəns/","m":"n. 物质","ex":"chemical substances 化学物质","lvl":1},{"w":"substantial","py":"/səbˈstænʃl/","m":"a. 大量的；实质的","ex":"substantial progress 重大进展","lvl":1},{"w":"subtle","py":"/ˈsʌtl/","m":"a. 微妙的","ex":"a subtle change 微妙的变化","lvl":1},{"w":"sufficient","py":"/səˈfɪʃnt/","m":"a. 充足的","ex":"sufficient funds 充足资金","lvl":1},{"w":"summit","py":"/ˈsʌmɪt/","m":"n. 峰会","ex":"the G20 summit G20峰会","lvl":1},{"w":"superficial","py":"/ˌsjuːpəˈfɪʃl/","m":"a. 肤浅的","ex":"a superficial understanding 肤浅的理解","lvl":1},{"w":"supervise","py":"/ˈsjuːpəvaɪz/","m":"v. 监督","ex":"supervise the work 监督工作","lvl":1},{"w":"supplement","py":"/ˈsʌplɪmənt/","m":"n./v. 补充","ex":"dietary supplements 膳食补充剂","lvl":1},{"w":"suppress","py":"/səˈpres/","m":"v. 镇压；抑制","ex":"suppress the urge 抑制冲动","lvl":1},{"w":"surge","py":"/sɜːdʒ/","m":"n./v. 激增","ex":"a surge in prices 价格激增","lvl":1},{"w":"surplus","py":"/ˈsɜːpləs/","m":"n. 过剩","ex":"a trade surplus 贸易顺差","lvl":1},{"w":"surrender","py":"/səˈrendə/","m":"v. 投降","ex":"surrender to 向…投降","lvl":1},{"w":"survive","py":"/səˈvaɪv/","m":"v. 幸存","ex":"survive the disaster 幸免于难","lvl":1},{"w":"suspend","py":"/səˈspend/","m":"v. 暂停","ex":"suspend the service 暂停服务","lvl":1},{"w":"sustainable","py":"/səˈsteɪnəbl/","m":"a. 可持续的","ex":"sustainable growth 可持续增长","lvl":1},{"w":"sympathize","py":"/ˈsɪmpəθaɪz/","m":"v. 同情","ex":"sympathize with 同情","lvl":1},{"w":"syndrome","py":"/ˈsɪndrəʊm/","m":"n. 综合征","ex":"chronic fatigue syndrome 慢性疲劳综合征","lvl":1},{"w":"tackle","py":"/ˈtækl/","m":"v. 处理","ex":"tackle the problem 解决问题","lvl":1},{"w":"tactic","py":"/ˈtæktɪk/","m":"n. 策略","ex":"marketing tactics 营销策略","lvl":1},{"w":"tariff","py":"/ˈtærɪf/","m":"n. 关税","ex":"import tariffs 进口关税","lvl":1},{"w":"tedious","py":"/ˈtiːdiəs/","m":"a. 乏味的","ex":"a tedious lecture 乏味的讲座","lvl":1},{"w":"tempt","py":"/tempt/","m":"v. 诱惑","ex":"be tempted to 很想做","lvl":1},{"w":"terminate","py":"/ˈtɜːmɪneɪt/","m":"v. 终止","ex":"terminate the contract 终止合同","lvl":1},{"w":"thereby","py":"/ˌðeəˈbaɪ/","m":"ad. 因此","ex":"thereby reducing 从而降低","lvl":1},{"w":"thrive","py":"/θraɪv/","m":"v. 繁荣","ex":"thrive in 在…蓬勃发展","lvl":1},{"w":"tolerate","py":"/ˈtɒləreɪt/","m":"v. 容忍","ex":"tolerate the behavior 容忍行为","lvl":1},{"w":"trait","py":"/treɪt/","m":"n. 特质","ex":"personal traits 个人特质","lvl":1},{"w":"transaction","py":"/trænˈzækʃn/","m":"n. 交易","ex":"a financial transaction 金融交易","lvl":1},{"w":"transform","py":"/trænsˈfɔːm/","m":"v. 转变","ex":"transform the city 改变城市","lvl":1},{"w":"transition","py":"/trænˈzɪʃn/","m":"n. 过渡","ex":"a smooth transition 平稳过渡","lvl":1},{"w":"transmit","py":"/trænsˈmɪt/","m":"v. 传输","ex":"transmit the signal 传输信号","lvl":1},{"w":"transparent","py":"/trænsˈpærənt/","m":"a. 透明的","ex":"transparent management 透明的管理","lvl":1},{"w":"trigger","py":"/ˈtrɪɡə/","m":"v./n. 触发","ex":"trigger a debate 引发争论","lvl":1},{"w":"trivial","py":"/ˈtrɪviəl/","m":"a. 琐碎的","ex":"trivial matters 琐事","lvl":1},{"w":"turbulent","py":"/ˈtɜːbjʊlənt/","m":"a. 动荡的","ex":"turbulent times 动荡年代","lvl":1},{"w":"ultimate","py":"/ˈʌltɪmət/","m":"a. 最终的","ex":"the ultimate goal 最终目标","lvl":1},{"w":"unanimous","py":"/juˈnænɪməs/","m":"a. 一致的","ex":"a unanimous decision 一致的决定","lvl":1},{"w":"underestimate","py":"/ˌʌndərˈestɪmeɪt/","m":"v. 低估","ex":"underestimate the difficulty 低估困难","lvl":1},{"w":"undergo","py":"/ˌʌndəˈɡəʊ/","m":"v. 经历","ex":"undergo the surgery 接受手术","lvl":1},{"w":"underlying","py":"/ˌʌndəˈlaɪɪŋ/","m":"a. 潜在的","ex":"the underlying cause 根本原因","lvl":1},{"w":"undermine","py":"/ˌʌndəˈmaɪn/","m":"v. 削弱","ex":"undermine the confidence 削弱信心","lvl":1},{"w":"unify","py":"/ˈjuːnɪfaɪ/","m":"v. 统一","ex":"unify the standard 统一标准","lvl":1},{"w":"unprecedented","py":"/ʌnˈpresɪdentɪd/","m":"a. 空前的","ex":"unprecedented growth 空前增长","lvl":1},{"w":"upgrade","py":"/ˌʌpˈɡreɪd/","m":"v./n. 升级","ex":"upgrade the system 升级系统","lvl":1},{"w":"uphold","py":"/ʌpˈhəʊld/","m":"v. 维护","ex":"uphold the principle 维护原则","lvl":1},{"w":"utilize","py":"/ˈjuːtəlaɪz/","m":"v. 利用","ex":"utilize the resources 利用资源","lvl":1},{"w":"vacant","py":"/ˈveɪkənt/","m":"a. 空的","ex":"a vacant position 空缺职位","lvl":1},{"w":"valid","py":"/ˈvælɪd/","m":"a. 有效的","ex":"a valid passport 有效护照","lvl":1},{"w":"verify","py":"/ˈverɪfaɪ/","m":"v. 核实","ex":"verify the information 核实信息","lvl":1},{"w":"veto","py":"/ˈviːtəʊ/","m":"v./n. 否决","ex":"exercise the veto 行使否决权","lvl":1},{"w":"vigorous","py":"/ˈvɪɡərəs/","m":"a. 有活力的","ex":"vigorous exercise 剧烈运动","lvl":1},{"w":"virtue","py":"/ˈvɜːtʃuː/","m":"n. 美德","ex":"a traditional virtue 传统美德","lvl":1},{"w":"visa","py":"/ˈviːzə/","m":"n. 签证","ex":"apply for a visa 申请签证","lvl":1},{"w":"volatile","py":"/ˈvɒlətaɪl/","m":"a. 易变的","ex":"a volatile market 动荡的市场","lvl":1},{"w":"voluntary","py":"/ˈvɒləntri/","m":"a. 自愿的","ex":"voluntary work 志愿工作","lvl":1},{"w":"weary","py":"/ˈwɪəri/","m":"a. 疲惫的","ex":"feel weary 感到疲惫","lvl":1},{"w":"widespread","py":"/ˈwaɪdspred/","m":"a. 普遍的","ex":"widespread concern 普遍关注","lvl":1},{"w":"witness","py":"/ˈwɪtnəs/","m":"n./v. 目击；见证","ex":"witness the change 见证变化","lvl":1},{"w":"worthwhile","py":"/ˌwɜːθˈwaɪl/","m":"a. 值得的","ex":"a worthwhile effort 值得的努力","lvl":1},{"w":"yield","py":"/jiːld/","m":"v./n. 屈服；产量","ex":"yield to 向…屈服","lvl":1}];
+/* ================= 统一平台 · 新增模块（热力图 / 单词本 / 闪卡 / 番茄钟 / 笔记日志） ================= */
+var VKEY = 'cet4_vocab_v1', NKEY = 'cet4_notes_v1';
+var vm = {};   try { vm = JSON.parse(localStorage.getItem(VKEY)) || {} } catch (e) { vm = {} }
+var notes = []; try { notes = JSON.parse(localStorage.getItem(NKEY)) || [] } catch (e) { notes = [] }
+function vsave() { try { localStorage.setItem(VKEY, JSON.stringify(vm)) } catch (e) { } }
+function nsave() { try { localStorage.setItem(NKEY, JSON.stringify(notes)) } catch (e) { } }
+
+/* ================= 记忆引擎 · 半衰期调度 =================
+   每个单词维护 3 个内部变量：
+     h    半衰期(天)：回忆概率从 100% 衰减到 50% 所需时间 = 记忆的"存储强度"
+     d    难度(0~1)：同等条件下半衰期涨得越慢，词越难
+     last 上次复习时间戳(ms)，0 = 从未学过
+   回忆概率   p = 2^(-Δt / h)                     指数遗忘曲线
+   复习成功   h' = h × (1 + A×(1-p)×(1-0.5d))     ★核心：复习时 p 越低，成功后半衰期涨得越多
+                                                  （合意困难 desirable difficulty）
+   下次间隔   gap = h × -log2(目标保留率)          保留率 0.85 → gap ≈ 0.234h
+   建模思路取自墨墨公开论文（ACM SIGKDD'22 / IEEE TKDE'23），此处做了可离线运行的简化。
+========================================================== */
+var MKEY = 'cet4_mem_v1', CKEY = 'cet4_memcfg_v1', DKEY = 'cet4_memday_v1';
+var DAYMS = 86400000, H0 = 1.0, HMIN = 0.4, HMAX = 400, GAIN = 6.0;
+var mcfg = {}; try { mcfg = JSON.parse(localStorage.getItem(CKEY)) || {} } catch (e) { mcfg = {} }
+var MRT = (typeof mcfg.rt === 'number') ? mcfg.rt : 0.85;      /* 目标保留率 */
+var NEWCAP = (typeof mcfg.cap === 'number') ? mcfg.cap : 20;   /* 每日新词上限 */
+function csav() { try { localStorage.setItem(CKEY, JSON.stringify({ rt: MRT, cap: NEWCAP })) } catch (e) { } }
+var mm = {}; try { mm = JSON.parse(localStorage.getItem(MKEY)) || {} } catch (e) { mm = {} }
+function msav() { try { localStorage.setItem(MKEY, JSON.stringify(mm)) } catch (e) { } }
+var mday = {}; try { mday = JSON.parse(localStorage.getItem(DKEY)) || {} } catch (e) { mday = {} }
+function dsav() { try { localStorage.setItem(DKEY, JSON.stringify(mday)) } catch (e) { } }
+function dayRec() { var k = fmtD(new Date()); if (mday.k !== k) mday = { k: k, neu: 0, ok: 0, fail: 0 }; return mday }
+function memGet(w) {
+  var m = mm[w];
+  if (!m || typeof m !== 'object') m = mm[w] = { h: H0, d: 0.3, last: 0, n: 0, ok: 0, fail: 0 };
+  if (typeof m.h !== 'number' || !isFinite(m.h)) m.h = H0;
+  if (typeof m.d !== 'number' || !isFinite(m.d)) m.d = 0.3;
+  return m;
+}
+function memP(w, now) {                       /* 当前记忆持久度 0~1 */
+  var m = memGet(w); if (!m.last) return 0;
+  var dt = (now - m.last) / DAYMS; if (dt <= 0) return 1;
+  return Math.pow(2, -dt / m.h);
+}
+function memGap(m) { return m.h * -Math.log(MRT) / Math.LN2 }          /* 天 */
+function memDueAt(w, now) { var m = memGet(w); return m.last ? m.last + memGap(m) * DAYMS : 0 }
+function memReview(w, g, now) {               /* g: 2记住 1模糊 0忘记 */
+  var m = memGet(w), p = memP(w, now), h0 = m.h;
+  if (g === 2) {
+    m.h = Math.min(HMAX, Math.max(HMIN, m.h * (1 + GAIN * (1 - p) * (1 - 0.5 * m.d))));
+    m.d = Math.max(0, m.d - 0.04); m.ok++;
+  } else if (g === 1) {
+    m.h = Math.min(HMAX, Math.max(HMIN, m.h * (1 + GAIN * 0.35 * (1 - p) * (1 - 0.5 * m.d))));
+    m.d = Math.min(1, m.d + 0.03); m.fail++;
+  } else {
+    m.h = Math.max(HMIN, m.h * 0.4); m.d = Math.min(1, m.d + 0.12); m.fail++;
+  }
+  m.last = now; m.n++;
+  var dr = dayRec(); if (g === 2) dr.ok++; else dr.fail++; dsav(); msav();
+  return { h0: h0, h: m.h, d: m.d, p: p, gap: memGap(m) };
+}
+function memSetLevel(w, lv) {                 /* 列表里手动标记 → 同步写入记忆状态 */
+  var m = memGet(w), now = Date.now(), H = [0, 2, 15, 60];
+  if (lv === 0) { m.last = 0; m.h = H0; m.d = 0.3; }
+  else { m.h = H[lv]; m.d = Math.max(0, 0.5 - lv * 0.12); if (!m.last) m.last = now; }
+  msav();
+}
+function gapTxt(days) {
+  if (days < 1 / 24) return Math.max(1, Math.round(days * 1440)) + ' 分钟后';
+  if (days < 1) return Math.round(days * 24) + ' 小时后';
+  if (days < 30) return (Math.round(days * 10) / 10) + ' 天后';
+  return Math.round(days / 30) + ' 个月后';
+}
+function pCls(p, m) { return (m && m.last) ? (p >= 0.7 ? 'hi' : (p >= 0.4 ? 'mid' : 'lo')) : '' }
+/* 预测「每次都记住且按时复习」时的间隔序列，用于给用户看当前设置的强度（无副作用） */
+function predictGaps(rt) {
+  var h = H0, d = 0.3, out = [];
+  for (var i = 0; i < 8; i++) {
+    var p = (i === 0 ? 0 : rt);
+    h = Math.min(HMAX, Math.max(HMIN, h * (1 + GAIN * (1 - p) * (1 - 0.5 * d))));
+    d = Math.max(0, d - 0.04);
+    out.push(Math.round(h * -Math.log(rt) / Math.LN2 * 10) / 10);
+  }
+  return out;
+}
+/* 历史数据迁移：把旧的 4 档掌握度(vm)折算成半衰期 */
+function memMigrate() {
+  if (mcfg.mig) return;
+  var now = Date.now(), H = [0, 2, 15, 60], c = 0;
+  Object.keys(vm).forEach(function (w) {
+    var lv = +vm[w] || 0; if (!lv || mm[w]) return;
+    mm[w] = { h: H[lv], d: Math.max(0, 0.5 - lv * 0.12), last: now, n: lv, ok: lv > 1 ? 1 : 0, fail: 0 };
+    c++;
+  });
+  mcfg.mig = 1; csav(); if (c) msav();
+  return c;
+}
+function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }
+var MAST = ['未学', '学习中', '能运用', '已精通'];
+var LVLNAME = { 0: 'CET-4', 1: 'CET-6', 2: '通用' };
+function fmtD(d) { var m = d.getMonth() + 1, dd = d.getDate(); return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (dd < 10 ? '0' : '') + dd }
+
+/* ---------- 打卡热力图（基于逐日计划） ---------- */
+function planDays() {
+  var out = [];
+  STAGES.forEach(function (st, si) {
+    st.days.forEach(function (d, di) {
+      out.push({ d: d[0], tag: d[3], txt: d[4], on: !!state['s' + si + 'd' + di] });
+    });
+  });
+  return out;
+}
+function renderHeat() {
+  var box = document.getElementById('heatBox'); if (!box) return;
+  var days = planDays();
+  if (!days.length) { box.innerHTML = '<div class="muted">暂无计划数据</div>'; return }
+  var first = days[0].d, last = days[days.length - 1].d;
+  var s = new Date(first + 'T00:00:00'); s.setDate(s.getDate() - ((s.getDay() + 6) % 7));
+  var e = new Date(last + 'T00:00:00');
+  var today = fmtD(new Date());
+  var byDate = {}; days.forEach(function (x) { byDate[x.d] = x });
+  var html = '<div class="heat">';
+  var cur = new Date(s), guard = 0;
+  while (cur <= e && guard++ < 400) {
+    var iso = fmtD(cur), rec = byDate[iso], cls = '';
+    if (rec) cls = rec.on ? 'on' : 'plan';
+    if (iso === today) cls += ' td';
+    html += '<i class="' + cls + '" title="' + esc(iso + (rec ? ' · ' + rec.tag : '')) + '"></i>';
+    cur.setDate(cur.getDate() + 1);
+  }
+  html += '</div>';
+  var doneN = days.filter(function (x) { return x.on }).length;
+  box.innerHTML = '<div class="heat-legend"><span>计划 ' + days.length + ' 天 · 已打卡 <b>' + doneN + '</b> 天</span>' +
+    '<span><i class="lg on"></i>已打卡　<i class="lg plan"></i>计划中　<i class="lg td"></i>今天</span></div>' + html;
+}
+
+/* ---------- 单词本 ---------- */
+var wFilter = 'cet4', wQ = '';
+function wList() {
+  return VOCAB.filter(function (v) {
+    if (wFilter === 'cet4' && v.lvl === 1) return false;
+    if (wFilter === 'cet6' && v.lvl === 0) return false;
+    if (wQ) { var s = (v.w + ' ' + (v.m || '')).toLowerCase(); if (s.indexOf(wQ.toLowerCase()) < 0) return false }
+    return true;
+  });
+}
+function renderWords() {
+  var box = document.getElementById('wordBox'); if (!box) return;
+  var list = wList(), h = '';
+  var NOW = Date.now();
+  list.forEach(function (v) {
+    var mk = vm[v.w] || 0, mw = mm[v.w], pp = (mw && mw.last) ? memP(v.w, NOW) : 0;
+    var pcls = pCls(pp, mw), ptxt = (mw && mw.last) ? (Math.round(pp * 100) + '%') : '新';
+    h += '<div class="wi" data-w="' + esc(v.w) + '">' +
+      '<div class="ww"><b>' + esc(v.w) + '</b>' +
+      (v.py ? '<span class="py">' + esc(v.py) + '</span>' : '') +
+      '<span class="lvl l' + v.lvl + '">' + LVLNAME[v.lvl] + '</span>' +
+      '<span class="mst m' + mk + '">' + MAST[mk] + '</span>' +
+      '<span class="pbadge ' + pcls + '">' + ptxt + '</span></div>' +
+      '<div class="wm">' + esc(v.m) + '</div>' +
+      (v.ex ? '<div class="we">' + esc(v.ex) + '</div>' : '') +
+      '<div class="mem-bar"><i style="width:' + Math.round(pp * 100) + '%"></i></div>' +
+      '<div class="wbtns"><button data-a="0">未学</button><button data-a="1">学习中</button><button data-a="2">能运用</button><button data-a="3">已精通</button></div>' +
+      '</div>';
+  });
+  box.innerHTML = h || '<div class="muted">没有匹配的单词</div>';
+  var c = document.getElementById('wordCount'); if (c) c.textContent = '共 ' + list.length + ' 词（标记后自动保存）';
+  box.querySelectorAll('.wbtns button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var w = b.closest('.wi').getAttribute('data-w');
+      var lv = +b.getAttribute('data-a'); vm[w] = lv; vsave(); memSetLevel(w, lv);
+      updateWordRow(w); renderMem();
+      if (typeof toast === 'function') toast('已标记：' + MAST[vm[w]]);
+    });
+  });
+}
+/* ---------- 智能复习队列（半衰期调度） ---------- */
+var fQ = [], fIdx = 0, fShow = false, fRes = null;
+function buildQ() {
+  var now = Date.now(), due = [], neu = [];
+  wList().forEach(function (v) {
+    var m = mm[v.w];
+    if (!m || !m.last) { neu.push({ v: v, p: 0, neu: 1 }); return }
+    var p = memP(v.w, now); if (p < MRT) due.push({ v: v, p: p, neu: 0 });
+  });
+  due.sort(function (a, b) { return a.p - b.p });          /* 最先要忘的排最前面 */
+  var d = dayRec(), cap = Math.max(0, NEWCAP - d.neu);
+  fQ = due.concat(neu.slice(0, cap)); fIdx = 0;
+}
+function newFlash() { buildQ(); fRes = null; renderFlash() }
+function renderFlash() {
+  var box = document.getElementById('flashBox'); if (!box) return;
+  if (!fQ.length) {
+    var now = Date.now(), next = null, best = 1e18;
+    wList().forEach(function (v) {
+      var m = mm[v.w];
+      if (m && m.last) { var t = memDueAt(v.w, now) - now; if (t > 0 && t < best) { best = t; next = v.w } }
+    });
+    var unl = wList().filter(function (v) { return !(mm[v.w] && mm[v.w].last) }).length;
+    var dR = dayRec(), capLeft = Math.max(0, NEWCAP - dR.neu);
+    box.innerHTML = '<div style="text-align:center;padding:24px 12px">' +
+      '<div style="font-size:40px">🎉</div>' +
+      '<div style="font-weight:700;margin-top:6px">今天的复习清空了</div>' +
+      '<div class="muted" style="font-size:13px;margin-top:6px;line-height:1.9">' +
+      (next ? '下一个到期：<b>' + esc(next) + '</b>（' + gapTxt(best / DAYMS) + '）'
+            : (unl && capLeft === 0 ? '还有 ' + unl + ' 个新词，但今日新词额度（' + NEWCAP + '）已用完<br>可在上方把「每日新词」调高，或明天继续'
+              : (unl ? '还有 ' + unl + ' 个新词没学，点下面「再来一批」' : '全部单词都已进入长期记忆 ✅'))) +
+      '</div></div>';
+    return;
+  }
+  if (fIdx >= fQ.length) fIdx = 0;
+  var it = fQ[fIdx], v = it.v, now = Date.now();
+  var isNew = !!it.neu, p = isNew ? 0 : memP(v.w, now);
+  var h = '<div class="fmeta"><span>' + (isNew ? '🆕 新词' : '🔁 复习') + '</span>' +
+    '<span>进度 ' + (fIdx + 1) + ' / ' + fQ.length + '</span>' +
+    (isNew ? '' : '<span>当前持久度 <b>' + Math.round(p * 100) + '%</b></span>') +
+    (isNew ? '' : '<span>第 ' + (memGet(v.w).n + 1) + ' 次复习</span>') + '</div>';
+  h += '<div class="flash' + (fShow ? ' show' : '') + '" id="flashCard">' +
+    '<div class="fw">' + esc(v.w) + '</div>' +
+    (fShow ? '<div class="fp">' + esc(v.py || '') + '</div><div class="fm">' + esc(v.m) + '</div><div class="fe">' + esc(v.ex || '') + '</div>'
+           : '<div class="fhint">点击卡片翻面看释义</div>') + '</div>';
+  h += '<div class="fbtns"><button data-f="0">😵 忘记</button><button data-f="1">🤔 模糊</button><button data-f="2">😎 记住</button><button class="ghost" data-f="skip">跳过 →</button></div>';
+  if (fRes) {
+    var pct = Math.round((fRes.h / fRes.h0 - 1) * 100);
+    h += '<div class="fres"><b>' + esc(fRes.w) + '</b>　半衰期 <b>' + (Math.round(fRes.h0 * 10) / 10) +
+      ' 天</b> → <b>' + (Math.round(fRes.h * 10) / 10) + ' 天</b>（' + (pct >= 0 ? '+' : '') + pct + '%）<br>' +
+      '复习时回忆概率 <b>' + Math.round(fRes.p * 100) + '%</b>' +
+      (fRes.p < 0.6 ? '（拖到快忘才复习，涨得最多 ✅）' : '') +
+      ' · 下次约 <b>' + gapTxt(fRes.gap) + '</b></div>';
+  }
+  box.innerHTML = h;
+  document.getElementById('flashCard').addEventListener('click', function () { fShow = !fShow; renderFlash() });
+  box.querySelectorAll('.fbtns button').forEach(function (b) {
+    b.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var a = b.getAttribute('data-f');
+      if (a === 'skip') { fShow = false; fRes = null; fQ.splice(fIdx, 1); if (fIdx >= fQ.length) fIdx = 0; renderFlash(); return }
+      var g = +a, w = v.w, wasNew = !(mm[w] && mm[w].last);
+      var r = memReview(w, g, Date.now());
+      if (wasNew && g > 0) { var dr = dayRec(); dr.neu++; dsav() }
+      vm[w] = (g === 2 ? 3 : (g === 1 ? 2 : 1)); vsave();
+      fRes = { w: w, h0: r.h0, h: r.h, p: r.p, gap: r.gap };
+      fShow = false; fQ.splice(fIdx, 1); if (fIdx >= fQ.length) fIdx = 0;
+      renderFlash(); renderMem(); updateWordRow(w);
+      if (typeof toast === 'function') toast(g === 2 ? '✅ 记住了，间隔拉长' : (g === 1 ? '🤔 模糊，明天再来' : '😵 半衰期腰斩，难度上调'));
+    });
+  });
+}
+/* 只更新列表里的单行，避免 669 词全量重渲染 */
+function updateWordRow(w) {
+  var row = document.querySelector('#wordBox .wi[data-w="' + w + '"]'); if (!row) { renderWords(); return }
+  var now = Date.now(), m = mm[w], p = (m && m.last) ? memP(w, now) : 0;
+  var pb = row.querySelector('.pbadge');
+  if (pb) { pb.className = 'pbadge ' + pCls(p, m); pb.textContent = (m && m.last) ? (Math.round(p * 100) + '%') : '新' }
+  var bar = row.querySelector('.mem-bar i'); if (bar) bar.style.width = Math.round(p * 100) + '%';
+  var ms = row.querySelector('.mst');
+  if (ms) { ms.className = 'mst m' + (vm[w] || 0); ms.textContent = MAST[vm[w] || 0] }
+}
+/* ---------- 记忆持久度面板 ---------- */
+function renderMem() {
+  var box = document.getElementById('memBox'); if (!box) return;
+  var now = Date.now(), list = wList(), tot = list.length;
+  var learned = 0, dueN = 0, sum = 0, strong = 0, bk = [0, 0, 0, 0, 0, 0], fore = [0, 0, 0, 0, 0, 0, 0];
+  list.forEach(function (v) {
+    var m = mm[v.w]; if (!m || !m.last) return;
+    learned++;
+    var p = memP(v.w, now); sum += p;
+    bk[Math.min(5, Math.floor(p * 6))]++;
+    if (m.h >= 30) strong++;
+    if (p < MRT) dueN++;
+    else { var dd = Math.floor((memDueAt(v.w, now) - now) / DAYMS); if (dd >= 0 && dd < 7) fore[dd]++ }
+  });
+  var avg = learned ? sum / learned : 0, d = dayRec();
+  var maxB = Math.max.apply(null, bk.concat([1])), maxF = Math.max.apply(null, fore.concat([1]));
+  var h = '<div class="mem-stat">' +
+    '<div class="ms"><b>' + learned + '</b><span>已学 / ' + tot + ' 词</span></div>' +
+    '<div class="ms"><b style="color:var(--warn)">' + dueN + '</b><span>今日待复习</span></div>' +
+    '<div class="ms"><b>' + Math.round(avg * 100) + '%</b><span>平均持久度</span></div>' +
+    '<div class="ms"><b>' + strong + '</b><span>长期记忆 ≥30天</span></div>' +
+    '<div class="ms"><b>' + (d.ok + d.fail) + '</b><span>今日已练</span></div></div>';
+  h += '<div style="font-size:12.5px;color:var(--muted)">记忆持久度分布（已学 ' + learned + ' 词）</div>';
+  h += '<div class="mem-dist">';
+  for (var i = 0; i < 6; i++) h += '<div class="bd"><em>' + (bk[i] || '') + '</em><i style="height:' + Math.round(bk[i] / maxB * 100) + '%"></i></div>';
+  h += '</div><div class="mem-x">';
+  ['0-17', '17-33', '33-50', '50-67', '67-83', '83-100'].forEach(function (t) { h += '<span>' + t + '%</span>' });
+  h += '</div>';
+  h += '<div style="font-size:12.5px;color:var(--muted);margin-top:12px">未来 7 天复习量预测</div><div class="mem-fore">';
+  for (var i = 0; i < 7; i++) {
+    h += '<div class="fd"><b><i style="height:' + Math.round(fore[i] / maxF * 100) + '%"></i></b><span>' +
+      (i === 0 ? '今天' : (i === 1 ? '明天' : '+' + i)) + '<br>' + fore[i] + '</span></div>';
+  }
+  h += '</div>';
+  h += '<div class="mem-set"><span>目标保留率</span>';
+  [0.8, 0.85, 0.9, 0.95].forEach(function (r) { h += '<button class="tab mrt' + (MRT === r ? ' on' : '') + '" data-r="' + r + '">' + Math.round(r * 100) + '%</button>' });
+  h += '<span style="margin-left:6px">每日新词</span>';
+  [10, 20, 30, 50].forEach(function (c) { h += '<button class="tab mcap' + (NEWCAP === c ? ' on' : '') + '" data-c="' + c + '">' + c + '</button>' });
+  h += '</div>';
+  h += '<div class="muted" style="font-size:12px;margin-top:8px;line-height:1.9">' +
+    '保留率越低＝复习越懒、省时间但忘得快；越高＝记得牢但每天要背的越多，<b>85% 是性价比拐点</b>。<br>' +
+    '当前设置下，第 1 / 3 / 5 / 8 次复习的间隔约 <b>' + (function () { var g = predictGaps(MRT); return g[0] + ' / ' + g[2] + ' / ' + g[4] + ' / ' + g[7] })() + ' 天</b>。<br>' +
+    '算法把「快忘了」的词自动排到最前面：<b>拖到快忘再复习，记住后半衰期涨得最多</b>（合意困难）。</div>';
+  box.innerHTML = h;
+  box.querySelectorAll('.mrt').forEach(function (b) {
+    b.addEventListener('click', function () { MRT = parseFloat(b.getAttribute('data-r')); csav(); renderMem(); newFlash() });
+  });
+  box.querySelectorAll('.mcap').forEach(function (b) {
+    b.addEventListener('click', function () { NEWCAP = parseInt(b.getAttribute('data-c'), 10); csav(); renderMem(); newFlash() });
+  });
+}
+
+/* ---------- 番茄钟 ---------- */
+var pmLeft = 25 * 60, pmTimer = null, pmRun = false, pmMode = 'work';
+var PMMODES = { work: 25 * 60, short: 5 * 60, long: 15 * 60 };
+function fmtT(s) { var m = Math.floor(s / 60), r = s % 60; return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r }
+function renderPomo() {
+  var el = document.getElementById('pmTime'); if (el) el.textContent = fmtT(pmLeft);
+  var bar = document.getElementById('pmBar'); if (bar) bar.style.width = (100 - pmLeft / PMMODES[pmMode] * 100) + '%';
+  var md = document.getElementById('pmMode'); if (md) md.textContent = pmMode === 'work' ? '专注中' : (pmMode === 'short' ? '短休' : '长休');
+}
+function pmSet(mode) {
+  pmMode = mode; pmLeft = PMMODES[mode]; pmRun = false; clearInterval(pmTimer); pmTimer = null; renderPomo();
+}
+function pmToggle() {
+  if (pmRun) { clearInterval(pmTimer); pmTimer = null; pmRun = false; renderPomo(); return }
+  pmRun = true;
+  pmTimer = setInterval(function () {
+    pmLeft--; renderPomo();
+    if (pmLeft <= 0) {
+      clearInterval(pmTimer); pmTimer = null; pmRun = false;
+      if (typeof toast === 'function') toast(pmMode === 'work' ? '🍅 专注结束，休息一下！' : '休息结束，继续加油！');
+      pmSet(pmMode === 'work' ? 'short' : 'work');
+    }
+  }, 1000);
+}
+function initPomo() {
+  document.querySelectorAll('.pmbtn').forEach(function (b) {
+    b.addEventListener('click', function () { pmSet(b.getAttribute('data-m')) });
+  });
+  var st = document.getElementById('pmStart'); if (st) st.addEventListener('click', pmToggle);
+  var rs = document.getElementById('pmReset'); if (rs) rs.addEventListener('click', function () { pmSet(pmMode) });
+  renderPomo();
+}
+/* ---------- 笔记日志 ---------- */
+function renderNotes() {
+  var box = document.getElementById('noteList'); if (!box) return;
+  if (!notes.length) { box.innerHTML = '<div class="muted">还没有记录，写下今天学了什么吧。</div>'; return }
+  var h = '';
+  notes.slice().reverse().forEach(function (n, i) {
+    var real = notes.length - 1 - i;
+    h += '<div class="ni"><div class="nt">' + esc(n.t) + '</div><div class="nbody">' + esc(n.txt).replace(/\n/g, '<br>') + '</div>' +
+      '<button class="ndel" data-i="' + real + '">删除</button></div>';
+  });
+  box.innerHTML = h;
+  box.querySelectorAll('.ndel').forEach(function (b) {
+    b.addEventListener('click', function () {
+      notes.splice(+b.getAttribute('data-i'), 1); nsave(); renderNotes();
+      if (typeof toast === 'function') toast('已删除');
+    });
+  });
+}
+function initNotes() {
+  var btn = document.getElementById('noteSave');
+  if (btn) btn.addEventListener('click', function () {
+    var ta = document.getElementById('noteInput'); if (!ta) return;
+    var txt = ta.value.trim(); if (!txt) { if (typeof toast === 'function') toast('先写点内容'); return }
+    var d = new Date();
+    notes.push({ t: fmtD(d) + ' ' + (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes(), txt: txt });
+    nsave(); ta.value = ''; renderNotes();
+    if (typeof toast === 'function') toast('✅ 已记录');
+  });
+  var ex = document.getElementById('expAll');
+  if (ex) ex.addEventListener('click', function () {
+    var data = { state: state, vocab: vm, mem: mm, notes: notes, quiz: (typeof qz !== 'undefined' ? qz : {}) };
+    var blob = new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'cet-backup-' + fmtD(new Date()) + '.json'; a.click();
+    if (typeof toast === 'function') toast('已导出备份');
+  });
+  var im = document.getElementById('impAll');
+  if (im) im.addEventListener('change', function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    var fr = new FileReader();
+    fr.onload = function () {
+      try {
+        var d = JSON.parse(fr.result);
+        if (d.state) { state = d.state; if (typeof save === 'function') save() }
+        if (d.vocab) { vm = d.vocab; vsave() }
+        if (d.mem) { mm = d.mem; msav() }
+        if (d.notes) { notes = d.notes; nsave() }
+        renderHeat(); renderWords(); renderMem(); newFlash(); renderNotes();
+        if (typeof refreshProg === 'function') refreshProg();
+        if (typeof toast === 'function') toast('✅ 备份已导入');
+      } catch (err) { if (typeof toast === 'function') toast('导入失败：文件格式不对') }
+    };
+    fr.readAsText(f);
+  });
+  renderNotes();
+}
+/* ---------- 初始化 ---------- */
+document.querySelectorAll('.wfilter').forEach(function (b) {
+  b.addEventListener('click', function () {
+    wFilter = b.getAttribute('data-f');
+    document.querySelectorAll('.wfilter').forEach(function (x) { x.classList.toggle('on', x === b) });
+    renderWords();
+  });
+});
+var wsearch = document.getElementById('wSearch');
+if (wsearch) wsearch.addEventListener('input', function () { wQ = wsearch.value.trim(); renderWords() });
+var nfbtn = document.getElementById('newFlashBtn');
+if (nfbtn) nfbtn.addEventListener('click', newFlash);
+memMigrate();
+renderHeat(); renderWords(); renderMem(); newFlash(); initPomo(); initNotes();
+
+</script>
+</body>
+</html>
